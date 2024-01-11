@@ -13,7 +13,10 @@ import {
   Unstable_Grid2 as Grid
 } from '@mui/material';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { CategoryCard } from 'src/sections/category/category-add';
+import { CategoryCard } from 'src/sections/category/category-show';
+
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 
 const category = [
@@ -49,25 +52,17 @@ const category = [
     title: 'Eco-Friendly Stays',
     downloads: '406'
   },
-  // {
-  //   id: '1ed68149f65fbc6089b5fd07',
-  //   createdAt: '04/04/2019',
-  //   description: 'GitHub is a web-based hosting service for version control of code using Git.',
-  //   logo: '/assets/logos/logo-github.png',
-  //   title: 'GitHub',
-  //   downloads: '835'
-  // },
-  // {
-  //   id: '5dab321376eff6177407e887',
-  //   createdAt: '04/04/2019',
-  //   description: 'Squarespace provides software as a service for website building and hosting. Headquartered in NYC.',
-  //   logo: '/assets/logos/logo-squarespace.png',
-  //   title: 'Squarespace',
-  //   downloads: '835'
-  // }
+
 ];
 
-const Page = () => (
+const Page = () => {
+  const router=useRouter()
+
+  const handleAddClick = () => {
+    router.push("/categoryadd")
+   
+  };
+  return(
   <>
     <Head>
       <title>
@@ -92,62 +87,35 @@ const Page = () => (
               <Typography variant="h4">
                 Category
               </Typography>
-              {/* <Stack
-                alignItems="center"
-                direction="row"
-                spacing={1}
-              >
-                <Button
-                  color="inherit"
-                  startIcon={(
-                    <SvgIcon fontSize="small">
-                      <ArrowUpOnSquareIcon />
-                    </SvgIcon>
-                  )}
-                >
-                  Import
-                </Button>
-                <Button
-                  color="inherit"
-                  startIcon={(
-                    <SvgIcon fontSize="small">
-                      <ArrowDownOnSquareIcon />
-                    </SvgIcon>
-                  )}
-                >
-                  Export
-                </Button>
-              </Stack> */}
             </Stack>
             <div>
-              <Button
-                startIcon={(
-                  <SvgIcon fontSize="small">
-                    <PlusIcon />
-                  </SvgIcon>
-                )}
-                variant="contained"
-              >
-                Add
-              </Button>
-            </div>
+                <Button
+                  startIcon={(
+                    <SvgIcon fontSize="small">
+                      <PlusIcon />
+                    </SvgIcon>
+                  )}
+                  variant="contained"
+                  onClick={handleAddClick}
+                >
+                  Add
+                </Button>
+              </div>
           </Stack>
-          {/* <CompaniesSearch /> */}
-          <Grid
-            container
-            spacing={3}
-          >
-            {category.map((category) => (
-              <Grid
-                xs={12}
-                md={6}
-                lg={4}
-                key={category.id}
-              >
-                <CategoryCard category={category} />
-              </Grid>
-            ))}
-          </Grid>
+        
+              <CategoryCard
+              count={category.length}
+              items={category}
+              onDeselectAll={category.handleDeselectAll}
+              onDeselectOne={category.handleDeselectOne}
+              // onPageChange={handlePageChange}
+              // onRowsPerPageChange={handleRowsPerPageChange}
+              onSelectAll={category.handleSelectAll}
+              onSelectOne={category.handleSelectOne}
+              // page={page}
+              // rowsPerPage={rowsPerPage}
+              selected={category.selected}
+            />
           <Box
             sx={{
               display: 'flex',
@@ -163,7 +131,8 @@ const Page = () => (
       </Container>
     </Box>
   </>
-);
+  )
+};
 
 Page.getLayout = (page) => (
   <DashboardLayout>

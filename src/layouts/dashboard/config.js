@@ -12,21 +12,22 @@ import ContactsIcon from '@mui/icons-material/Contacts';
 
 
 export const items = [
-  {
-    title: 'Category',
-    path: '/category',
-    icon: (
-      <SvgIcon fontSize="small">
-        <ChartBarIcon />
-      </SvgIcon>
-    )
-  },
+  
   {
     title: 'User List',
     path: '/',
     icon: (
       <SvgIcon fontSize="small">
         <UsersIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Category',
+    path: '/category',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
       </SvgIcon>
     )
   },
