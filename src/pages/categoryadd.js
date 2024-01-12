@@ -1,136 +1,153 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import {
-    Box,
-    Container,
-    Stack,
-    Typography,
-    Unstable_Grid2 as Grid,
-    TextField,
-    Button,
-    Radio,
-    FormControlLabel,
-    RadioGroup,
-    FormControl,
-    IconButton,
-  } from "@mui/material";
-  import { useState } from "react";
-  import DeleteIcon from "@mui/icons-material/Delete";
-  import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
-  const Page = () => {
-    const [categoryName, setCategoryName] = useState("");
-    const [categoryIcon, setCategoryIcon] = useState(null);
-    const [categoryImage, setCategoryImage] = useState(null);
-    const [selectedValue, setSelectedValue] = useState("first");
-    const [AddCateGoryError, setAddCateGoryError] = useState("");
-    const handleFileUploadIcon = (event) => {
-      const selectedFile = event.target.files[0];
-      setCategoryIcon(selectedFile);
-    };
-    const handleFileUploadImage = (event) => {
-      const selectedFile = event.target.files[0];
-      setCategoryImage(selectedFile);
-    };
-    const handleRadioChange = (event) => {
-      setSelectedValue(event.target.value);
-    };
-    const handleRemoveIcon = () => {
-      setCategoryIcon(null);
-    };
-    const handleRemoveImage = () => {
-      setCategoryImage(null);
-    };
-    const AddCateGory = () => {
-      let Error = true;
-      if (categoryName == "") {
-        Error = false;
-        setAddCateGoryError("Please enter a category name");
-      }
-    };
-    return (
-      <>
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            py: 8,
-          }}
-        >
-          <Container maxWidth="lg">
-            <Stack spacing={3}>
-              <div>
-                <Typography variant="h4">Add Category</Typography>
-              </div>
+  Box,
+  Container,
+  Stack,
+  Typography,
+  Unstable_Grid2 as Grid,
+  TextField,
+  Button,
+  Radio,
+  FormControlLabel,
+  RadioGroup,
+  FormControl,
+  IconButton,
+  CardActions,
+  Divider,
+  CardHeader,
+  CardContent,
+  Card,
+} from "@mui/material";
+import { useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
+const Page = () => {
+  const [categoryName, setCategoryName] = useState("");
+  const [categoryIcon, setCategoryIcon] = useState(null);
+  const [categoryImage, setCategoryImage] = useState(null);
+  const [selectedValue, setSelectedValue] = useState("first");
+  const [AddCateGoryError, setAddCateGoryError] = useState("");
+  const handleFileUploadIcon = (event) => {
+    const selectedFile = event.target.files[0];
+    setCategoryIcon(selectedFile);
+  };
+  const handleFileUploadImage = (event) => {
+    const selectedFile = event.target.files[0];
+    setCategoryImage(selectedFile);
+  };
+  const handleRadioChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+  const handleRemoveIcon = () => {
+    setCategoryIcon(null);
+  };
+  const handleRemoveImage = () => {
+    setCategoryImage(null);
+  };
+  const AddCateGory = () => {
+    let Error = true;
+    if (categoryName == "") {
+      Error = false;
+      setAddCateGoryError("Please enter a category name");
+    }
+  };
+  return (
+    <>
+      <form
+        autoComplete="off"
+        noValidate
+        // onSubmit={handleSubmit}
+      >
+        <Card sx={{ pt: 10 }}>
+          <CardHeader
+            // subheader="The information can be edited"
+            title="Add Category"
+          />
+          <CardContent sx={{ pt: 0 }}>
+            <Box sx={{ m: -1.5 }}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={5} lg={5}>
-                  <Grid>
-                    <TextField
-                      label="Category Name"
-                      variant="outlined"
-                      fullWidth
-                      value={categoryName}
-                      onChange={(e) => {
-                        setCategoryName(e.target.value.trimStart());
-                        setAddCateGoryError("");
-                      }}
-                      sx={{ marginBottom: 0 }}
-                    />
-                    {AddCateGoryError && <span style={{ color: "red" }}>{AddCateGoryError}</span>}
-                  </Grid>
-                  <div style={{ position: "relative", display: "inline-block" , marginTop: "50px"  }}>
-                    <input
+                <Grid xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    //   helperText="Please specify the Hotel name"
+                    label="Category Name"
+                    name="categoryName"
+                    // onChange={handleChange}
+                    required
+                    // value={values.firstName}
+                  />
+                </Grid>
+                <Grid xs={12} md={6}>
+                  {/* <TextField
+            fullWidth
+            label="Category Image"
+            name="categoryImage"
+            // onChange={handleChange}
+            required
+            // value={values.lastName}
+          />
+          <input
                       accept="image/*"
                       style={{ display: "none" }}
                       id="icon-file-input"
                       multiple
                       type="file"
                       onChange={handleFileUploadIcon}
-                    />
-                    <label htmlFor="icon-file-input" sx={{ marginBottom: 2 }}>
-                      <Button variant="contained" component="span">
-                        Category Icon
-                      </Button>
-                    </label>
-                    {categoryIcon && (
-                      <div style={{ position: "relative" }}>
-                        <img
-                          src={URL.createObjectURL(categoryIcon)}
-                          alt="Selected Icon"
-                          style={{ height: "120px", width: "300px", marginTop: "10px" }}
-                        />
-                        <IconButton onClick={handleRemoveIcon} sx={{ top: -100, right: 10 }}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </div>
-                    )}
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", marginTop: "50px" }}>
-                    <input
-                      accept="image/*"
-                      style={{ display: "none" }}
-                      id="image-file-input"
-                      multiple
+                    /> */}
+                  <div className="col-md-4 mt-4">
+                    {/* {categoryImage && (
+                      <img
+                        src={URL.createObjectURL(categoryImage)}
+                        alt={`UploadedImage `}
+                        className="uploaded-image mb-4"
+                        height={100}
+                        width={100}
+                        style={{ borderRadius: "5px" }}
+                      />
+                    )} */}
+                
+                    {/* {categoryImage && (
+                      <>
+                        {" "}
+                        <button
+                          className="btn btn-primary btn-sm"
+                          onClick={uploadCategoryImage}
+                          style={{
+                            position: "absolute",
+                            marginTop: "-22px",
+                            marginLeft: "3px",
+                            paddingLeft: "27px",
+                            paddingRight: "28px",
+                          }}
+                        >
+                          Upload
+                        </button>
+                      </>
+                    )} */}
+                 
+                    {/* <TextField
+                      fullWidth
+                      
                       type="file"
-                      onChange={handleFileUploadImage}
+                      
+                      name="categoryName"
+                     
                     />
-                    <label htmlFor="image-file-input" sx={{ marginBottom: 2 }}>
-                      <Button variant="contained" component="span">
-                        Category Slider Image
-                      </Button>
-                    </label>
-                    {categoryImage && (
-                      <div>
-                        <img
-                          src={URL.createObjectURL(categoryImage)}
-                          alt="Selected Image"
-                          style={{ height: "120px", width: "300px", marginTop: "10px" }}
-                        />
-                        <IconButton onClick={handleRemoveImage} sx={{ top: -100, right: 10 }}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </div>
-                    )}
+                    <input
+                      type="file"
+                      style={{ display: "none" }}
+                      accept="image/*"
+                      className="form-control"
+                      id="defaultFormControlInput"
+                      placeholder="Enter Value"
+                      aria-describedby="defaultFormControlHelp"
+                      // onChange={handleImageUploadCategory}
+                    /> */}
                   </div>
-                  <div>
-                    <FormControl component="fieldset" style={{ marginTop: "20px" }}>
+                </Grid>
+                <FormControl component="fieldset"
+                 style={{ marginLeft: "20px" }}
+                >
                       <RadioGroup
                         row
                         name="use-radio-group"
@@ -144,23 +161,21 @@ import {
                         </span>
                       </RadioGroup>
                     </FormControl>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "right", marginTop: "40px" }}>
-                    <Button
-                      variant="contained"
-                      sx={{ width: "200px", height: "50px" }}
-                      onClick={AddCateGory}
-                    >
-                      Submit
-                    </Button>
-                  </div>
-                </Grid>
+                   
               </Grid>
-            </Stack>
-          </Container>
-        </Box>
-      </>
-    );
-  };
-  Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
-  export default Page;
+            </Box>
+          </CardContent>
+          <Divider />
+          <CardActions sx={{ ml: 1.8}} >
+            <Button variant="contained" sx={{ p: 1.5 }}>
+              Save Details
+            </Button>
+          </CardActions>
+        </Card>
+      </form>
+  
+    </>
+  );
+};
+Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+export default Page;

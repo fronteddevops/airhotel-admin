@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-max-props-per-line */
 import PropTypes from "prop-types";
 import { format } from "date-fns";
+
 import {
   Avatar,
   Box,
@@ -13,9 +14,11 @@ import {
   DialogTitle,
   Stack,
   SvgIcon,
+  Switch,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TablePagination,
   TableRow,
@@ -23,9 +26,19 @@ import {
   Typography,
 } from "@mui/material";
 import { Scrollbar } from "src/components/scrollbar";
-
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export const CustomersTable = (props) => {
+  const router = useRouter();
+  const [selectedCustomerId, setSelectedCustomerId] = useState(null);
+  const [isSwitchOn, setSwitchOn] = useState(false);
+  const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
+
+  const handleDetails = () => {
+    router.push("/userviewdetails");
+  };
   const {
     count = 0,
     items = [],
@@ -39,18 +52,40 @@ export const CustomersTable = (props) => {
     rowsPerPage = 0,
     selected = [],
   } = props;
+
+  const handleSwitchChange = (customerId) => {
+    setSelectedCustomerId(customerId);
+
+    setSwitchOn(!isSwitchOn);
+
+    handleOpenConfirmationDialog();
+  };
+
+  const handleOpenConfirmationDialog = () => {
+    setConfirmationDialogOpen(true);
+  };
+
+  const handleCloseConfirmationDialog = () => {
+    setConfirmationDialogOpen(false);
+  };
+
   return (
     <Card>
-    <Scrollbar>
-      <Box sx={{ minWidth: 800 }}>
-      <Table>
+      <Scrollbar>
+        <TableContainer sx={{ minWidth: 800, overflowX: "auto" }}>
+          <Table>
             <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>City</TableCell>
-                <TableCell>Phone</TableCell>
-                <TableCell>Website</TableCell>
+              <TableRow >
+                <TableCell sx={{ whiteSpace: "nowrap", padding: "20px" }}>ID</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>User Name</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Email</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Phone</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Date of Birth</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>
+                  Verification Status
+                </TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Is Active</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -59,37 +94,85 @@ export const CustomersTable = (props) => {
                   return (
                     <TableRow hover key={customer.id}>
                       <TableCell>
-                        <Typography variant="subtitle2">{customer.name}</Typography>
+                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                          1
+                        </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="subtitle2">{customer.email}</Typography>
+                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                          {customer.name}
+                        </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="subtitle2">{customer?.address?.city}</Typography>
+                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                          {customer.email}
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell>
+                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                          {customer.phone}
+                        </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="subtitle2">{customer.phone}</Typography>
+                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                          4/5/2024
+                        </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="subtitle2">{customer.website}</Typography>
+                        <Typography
+                          variant="subtitle2"
+                          sx={{ textAlign: "center", color: "green" }}
+                        >
+                          Active
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Switch
+                          checked={customer?.status}
+                          onChange={handleSwitchChange}
+                          color="primary"
+                          inputProps={{ "aria-label": "toggle button" }}
+                        />
+                      </TableCell>
+                      <TableCell sx={{ textAlign: "center" }} onClick={handleDetails}>
+                        <RemoveRedEyeIcon />
                       </TableCell>
                     </TableRow>
                   );
                 })}
             </TableBody>
           </Table>
-      </Box>
-    </Scrollbar>
-    {/* <TablePagination
-      component="div"
-      count={count}
-      onPageChange={onPageChange}
-      onRowsPerPageChange={onRowsPerPageChange}
-      page={page}
-      rowsPerPage={rowsPerPage}
-      rowsPerPageOptions={[5, 10, 25]}
-    /> */}
-  </Card>
+        </TableContainer>
+        {/* Confirmation Active InActive */}
+        <Dialog open={isConfirmationDialogOpen} onClose={handleCloseConfirmationDialog}>
+          <DialogTitle>Confirmation</DialogTitle>
+          <DialogContent>
+            <Typography variant="body1">Are you sure you want to toggle the switch?</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseConfirmationDialog}>Cancel</Button>
+            <Button
+              onClick={() => {
+                handleCloseConfirmationDialog();
+              }}
+              color="primary"
+            >
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Scrollbar>
+       <TablePagination
+        component="div"
+        count={count}
+        onPageChange={onPageChange}
+        onRowsPerPageChange={onRowsPerPageChange}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        rowsPerPageOptions={[5, 10, 25]}
+      />
+    </Card>
   );
 };
 

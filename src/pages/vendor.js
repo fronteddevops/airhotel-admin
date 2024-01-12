@@ -100,15 +100,7 @@ const Page = () => {
               count={vendors?.length}
               vendors={vendors} 
               setVendors={setVendors}
-              // onDeselectAll={vendors.handleDeselectAll}
-              // onDeselectOne={vendors.handleDeselectOne}
-              // onPageChange={handlePageChange}
-              // onRowsPerPageChange={handleRowsPerPageChange}
-              // onSelectAll={vendors.handleSelectAll}
-              // onSelectOne={vendors.handleSelectOne}
-              // page={page}
-              // rowsPerPage={rowsPerPage}
-              // selected={vendors.selected}
+              
             />
           <Box
             sx={{
@@ -116,10 +108,7 @@ const Page = () => {
               justifyContent: 'center'
             }}
           >
-            {/* <Pagination
-              count={3}
-              size="small"
-            /> */}
+       
           </Box>
         </Stack>
       </Container>

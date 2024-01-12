@@ -99,16 +99,8 @@ const Page = () => {
               <Hotelcard
               count={data?.length}
               data={data}
-               setData={setData}
-              // onDeselectAll={vendors.handleDeselectAll}
-              // onDeselectOne={vendors.handleDeselectOne}
-              // onPageChange={handlePageChange}
-              // onRowsPerPageChange={handleRowsPerPageChange}
-              // onSelectAll={vendors.handleSelectAll}
-              // onSelectOne={vendors.handleSelectOne}
-              // page={page}
-              // rowsPerPage={rowsPerPage}
-              // selected={vendors.selected}
+              setData={setData}
+        
             />
           <Box
             sx={{
@@ -116,10 +108,7 @@ const Page = () => {
               justifyContent: 'center'
             }}
           >
-            {/* <Pagination
-              count={3}
-              size="small"
-            /> */}
+      
           </Box>
         </Stack>
       </Container>

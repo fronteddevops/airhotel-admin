@@ -15,7 +15,9 @@ import {
  
   } from "@mui/material";
   import { useState } from "react";
- 
+  import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+  import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+  import { DatePicker } from '@mui/x-date-pickers/DatePicker';
   import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
   const Page = (props) => {
     const { vendors, setVendors } = props;
@@ -62,72 +64,6 @@ import {
 
   
     return (
-      // <>
-      //   <Box
-      //     component="main"
-      //     sx={{
-      //       flexGrow: 1,
-      //       py: 8,
-      //     }}
-      //   >
-      //     <Container maxWidth="lg">
-      //       <Stack spacing={3}>
-      //         <div>
-      //           <Typography variant="h4">Add Vendor</Typography>
-      //         </div>
-      //         <Grid container spacing={3}>
-      //           <Grid item xs={12} md={12} lg={12}>
-      //             <Grid>
-      //             <TextField
-      //       label="Vendor Name"
-      //       value={newVendor.name}
-      //       onChange={(e) => handleInputChange("name", e.target.value)}
-      //       fullWidth
-      //     />
-      //     <TextField
-      //       label="Email"
-      //       value={newVendor.email}
-      //       onChange={(e) => handleInputChange("email", e.target.value)}
-      //       fullWidth
-      //     />
-      //     <TextField
-      //       label="City"
-      //       value={newVendor.address.city}
-      //       onChange={(e) => handleInputChange("address", { city: e.target.value })}
-      //       fullWidth
-      //     />
-      //     <TextField
-      //       label="Phone"
-      //       value={newVendor.phone}
-      //       onChange={(e) => handleInputChange("phone", e.target.value)}
-      //       fullWidth
-      //     />
-      //     <TextField
-      //       label="Website"
-      //       value={newVendor.website}
-      //       onChange={(e) => handleInputChange("website", e.target.value)}
-      //       fullWidth
-      //     />
-      //               {/* {AddCateGoryError && <span style={{ color: "red" }}>{AddCateGoryError}</span>} */}
-      //             </Grid>
-                  
-                 
-                  
-      //             <div style={{ marginTop: '20px' }}>
-      //               <Button
-      //                 variant="contained"
-      //                 sx={{ width: "200px", height: "50px" }}
-      //                 // onClick={handleAddVendor}
-      //               >
-      //                 Submit
-      //               </Button>
-      //             </div>
-      //           </Grid>
-      //         </Grid>
-      //       </Stack>
-      //     </Container>
-      //   </Box>
-      // </>
       <form
 
       autoComplete="off"
@@ -165,26 +101,14 @@ import {
               >
                 <TextField
                   fullWidth
-                  label="Contact Information"
-                  name="contactInformation"
+                  label="Email"
+                  name="email"
                   // onChange={handleChange}
                   required
                   // value={values.lastName}
                 />
               </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="City"
-                  name="city"
-                  // onChange={handleChange}
-                  required
-                  // value={values.email}
-                />
-              </Grid>
+             
               <Grid
                 xs={12}
                 md={6}
@@ -204,8 +128,8 @@ import {
               >
                 <TextField
                   fullWidth
-                  label="Website"
-                  name="website"
+                  label="Password"
+                  name="password"
                   // onChange={handleChange}
                   required
                   // value={values.country}
@@ -215,14 +139,11 @@ import {
                 xs={12}
                 md={6}
               >
-                <TextField
-                  fullWidth
-                  label="Other Information"
-                  name="otherInformation"
-                  // onChange={handleChange}
-                  required
-                  // value={values.email}
-                />
+                  <LocalizationProvider dateAdapter={AdapterDayjs}
+                  
+                  >
+      <DatePicker />
+    </LocalizationProvider>
               </Grid>
             </Grid>
           </Box>

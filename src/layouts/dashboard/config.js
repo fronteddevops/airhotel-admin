@@ -14,7 +14,7 @@ import ContactsIcon from '@mui/icons-material/Contacts';
 export const items = [
   
   {
-    title: 'User List',
+    title: 'Customers',
     path: '/',
     icon: (
       <SvgIcon fontSize="small">
