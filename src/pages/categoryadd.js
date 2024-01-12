@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-max-props-per-line */
 import {
     Box,
     Container,
@@ -45,12 +44,6 @@ import {
         Error = false;
         setAddCateGoryError("Please enter a category name");
       }
-      const newCategory = {
-        categoryName,
-        categoryImage
-      };
-      onAddCategory(newCategory);
-      setCategoryName('');
     };
     return (
       <>

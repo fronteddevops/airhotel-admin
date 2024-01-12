@@ -51,15 +51,6 @@ export const items = [
       </SvgIcon>
     )
   },
-  // {
-  //   title: 'Settings',
-  //   path: '/settings',
-  //   icon: (
-  //     <SvgIcon fontSize="small">
-  //       <CogIcon />
-  //     </SvgIcon>
-  //   )
-  // },
   {
     title: 'Logout',
     path: '/auth/login',

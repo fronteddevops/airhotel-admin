@@ -23,40 +23,25 @@ import {
   Typography,
 } from "@mui/material";
 import { Scrollbar } from "src/components/scrollbar";
-import { getInitials } from "src/utils/get-initials";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import services from "src/services";
-import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
+
 
 export const CustomersTable = (props) => {
- const { items = [] } = props;
+  const {
+    count = 0,
+    items = [],
+    onDeselectAll,
+    onDeselectOne,
+    onPageChange = () => {},
+    onRowsPerPageChange,
+    onSelectAll,
+    onSelectOne,
+    page = 0,
+    rowsPerPage = 0,
+    selected = [],
+  } = props;
   return (
     <Card>
-      
     <Scrollbar>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          p: 4,
-        }}
-      >
-        <Typography variant="h6">User List</Typography>
-        {/* <Button variant="contained"
-        //  onClick={handleOpenAddVendorDialog}
-
-                startIcon={(
-                  <SvgIcon fontSize="small">
-                    <PlusIcon />
-                  </SvgIcon>
-                )}
-               
-              >
-          Add 
-        </Button> */}
-      </Box>
       <Box sx={{ minWidth: 800 }}>
       <Table>
             <TableHead>
@@ -95,7 +80,15 @@ export const CustomersTable = (props) => {
           </Table>
       </Box>
     </Scrollbar>
-
+    {/* <TablePagination
+      component="div"
+      count={count}
+      onPageChange={onPageChange}
+      onRowsPerPageChange={onRowsPerPageChange}
+      page={page}
+      rowsPerPage={rowsPerPage}
+      rowsPerPageOptions={[5, 10, 25]}
+    /> */}
   </Card>
   );
 };

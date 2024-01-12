@@ -1,11 +1,16 @@
 /* eslint-disable react/jsx-max-props-per-line */
 import React, { useState } from "react";
-import { Box, Container, Stack } from '@mui/material';
+import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 
 import { Hotelcard } from "src/sections/hotel/hotel-detail";
+import { HotelSearch } from "src/sections/hotel/hotel-search";
+import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const Page = () => {
+  const router = useRouter()
   const [data, setData] = useState([
     {
       "id": 1,
@@ -45,23 +50,81 @@ const Page = () => {
     }
   ]);
   
+  const handleAddClick = () => {
+    router.push("/hoteladd")
+   
+  };
 
   return (
     <>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 8,
-        }}
-      >
-        <Container maxWidth="xl">
-          <Stack spacing={1}>
-            <Hotelcard data={data} setData={setData} />
+    <Head>
+      <title>
+        Companies | Devias Kit
+      </title>
+    </Head>
+    <Box
+      component="main"
+      sx={{
+        flexGrow: 1,
+        py: 8
+      }}
+    >
+      <Container maxWidth="xl">
+        <Stack spacing={3}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            spacing={4}
+          >
+            <Stack spacing={1}>
+              <Typography variant="h4">
+                Hotel List
+              </Typography>
+            </Stack>
+            <div>
+                <Button
+                  startIcon={(
+                    <SvgIcon fontSize="small">
+                      <PlusIcon />
+                    </SvgIcon>
+                  )}
+                  variant="contained"
+                  onClick={handleAddClick}
+                >
+                  Add
+                </Button>
+              </div>
           </Stack>
-        </Container>
-      </Box>
-    </>
+          <HotelSearch/>
+              <Hotelcard
+              count={data?.length}
+              data={data}
+               setData={setData}
+              // onDeselectAll={vendors.handleDeselectAll}
+              // onDeselectOne={vendors.handleDeselectOne}
+              // onPageChange={handlePageChange}
+              // onRowsPerPageChange={handleRowsPerPageChange}
+              // onSelectAll={vendors.handleSelectAll}
+              // onSelectOne={vendors.handleSelectOne}
+              // page={page}
+              // rowsPerPage={rowsPerPage}
+              // selected={vendors.selected}
+            />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
+            {/* <Pagination
+              count={3}
+              size="small"
+            /> */}
+          </Box>
+        </Stack>
+      </Container>
+    </Box>
+  </>
   );
 };
 

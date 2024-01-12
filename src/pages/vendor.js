@@ -7,8 +7,11 @@ import { VendorSearch } from "src/sections/vendor/vender-search";
 import ArrowUpOnSquareIcon from "@heroicons/react/24/solid/ArrowUpOnSquareIcon";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const Page = () => {
+  const router = useRouter()
   const [vendors, setVendors] = useState([
     {
       "id": 1,
@@ -47,26 +50,38 @@ const Page = () => {
       "website": "https://www.vendorC.com"
     }
   ]);
+  const handleAddClick = () => {
+    router.push("/vendoradd")
+   
+  };
 
   return (
     <>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 8,
-        }}
-      >
-       
-        <Container maxWidth="xl">
-          <Stack spacing={3}>
+    <Head>
+      <title>
+        Companies | Devias Kit
+      </title>
+    </Head>
+    <Box
+      component="main"
+      sx={{
+        flexGrow: 1,
+        py: 8
+      }}
+    >
+      <Container maxWidth="xl">
+        <Stack spacing={3}>
           <Stack
-              direction="row"
-              justifyContent="space-between"
-              spacing={4}
-            >
-              
-              {/* <div>
+            direction="row"
+            justifyContent="space-between"
+            spacing={4}
+          >
+            <Stack spacing={1}>
+              <Typography variant="h4">
+                Vendor List
+              </Typography>
+            </Stack>
+            <div>
                 <Button
                   startIcon={(
                     <SvgIcon fontSize="small">
@@ -74,17 +89,42 @@ const Page = () => {
                     </SvgIcon>
                   )}
                   variant="contained"
+                  onClick={handleAddClick}
                 >
                   Add
                 </Button>
-              </div> */}
-            </Stack>
-            {/* <VendorSearch/> */}
-            <Vendorcard vendors={vendors} setVendors={setVendors} />
+              </div>
           </Stack>
-        </Container>
-      </Box>
-    </>
+        <VendorSearch/>
+              <Vendorcard
+              count={vendors?.length}
+              vendors={vendors} 
+              setVendors={setVendors}
+              // onDeselectAll={vendors.handleDeselectAll}
+              // onDeselectOne={vendors.handleDeselectOne}
+              // onPageChange={handlePageChange}
+              // onRowsPerPageChange={handleRowsPerPageChange}
+              // onSelectAll={vendors.handleSelectAll}
+              // onSelectOne={vendors.handleSelectOne}
+              // page={page}
+              // rowsPerPage={rowsPerPage}
+              // selected={vendors.selected}
+            />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
+            {/* <Pagination
+              count={3}
+              size="small"
+            /> */}
+          </Box>
+        </Stack>
+      </Container>
+    </Box>
+  </>
   );
 };
 

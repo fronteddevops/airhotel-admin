@@ -26,6 +26,19 @@ import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 
 export const Hotelcard = (props) => {
   const { data, setData } = props;
+  const {
+    count = 0,
+    items = [],
+    onDeselectAll,
+    onDeselectOne,
+    onPageChange = () => {},
+    onRowsPerPageChange,
+    onSelectAll,
+    onSelectOne,
+    page = 0,
+    rowsPerPage = 0,
+    selected = [],
+  } = props;
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deletedId, setDeletedId] = useState(null);
   const [isAddDialogOpen, setAddDialogOpen] = useState(false);
@@ -157,176 +170,58 @@ export const Hotelcard = (props) => {
 
   return (
     <Card>
-      <Scrollbar>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            p: 4,
-          }}
-        >
-          <Typography variant="h6">Hotel List</Typography>
-          <Button variant="contained" onClick={handleOpenAddDialog}
-          
-          startIcon={(
-            <SvgIcon fontSize="small">
-              <PlusIcon />
-            </SvgIcon>
-          )}
-          >
-            
-            Add 
-          </Button>
-        </Box>
-        <Box sx={{ minWidth: 800 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Hotel Name</TableCell>
+    <Scrollbar>
+         <Box sx={{ minWidth: 800 }}>
+           <Table>
+             <TableHead>
+               <TableRow>
+               <TableCell>S.No</TableCell>
+               <TableCell>Hotel Name</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>City</TableCell>
                 <TableCell>Phone</TableCell>
-                <TableCell>Website</TableCell>
+              
                 <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data &&
-                data.map((hotel) => (
-                  <TableRow hover key={hotel.id}>
-                    <TableCell>
-                      <Typography variant="subtitle2">{hotel.name}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2">{hotel.email}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2">
-                        {hotel?.address?.city}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2">{hotel.phone}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2">{hotel.website}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Button onClick={() => handleOpenEditDialog(hotel.id)}>
-                      <EditIcon/>
-                      </Button>
-                      <Button onClick={() => handleOpenDeleteDialog(hotel.id)}>
+               </TableRow>
+             </TableHead>
+             <TableBody>
+               {data && data.map((hotel, i) => {
+                 const isSelected = selected.includes(hotel.id);
+                 console.log(typeof hotel?.status);
+                 return (
+                   // eslint-disable-next-line react/jsx-max-props-per-line
+                   <TableRow hover key={hotel.id} selected={isSelected}>
+                     <TableCell>{i + 1}</TableCell>
+                   
+                     <TableCell>{hotel.name}</TableCell>
+                     <TableCell>{hotel.email}</TableCell>
+                     <TableCell>{hotel?.address?.city}</TableCell>
+                     <TableCell>{hotel.phone}</TableCell>
+                     <TableCell>
+                      <EditIcon />
                       <DeleteIcon/>
-                      </Button>
                     </TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </Box>
-      </Scrollbar>
-      {/* Add Hotel Dialog */}
-      <Dialog open={isAddDialogOpen} onClose={handleCloseAddDialog}>
-        <DialogTitle>Add Hotel</DialogTitle>
-        <DialogContent>
-          <TextField
-            label="Hotel Name"
-            value={newHotel.name}
-            onChange={(e) => handleInputChange("name", e.target.value)}
-            fullWidth
-          />
-          <TextField
-            label="Email"
-            value={newHotel.email}
-            onChange={(e) => handleInputChange("email", e.target.value)}
-            fullWidth
-          />
-          <TextField
-            label="City"
-            value={newHotel.address.city}
-            onChange={(e) => handleInputChange("address", { city: e.target.value })}
-            fullWidth
-          />
-          <TextField
-            label="Phone"
-            value={newHotel.phone}
-            onChange={(e) => handleInputChange("phone", e.target.value)}
-            fullWidth
-          />
-          <TextField
-            label="Website"
-            value={newHotel.website}
-            onChange={(e) => handleInputChange("website", e.target.value)}
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseAddDialog}>Cancel</Button>
-          <Button onClick={handleAdd} color="primary">
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* Edit Hotel Dialog */}
-      <Dialog open={isEditDialogOpen} onClose={handleCloseEditDialog}>
-        <DialogTitle>Edit Hotel</DialogTitle>
-        <DialogContent>
-          <TextField
-            label="Hotel Name"
-            value={newHotel.name}
-            onChange={(e) => handleInputChange("name", e.target.value)}
-            fullWidth
-          />
-          <TextField
-            label="Email"
-            value={newHotel.email}
-            onChange={(e) => handleInputChange("email", e.target.value)}
-            fullWidth
-          />
-          <TextField
-            label="City"
-            value={newHotel.address.city}
-            onChange={(e) => handleInputChange("address", { city: e.target.value })}
-            fullWidth
-          />
-          <TextField
-            label="Phone"
-            value={newHotel.phone}
-            onChange={(e) => handleInputChange("phone", e.target.value)}
-            fullWidth
-          />
-          <TextField
-            label="Website"
-            value={newHotel.website}
-            onChange={(e) => handleInputChange("website", e.target.value)}
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseEditDialog}>Cancel</Button>
-          <Button onClick={handleUpdate} color="primary">
-            Update
-          </Button>
-        </DialogActions>
-      </Dialog>
-      {/* Delete Hotel Dialog */}
-      <Dialog open={isDeleteDialogOpen} onClose={handleCloseDeleteDialog}>
-        <DialogTitle>Delete Hotel</DialogTitle>
-        <DialogContent>
-          <Typography variant="body1">
-            Are you sure you want to delete this Hotel?
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDeleteDialog}>Cancel</Button>
-          <Button onClick={handleDelete} color="primary">
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Card>
+                     {/* <TableCell>
+                       <Switch
+                         checked={vendor?.status}
+                         onChange={handleChange}
+                         color="primary"
+                         inputProps={{ "aria-label": "toggle button" }}
+                       />
+                     </TableCell> */}
+                     
+                   </TableRow>
+                 );
+               })}
+             </TableBody>
+           </Table>
+         </Box>
+       </Scrollbar>
+  
+ 
+    
+     
+     </Card>
   );
 };
 

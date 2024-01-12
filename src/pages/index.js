@@ -14,13 +14,54 @@ import { applyPagination } from "src/utils/apply-pagination";
 import axios from "axios";
 import services from "src/services";
 
+
+
+
 const Page = () => {
   const [data, setData] = useState();
+  const useCustomers = (page, rowsPerPage) => {
+    return useMemo(
+      () => {
+        return applyPagination(data, page, rowsPerPage);
+      },
+      [page, rowsPerPage]
+    );
+  };
+  
+  const useCustomerIds = (customers) => {
+    return useMemo(
+      () => {
+        return customers?.map((customer) => customer.id);
+      },
+      [customers]
+    );
+  };
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const customers = useCustomers(page, rowsPerPage);
+  const customersIds = useCustomerIds(customers);
+  const customersSelection = useSelection(customersIds);
+
+  
+
+  const handlePageChange = useCallback(
+    (event, value) => {
+      setPage(value);
+    },
+    []
+  );
+
+  const handleRowsPerPageChange = useCallback(
+    (event) => {
+      setRowsPerPage(event.target.value);
+    },
+    []
+  );
 
   const getDetails = async () => {
     const response = await services.UserList.GET_USERS();
     setData(response?.data);
-    console.log(response.data, "gh");
+    
   };
 
   useEffect(() => {
@@ -29,23 +70,73 @@ const Page = () => {
 
   return (
     <>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 8,
-        }}
-      >
-        <Container maxWidth="xl">
-          <Stack spacing={3}>
-         
-             <CustomersTable
-             items={data}
-            ></CustomersTable>
+    <Head>
+      <title>
+        Companies | Devias Kit
+      </title>
+    </Head>
+    <Box
+      component="main"
+      sx={{
+        flexGrow: 1,
+        py: 8
+      }}
+    >
+      <Container maxWidth="xl">
+        <Stack spacing={3}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            spacing={4}
+          >
+            <Stack spacing={1}>
+              <Typography variant="h4">
+                User List
+              </Typography>
+            </Stack>
+            {/* <div>
+                <Button
+                  startIcon={(
+                    <SvgIcon fontSize="small">
+                      <PlusIcon />
+                    </SvgIcon>
+                  )}
+                  variant="contained"
+                  // onClick={handleAddClick}
+                >
+                  Add
+                </Button>
+              </div> */}
           </Stack>
-        </Container>
-      </Box>
-    </>
+        
+              <CustomersTable
+              count={data}
+              items={data}
+              onDeselectAll={data?.handleDeselectAll}
+              onDeselectOne={data?.handleDeselectOne}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleRowsPerPageChange}
+              onSelectAll={data?.handleSelectAll}
+              onSelectOne={data?.handleSelectOne}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              selected={data?.selected}
+            />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
+            {/* <Pagination
+              count={3}
+              size="small"
+            /> */}
+          </Box>
+        </Stack>
+      </Container>
+    </Box>
+  </>
   );
 };
 

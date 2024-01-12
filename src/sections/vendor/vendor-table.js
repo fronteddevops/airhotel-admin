@@ -20,12 +20,28 @@ import {
   TextField,
   DialogActions,
   SvgIcon,
+  Avatar,
+  Switch,
 } from "@mui/material";
 import { Scrollbar } from "src/components/scrollbar";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
+import { Stack } from "@mui/system";
 
 export const Vendorcard = (props) => {
   const { vendors, setVendors } = props;
+  const {
+    count = 0,
+    items = [],
+    onDeselectAll,
+    onDeselectOne,
+    onPageChange = () => {},
+    onRowsPerPageChange,
+    onSelectAll,
+    onSelectOne,
+    page = 0,
+    rowsPerPage = 0,
+    selected = [],
+  } = props;
   const [isDeleteVendorDialogOpen, setDeleteVendorDialogOpen] = useState(false);
   const [deletedVendorId, setDeletedVendorId] = useState(null);
   const [isAddVendorDialogOpen, setAddVendorDialogOpen] = useState(false);
@@ -158,33 +174,12 @@ export const Vendorcard = (props) => {
 
   return (
     <Card>
-      
-      <Scrollbar>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            p: 4,
-          }}
-        >
-          <Typography variant="h6">Vendor List</Typography>
-          <Button variant="contained" onClick={handleOpenAddVendorDialog}
-                  startIcon={(
-                    <SvgIcon fontSize="small">
-                      <PlusIcon />
-                    </SvgIcon>
-                  )}
-                 
-                >
-            Add 
-          </Button>
-        </Box>
+   <Scrollbar>
         <Box sx={{ minWidth: 800 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Vendor Name</TableCell>
+              <TableCell>Vendor Name</TableCell>
                 <TableCell>Contact Information</TableCell>
                 <TableCell>City</TableCell>
                 <TableCell>Phone</TableCell>
@@ -193,36 +188,34 @@ export const Vendorcard = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {vendors &&
-                vendors.map((vendor) => (
-                  <TableRow hover key={vendor.id}>
+              {vendors.map((vendor, i) => {
+                const isSelected = selected.includes(vendor.id);
+                console.log(typeof vendor?.status);
+                return (
+                  // eslint-disable-next-line react/jsx-max-props-per-line
+                  <TableRow hover key={vendor.id} selected={isSelected}>
+                    <TableCell>{i + 1}</TableCell>
+                  
+                    <TableCell>{vendor.name}</TableCell>
+                    <TableCell>{vendor.email}</TableCell>
+                    <TableCell>{vendor?.address?.city}</TableCell>
+                    <TableCell>{vendor.phone}</TableCell>
                     <TableCell>
-                      <Typography variant="subtitle2">{vendor.name}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2">{vendor.email}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2">
-                        {vendor?.address?.city}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2">{vendor.phone}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2">{vendor.website}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Button onClick={() => handleOpenEditVendorDialog(vendor.id)}>
-                      <EditIcon/>
-                      </Button>
-                      <Button onClick={() => handleOpenDeleteVendorDialog(vendor.id)}>
+                      <EditIcon />
                       <DeleteIcon/>
-                      </Button>
                     </TableCell>
+                    {/* <TableCell>
+                      <Switch
+                        checked={vendor?.status}
+                        onChange={handleChange}
+                        color="primary"
+                        inputProps={{ "aria-label": "toggle button" }}
+                      />
+                    </TableCell> */}
+                    
                   </TableRow>
-                ))}
+                );
+              })}
             </TableBody>
           </Table>
         </Box>
