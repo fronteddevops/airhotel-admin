@@ -26,11 +26,15 @@ import {
   TablePagination,
 } from "@mui/material";
 import { Scrollbar } from "src/components/scrollbar";
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import { Stack } from "@mui/system";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { FaEdit } from "react-icons/fa";
+import { useRouter } from "next/router";
 export const Vendorcard = (props) => {
   const { vendors, setVendors } = props;
+  const router = useRouter()
   const {
     count = 0,
     items = [],
@@ -48,7 +52,7 @@ export const Vendorcard = (props) => {
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
 
   const handleSwitchChange = (customerId) => {
-    setSelectedCustomerId(customerId);
+    // setSelectedCustomerId(customerId);
 
     setSwitchOn(!isSwitchOn);
 
@@ -62,6 +66,9 @@ export const Vendorcard = (props) => {
   const handleCloseConfirmationDialog = () => {
     setConfirmationDialogOpen(false);
   };
+  const handleEdit =()=>{
+    router.push("/venderedit")
+  }
   return (
     <Card>
     <Scrollbar>
@@ -82,8 +89,8 @@ export const Vendorcard = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {items &&
-              items.map((customer) => {
+            {vendors &&
+              vendors.map((customer) => {
                 return (
                   <TableRow hover key={customer.id}>
                     <TableCell>
@@ -120,7 +127,7 @@ export const Vendorcard = (props) => {
                         Active
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>
                       <Switch
                         checked={customer?.status}
                         onChange={handleSwitchChange}
@@ -128,9 +135,10 @@ export const Vendorcard = (props) => {
                         inputProps={{ "aria-label": "toggle button" }}
                       />
                     </TableCell>
-                    <TableCell sx={{ textAlign: "center" }} onClick={handleDetails}>
-                      <RemoveRedEyeIcon />
-                    </TableCell>
+                    <TableCell  sx={{marginLeft:"10px",fontSize:"20px",textAlign:"center"}} onClick={handleEdit}>
+             
+                    <FaEdit  style={{ color: "#6366F1" }}/>
+           </TableCell>
                   </TableRow>
                 );
               })}

@@ -9,7 +9,7 @@ import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
 import { SvgIcon } from '@mui/material';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import ContactsIcon from '@mui/icons-material/Contacts';
-
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 
 export const items = [
   
@@ -48,6 +48,15 @@ export const items = [
     icon: (
       <SvgIcon fontSize="small">
         <AccountBalanceIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Subscription',
+    path: '/subscription',
+    icon: (
+      <SvgIcon fontSize="small">
+        <SubscriptionsIcon />
       </SvgIcon>
     )
   },

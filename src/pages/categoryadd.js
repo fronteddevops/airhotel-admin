@@ -58,12 +58,9 @@ const Page = () => {
         noValidate
         // onSubmit={handleSubmit}
       >
-        <Card sx={{ pt: 10 }}>
-          <CardHeader
-            // subheader="The information can be edited"
-            title="Add Category"
-          />
-          <CardContent sx={{ pt: 0 }}>
+       <Card sx={{ mt: 9 }}>
+      <Typography variant="h5" sx={{ml:2.5}}>Add Category</Typography>
+          <CardContent sx={{ pt: 0,mt:5 }}>
             <Box sx={{ m: -1.5 }}>
               <Grid container spacing={3}>
                 <Grid xs={12} md={6}>
@@ -78,72 +75,34 @@ const Page = () => {
                   />
                 </Grid>
                 <Grid xs={12} md={6}>
-                  {/* <TextField
-            fullWidth
-            label="Category Image"
-            name="categoryImage"
-            // onChange={handleChange}
-            required
-            // value={values.lastName}
-          />
-          <input
-                      accept="image/*"
-                      style={{ display: "none" }}
-                      id="icon-file-input"
-                      multiple
-                      type="file"
-                      onChange={handleFileUploadIcon}
-                    /> */}
-                  <div className="col-md-4 mt-4">
-                    {/* {categoryImage && (
+                <div style={{ position: "relative", display: "inline-block" , marginTop: "5px"  }}>
+                  <input
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    id="icon-file-input"
+                    multiple
+                    type="file"
+                    onChange={handleFileUploadIcon}
+                  />
+                  <label htmlFor="icon-file-input" sx={{ marginBottom: 1 }}>
+                    <Button variant="contained" component="span" sx={{p:'10px'}}>
+                      Category Image
+                    </Button>
+                  </label>
+                  {categoryIcon && (
+                    <div style={{ position: "relative" }}>
                       <img
-                        src={URL.createObjectURL(categoryImage)}
-                        alt={`UploadedImage `}
-                        className="uploaded-image mb-4"
-                        height={100}
-                        width={100}
-                        style={{ borderRadius: "5px" }}
+                        src={URL.createObjectURL(categoryIcon)}
+                        alt="Selected Icon"
+                        style={{ height: "120px", width: "300px", marginTop: "10px" }}
                       />
-                    )} */}
-                
-                    {/* {categoryImage && (
-                      <>
-                        {" "}
-                        <button
-                          className="btn btn-primary btn-sm"
-                          onClick={uploadCategoryImage}
-                          style={{
-                            position: "absolute",
-                            marginTop: "-22px",
-                            marginLeft: "3px",
-                            paddingLeft: "27px",
-                            paddingRight: "28px",
-                          }}
-                        >
-                          Upload
-                        </button>
-                      </>
-                    )} */}
-                 
-                    {/* <TextField
-                      fullWidth
-                      
-                      type="file"
-                      
-                      name="categoryName"
-                     
-                    />
-                    <input
-                      type="file"
-                      style={{ display: "none" }}
-                      accept="image/*"
-                      className="form-control"
-                      id="defaultFormControlInput"
-                      placeholder="Enter Value"
-                      aria-describedby="defaultFormControlHelp"
-                      // onChange={handleImageUploadCategory}
-                    /> */}
-                  </div>
+                      <IconButton onClick={handleRemoveIcon} sx={{ top: -100, right: 10 }}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
+                  )}
+                </div>
+               
                 </Grid>
                 <FormControl component="fieldset"
                  style={{ marginLeft: "20px" }}
@@ -162,11 +121,11 @@ const Page = () => {
                       </RadioGroup>
                     </FormControl>
                    
-              </Grid>
+              </Grid> 
             </Box>
           </CardContent>
-          <Divider />
-          <CardActions sx={{ ml: 1.8}} >
+         
+          <CardActions sx={{ ml: 1}} >
             <Button variant="contained" sx={{ p: 1.5 }}>
               Save Details
             </Button>

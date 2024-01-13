@@ -20,7 +20,12 @@ import {
 } from "@mui/material";
 import { Scrollbar } from "src/components/scrollbar";
 import { getInitials } from "src/utils/get-initials";
+import { useRouter } from "next/router";
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import { FaEdit } from "react-icons/fa";
+
 export const CategoryCard = (props) => {
+  const router = useRouter()
   const {
     count = 0,
     items = [],
@@ -34,9 +39,10 @@ export const CategoryCard = (props) => {
     rowsPerPage = 0,
     selected = [],
   } = props;
-  const handleChange = (value) => {
-    console.log(value);
-  };
+  const handleEdit =()=>{
+router.push("/categoryedit")
+  }
+
   return (
     <Card>
       <Scrollbar>
@@ -67,16 +73,19 @@ export const CategoryCard = (props) => {
                     <TableCell>{category.title}</TableCell>
                     <TableCell>
                       <Switch
-                        checked={category?.status}
-                        onChange={handleChange}
+                        // checked={category?.status}
+                        // onChange={handleChange}
                         color="primary"
                         inputProps={{ "aria-label": "toggle button" }}
                       />
                     </TableCell>
-                    <TableCell>
-                      <EditIcon />
-                      <DeleteIcon/>
-                    </TableCell>
+                    <TableCell >
+                      <Typography sx={{marginLeft:"10px",fontSize:"20px"}} onClick={handleEdit}> <FaEdit  style={{ color: "#6366F1" }}/></Typography>
+                   
+                </TableCell>
+               
+                      {/* <DeleteIcon sx={{ fontSize: "20px",marginTop:"10px" }}/> */}
+                  
                   </TableRow>
                 );
               })}

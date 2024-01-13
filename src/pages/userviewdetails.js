@@ -103,11 +103,11 @@ const Page = (props) => {
           </Box>
         </CardContent>
         <Divider />
-        <CardActions sx={{ justifyContent: "flex-end", m: 2 }}>
+        {/* <CardActions sx={{ justifyContent: "flex-end", m: 2 }}>
           <Button variant="contained" sx={{ p: 1.5 }} onClick={handleBack}>
             Back
           </Button>
-        </CardActions>
+        </CardActions> */}
       </Card>
     </form>
   );
