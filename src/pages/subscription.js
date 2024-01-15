@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import { subDays, subHours } from 'date-fns';
 
@@ -11,6 +11,7 @@ import { applyPagination } from 'src/utils/apply-pagination';
 import {SubscriptionCard} from "src/sections/subscription/subscription-table"
 import {SubscriptionSearch} from "src/sections/subscription/subscriptionSearch"
 import { useRouter } from 'next/router';
+import services from 'src/services';
 
 
 const data = [
@@ -84,6 +85,18 @@ const Page = () => {
   const subscription = useSubscription(page, rowsPerPage);
   const subscriptionIds = useSubscriptionIds(subscription);
   const subscriptionSelection = useSelection(subscriptionIds);
+  const [details,setDetails]=useState(data)
+
+
+  const getDetails = async () => {
+    const response = await services.Subscription.GET_SUBSCRIPTION()
+    setDetails(response?.data);
+    
+  };
+
+  useEffect(() => {
+    getDetails();
+  }, []);
 
   const handlePageChange = useCallback(
     (event, value) => {

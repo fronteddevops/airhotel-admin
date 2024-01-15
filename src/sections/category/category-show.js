@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import Switch from "@mui/material/Switch";
@@ -40,7 +41,7 @@ export const CategoryCard = (props) => {
     selected = [],
   } = props;
   const handleEdit =()=>{
-router.push("/categoryedit")
+ router.push("/categoryedit")
   }
 
   return (
@@ -80,7 +81,7 @@ router.push("/categoryedit")
                       />
                     </TableCell>
                     <TableCell >
-                      <Typography sx={{marginLeft:"10px",fontSize:"20px"}} onClick={handleEdit}> <FaEdit  style={{ color: "#6366F1" }}/></Typography>
+                      <Typography sx={{marginLeft:"10px",fontSize:"20px"}} > <FaEdit  style={{ color: "#6366F1" }} /></Typography>
                    
                 </TableCell>
                

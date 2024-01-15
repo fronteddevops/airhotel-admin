@@ -15,9 +15,10 @@ import {
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { CategoryCard } from "src/sections/category/category-show";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { CategorySearch } from "../sections/category/category-search";
+import services from "src/services";
 
 const category = [
   {
@@ -56,6 +57,17 @@ const category = [
 
 const Page = () => {
   const router = useRouter();
+  const [data,setData]=useState(category)
+
+  const getDetails = async () => {
+    const response = await services.Category.GET_CATEGORY();
+    setData(response?.data);
+    
+  };
+
+  useEffect(() => {
+    getDetails();
+  }, []);
 
   const handleAddClick = () => {
     router.push("/categoryadd");

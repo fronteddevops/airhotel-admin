@@ -18,6 +18,7 @@ import { Scrollbar } from 'src/components/scrollbar';
 import { items } from './config';
 import { SideNavItem } from './side-nav-item';
 
+
 export const SideNav = (props) => {
   const { open, onClose } = props;
   const pathname = usePathname();

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-props-per-line */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 
@@ -8,9 +8,11 @@ import { HotelSearch } from "src/sections/hotel/hotel-search";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import services from "src/services";
 
 const Page = () => {
   const router = useRouter()
+  const [hotelDetails,setHotelDetails]=useState()
   const data = [
     {
       id: 1,
@@ -92,6 +94,16 @@ const Page = () => {
       perNightPrice: "$220"
     }
     ];
+
+    const getDetails = async () => {
+      const response = await services.Hotel.GET_HOTEL();
+      setHotelDetails(response?.data);
+      
+    };
+  
+    useEffect(() => {
+      getDetails();
+    }, []);
   
   const handleAddClick = () => {
     router.push("/hoteladd")

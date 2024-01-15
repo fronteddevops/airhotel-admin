@@ -89,58 +89,66 @@ export const CustomersTable = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items &&
-                items.map((customer) => {
-                  return (
-                    <TableRow hover key={customer.id}>
-                      <TableCell>
-                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                          1
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                          {customer.name}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                          {customer.email}
-                        </Typography>
-                      </TableCell>
+            {Array.isArray(items) && items.length > 0 ? (
+  items.map((customer) => (
+    <TableRow hover key={customer.id}>
+      <TableCell>
+        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+          {customer.id}
+        </Typography>
+      </TableCell>
+      <TableCell>
+        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+          {customer.name}
+        </Typography>
+      </TableCell>
+      <TableCell>
+        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+          {customer.email}
+        </Typography>
+      </TableCell>
 
-                      <TableCell>
-                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                          {customer.phone}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                          4/5/2024
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography
-                          variant="subtitle2"
-                          sx={{ textAlign: "center", color: "green" }}
-                        >
-                          Active
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Switch
-                          checked={customer?.status}
-                          onChange={handleSwitchChange}
-                          color="primary"
-                          inputProps={{ "aria-label": "toggle button" }}
-                        />
-                      </TableCell>
-                      <TableCell sx={{ textAlign: "center" }} onClick={handleDetails}>
-                        <RemoveRedEyeIcon />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+      <TableCell>
+        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+          {customer.phone}
+        </Typography>
+      </TableCell>
+      <TableCell>
+        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+          4/5/2024
+        </Typography>
+      </TableCell>
+      <TableCell>
+        <Typography
+          variant="subtitle2"
+          sx={{ textAlign: "center", color: "green" }}
+        >
+          Active
+        </Typography>
+      </TableCell>
+      <TableCell>
+        <Switch
+          checked={customer?.status}
+          onChange={handleSwitchChange}
+          color="primary"
+          inputProps={{ "aria-label": "toggle button" }}
+        />
+      </TableCell>
+      <TableCell sx={{ textAlign: "center" }} onClick={handleDetails}>
+        <RemoveRedEyeIcon />
+      </TableCell>
+    </TableRow>
+  ))
+) : (
+  <TableRow>
+    <TableCell colSpan={8}>
+      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+        No users found.
+      </Typography>
+    </TableCell>
+  </TableRow>
+)}
+
             </TableBody>
           </Table>
         </TableContainer>

@@ -10,7 +10,11 @@ import { SvgIcon } from '@mui/material';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
-
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import ReviewsIcon from '@mui/icons-material/Reviews';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import DiscountIcon from '@mui/icons-material/Discount';
 export const items = [
   
   {
@@ -60,6 +64,51 @@ export const items = [
       </SvgIcon>
     )
   },
+  {
+    title: 'Support',
+    path: '/support',
+    icon: (
+      <SvgIcon fontSize="small">
+        <AssignmentIndIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Booking',
+    path: '/booking',
+    icon: (
+      <SvgIcon fontSize="small">
+        <MenuBookIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Ratings',
+    path: '/ratings',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ReviewsIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Payments',
+    path: '/payments',
+    icon: (
+      <SvgIcon fontSize="small">
+        <PaymentsIcon />
+      </SvgIcon>
+    )
+  },
+  // {
+  //   title: 'Coupon',
+  //   path: '/coupon',
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <DiscountIcon />
+  //     </SvgIcon>
+  //   )
+  // },
   {
     title: 'Logout',
     path: '/auth/login',
