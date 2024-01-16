@@ -53,7 +53,7 @@ export const SideNav = (props) => {
               width: 32
             }}
           >
-            <Logo />
+            {/* <Logo /> */}
           </Box>
           <Box
             sx={{
@@ -68,12 +68,7 @@ export const SideNav = (props) => {
             }}
           >
             <div>
-              <Typography
-                color="inherit"
-                variant="subtitle1"
-              >
-               Admin
-              </Typography>
+              
               <Typography
                 color="neutral.400"
                 variant="body2"
@@ -85,7 +80,7 @@ export const SideNav = (props) => {
               fontSize="small"
               sx={{ color: 'neutral.500' }}
             >
-              <ChevronUpDownIcon />
+             
             </SvgIcon>
           </Box>
         </Box>

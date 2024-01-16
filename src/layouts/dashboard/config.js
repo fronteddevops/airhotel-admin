@@ -18,7 +18,7 @@ import DiscountIcon from '@mui/icons-material/Discount';
 export const items = [
   
   {
-    title: 'Customers',
+    title: 'Users',
     path: '/',
     icon: (
       <SvgIcon fontSize="small">

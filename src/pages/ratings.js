@@ -21,7 +21,7 @@ const Page = () => {
         name: "John Doe",
         bookingId: 2,
         review: "Great experience!",
-        ratings: "5 stars",
+        ratings: "2",
         status: "Confirmed",
     },
     {

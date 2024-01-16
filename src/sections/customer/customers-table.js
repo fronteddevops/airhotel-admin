@@ -75,7 +75,7 @@ export const CustomersTable = (props) => {
         <TableContainer sx={{ minWidth: 800, overflowX: "auto" }}>
           <Table>
             <TableHead>
-              <TableRow >
+              <TableRow>
                 <TableCell sx={{ whiteSpace: "nowrap", padding: "20px" }}>ID</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>User Name</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Email</TableCell>
@@ -89,66 +89,62 @@ export const CustomersTable = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-            {Array.isArray(items) && items.length > 0 ? (
-  items.map((customer) => (
-    <TableRow hover key={customer.id}>
-      <TableCell>
-        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-          {customer.id}
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-          {customer.name}
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-          {customer.email}
-        </Typography>
-      </TableCell>
+              {Array.isArray(items) && items.length > 0 ? (
+                items.map((customer) => (
+                  <TableRow hover key={customer.id}>
+                    <TableCell>
+                      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                        {customer.id}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                        {customer.name}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                        {customer.email}
+                      </Typography>
+                    </TableCell>
 
-      <TableCell>
-        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-          {customer.phone}
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-          4/5/2024
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Typography
-          variant="subtitle2"
-          sx={{ textAlign: "center", color: "green" }}
-        >
-          Active
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Switch
-          checked={customer?.status}
-          onChange={handleSwitchChange}
-          color="primary"
-          inputProps={{ "aria-label": "toggle button" }}
-        />
-      </TableCell>
-      <TableCell sx={{ textAlign: "center" }} onClick={handleDetails}>
-        <RemoveRedEyeIcon />
-      </TableCell>
-    </TableRow>
-  ))
-) : (
-  <TableRow>
-    <TableCell colSpan={8}>
-      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-        No users found.
-      </Typography>
-    </TableCell>
-  </TableRow>
-)}
-
+                    <TableCell>
+                      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                        {customer.phone}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                        4/5/2024
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" sx={{ textAlign: "center", color: "green" }}>
+                        Active
+                      </Typography>
+                    </TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>
+                      <Switch
+                        checked={customer?.status}
+                        onChange={handleSwitchChange}
+                        color="primary"
+                        inputProps={{ "aria-label": "toggle button" }}
+                      />
+                    </TableCell>
+                    <TableCell sx={{ textAlign: "center" }} onClick={handleDetails}>
+                      <RemoveRedEyeIcon />
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={8}>
+                    <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                      No users found.
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -171,7 +167,7 @@ export const CustomersTable = (props) => {
           </DialogActions>
         </Dialog>
       </Scrollbar>
-       <TablePagination
+      <TablePagination
         component="div"
         count={count}
         onPageChange={onPageChange}

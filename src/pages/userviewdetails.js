@@ -13,101 +13,32 @@ import {
     Card,
     CardContent,
   } from "@mui/material";
-  import { useRouter } from "next/router";
-  import { useState } from "react";
+  import * as React from 'react';
+
+  import Tab from '@mui/material/Tab';
+  import TabContext from '@mui/lab/TabContext';
+  import TabList from '@mui/lab/TabList';
+  import TabPanel from '@mui/lab/TabPanel';
   
   import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
+import { AddressDetails } from "src/sections/customer/address-details";
+import { UserDetails } from "src/sections/customer/user-details";
   const Page = (props) => {
-    const router = useRouter();
-    const { vendors, setVendors } = props;
-  
-    const handleBack = () => {
-      router.push("/");
+    const [value, setValue] = React.useState('1');
+
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
     };
   
     return (
-      <form
-        autoComplete="off"
-        noValidate
-        // onSubmit={handleSubmit}
-      >
-         <Card sx={{ mt: 9 }}>
-        <Typography variant="h5" sx={{ml:2.5}}>View Details</Typography>
-        <CardContent sx={{ pt: 0 ,mt:4}}>
-            <Box sx={{ m: -1.5 }}>
-              <Grid container spacing={3}>
-                <Grid xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label="User Name"
-                    name="userName"
-                    // onChange={handleChange}
-                    required
-                    // value={values.firstName}
-                  />
-                </Grid>
-                <Grid xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label="Contact Information"
-                    name="contactInformation"
-                    // onChange={handleChange}
-                    required
-                    // value={values.lastName}
-                  />
-                </Grid>
-                <Grid xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label="City"
-                    name="city"
-                    // onChange={handleChange}
-                    
-                    required
-                    // value={values.email}
-                  />
-                </Grid>
-                <Grid xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label="Phone Number"
-                    name="phone"
-                    // onChange={handleChange}
-                    type="number"
-                    // value={values.phone}
-                  />
-                </Grid>
-                <Grid xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label="Website"
-                    name="website"
-                    // onChange={handleChange}
-                    required
-                    // value={values.country}
-                  />
-                </Grid>
-                <Grid xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label="Other Information"
-                    name="otherInformation"
-                    // onChange={handleChange}
-                    required
-                    // value={values.email}
-                  />
-                </Grid>
-              </Grid>
-            </Box>
-          </CardContent>
-          <Divider />
-          {/* <CardActions sx={{ justifyContent: "flex-end", m: 2 }}>
-            <Button variant="contained" sx={{ p: 1.5 }} onClick={handleBack}>
-              Back
-            </Button>
-          </CardActions> */}
-        </Card>
-      </form>
+      <Box sx={{ width: '100%', typography: 'body1' ,p:5}}>
+        <AddressDetails/>
+        <br></br>
+        <br></br>
+        <UserDetails/>
+     
+    </Box>
+      
     );
   };
   Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;

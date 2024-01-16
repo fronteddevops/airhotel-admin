@@ -18,7 +18,7 @@ const data = [
   {
     id: 1,
     planName: "Plan 1",
-    time: "Time 1",
+    date: "5 Jan 2024",
     numberOfProducts: 5,
     price: 29.99,
     categoryType: "Category 1"
@@ -26,7 +26,7 @@ const data = [
   {
     id: 2,
     planName: "Plan 2",
-    time: "Time 2",
+    date: "5 Jan 2024",
     numberOfProducts: 10,
     price: 49.99,
     categoryType: "Category 2"
@@ -34,7 +34,7 @@ const data = [
   {
     id: 3,
     planName: "Plan 3",
-    time: "Time 3",
+    date: "5 Jan 2024",
     numberOfProducts: 3,
     price: 19.99,
     categoryType: "Category 3"
@@ -42,7 +42,7 @@ const data = [
   {
     id: 4,
     planName: "Plan 4",
-    time: "Time 4",
+    date: "5 Jan 2024",
     numberOfProducts: 8,
     price: 39.99,
     categoryType: "Category 2"
@@ -50,7 +50,7 @@ const data = [
   {
     id: 5,
     planName: "Plan 5",
-    time: "Time 5",
+    date: "5 Jan 2024",
     numberOfProducts: 6,
     price: 34.99,
     categoryType: "Category 1"

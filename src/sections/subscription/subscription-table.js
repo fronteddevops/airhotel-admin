@@ -51,7 +51,7 @@ export const SubscriptionCard = (props) => {
               <TableRow>
                 <TableCell sx={{ textAlign: "center" }}>S.No.</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>Plan Name</TableCell>
-                <TableCell sx={{ textAlign: "center" }}>Time</TableCell>
+                <TableCell sx={{ textAlign: "center" }}>Date</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>No. of products</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>Price</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>Category Type</TableCell>
@@ -68,7 +68,7 @@ export const SubscriptionCard = (props) => {
                     <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>
 
                     <TableCell sx={{ textAlign: "center" }}>{sub.planName}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{sub.time}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{sub.date}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{sub.numberOfProducts}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{sub.price}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{sub.categoryType}</TableCell>

@@ -29,7 +29,7 @@ const Page = () => {
       orderId: "789xyz",
       amount: 100.50,
       status:"Paid",
-      createdAt: "2024-01-15T12:30:45.678Z",
+      createdAt: "16 Jan 2024",
     },
     {
       id: 456,
@@ -42,7 +42,7 @@ const Page = () => {
       orderId: "xyz789",
       amount: 75.99,
       status:"Paid",
-      createdAt: "2024-01-15T14:45:30.123Z",
+      createdAt: "10 Jan 2024",
     },
     {
       id: 789,
@@ -55,7 +55,7 @@ const Page = () => {
       orderId: "abc123",
       amount: 50.25,
       status:"Failed",
-      createdAt: "2024-01-15T16:00:15.456Z",
+      createdAt: "15 Jan 2024",
     },
     {
       id: 987,
@@ -68,7 +68,7 @@ const Page = () => {
       orderId: "def456",
       amount: 120.75,
       status:"Failed",
-      createdAt: "2024-01-15T18:15:00.789Z",
+      createdAt: "1 Jan 2024",
     },
     {
       id: 654,
@@ -81,7 +81,7 @@ const Page = () => {
       orderId: "ghi789",
       amount: 90.50,
       status:"Failed",
-      createdAt: "2024-01-15T20:30:45.012Z",
+      createdAt: "5 Jan 2024",
     },
   ];
 

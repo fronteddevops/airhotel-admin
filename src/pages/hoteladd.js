@@ -28,9 +28,9 @@ const Page = (props) => {
   const [age, setAge] = React.useState("");
   const [isDisabled, setIsDisabled] = useState(true);
   const [categoryImageResponse, setCategoryNameImageResponse] = useState("");
-  const [AddCateGoryError, setAddCateGoryError] = useState("");
+
   const [categoryImage, setCategoryNameImage] = useState("");
-const [categoryName, setCategoryName] = useState("");
+
   const handleChange = (event) => {
     setAge(event.target.value);
   };
@@ -46,25 +46,30 @@ const [categoryName, setCategoryName] = useState("");
   };
 
   const uploadCategoryImage = async () => {
-    if (categoryImage) {
-      const formData = new FormData();
-      formData.append("image", categoryImage);
-
-      try {
-        const response = await services.category.UPLOAD_IMAGE(formData);
-        if (response) {
-          setCategoryNameImageResponse(response?.data?.pic);
-          setCategoryNameImage("");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-    }
+   
+      setCategoryNameImage("");
+      // if (categoryImage) {
+      //   const formData = new FormData();
+      //   formData.append("image", categoryImage);
+  
+      //   try {
+      //     const response = await services.category.UPLOAD_IMAGE(formData);
+      //     if (response) {
+  
+      //       setCategoryNameImageResponse(response?.data?.pic);
+      //       setCategoryNameImage("");
+      //     }
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // } else {
+      // }
+    
   };
   return (
-    <form autoComplete="off" noValidate>
-      <Card sx={{ mt: 9 }}>
+ 
+    <Box sx={{width: '100%', typography: 'body1' ,p:5}}>
+       <Card sx={{ mt: 5 ,pt:2,pb:2}}>
         <Typography variant="h5" sx={{ ml: 2.5 }}>
           Add Hotel
         </Typography>
@@ -73,7 +78,7 @@ const [categoryName, setCategoryName] = useState("");
             <Grid container spacing={3}>
               <Grid xs={12} md={6}>
                 <FormControl fullWidth variant="filled" >
-                  <InputLabel id="demo-simple-select-filled-label">Select Category</InputLabel>
+                  <InputLabel id="demo-simple-select-filled-label">Select Category *</InputLabel>
                   <Select
                     labelId="demo-simple-select-filled-label"
                     id="demo-simple-select-filled"
@@ -125,7 +130,7 @@ const [categoryName, setCategoryName] = useState("");
               </Grid>
 
               <Grid xs={12} md={6}>
-                <TextField fullWidth label="Per night Price" name="perNightPrice" type="number" />
+                <TextField fullWidth label="Per night Price *" name="perNightPrice" type="number" />
               </Grid>
               <Grid xs={12} md={6}>
                   <div>
@@ -174,15 +179,24 @@ const [categoryName, setCategoryName] = useState("");
                 
             </Grid>
 
-            <CardActions sx={{ justifyContent: "flex-start", marginLeft: "-0.4rem" }}>
-              <Button variant="contained" sx={{ p: 1.5, mt: 2 }}>
-                Save Details
-              </Button>
-            </CardActions>
+          
+    
           </Box>
+          
         </CardContent>
+        <Divider/>
+        <CardActions
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              p: 2,
+            }}
+          >
+            <Button variant="contained">Save Details</Button>
+          </CardActions>
       </Card>
-    </form>
+    </Box>
+ 
   );
 };
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;

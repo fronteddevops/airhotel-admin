@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import ReactStars from "react-rating-stars-component";
 import {
   Box,
   Card,
@@ -32,6 +33,7 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { FaEdit } from "react-icons/fa";
 import { useRouter } from "next/router";
+import { yellow } from "@mui/material/colors";
 
 export const RatingsTable = (props) => {
 
@@ -71,7 +73,7 @@ export const RatingsTable = (props) => {
                 <TableCell sx={{ whiteSpace: "nowrap" ,textAlign:"center" }}>Name</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap",textAlign:"center"  }}>Booking Id</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center" }}>Review</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>Ratings</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign:"start"  }}>Ratings</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center" }}>Status</TableCell>
 
                
@@ -96,7 +98,20 @@ export const RatingsTable = (props) => {
                     <TableCell sx={{ textAlign: "center" }}>{rate.name}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{rate.bookingId}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{rate.review}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{rate.ratings}</TableCell>
+                    <TableCell sx={{ textAlign: "center",fontSize:0}}>
+                      {/* {rate.ratings} */}
+                      <ReactStars
+                     
+                              value={rate.ratings}
+                              count={5}
+                              size={20}
+                              activeColor="#ffd700"
+                              color={yellow}
+                              isHalf={true} // Disable half ratings
+                              edit={false} // Disable user rating changes
+                            />
+                      
+                      </TableCell>
                   
                     <TableCell sx={{ textAlign: "center" ,color: textColor }}>{rate.status}</TableCell>
 

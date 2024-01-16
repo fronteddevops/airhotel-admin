@@ -21,18 +21,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 const Page = (props) => {
-  const { vendors, setVendors } = props;
-  const [categoryImage, setCategoryImage] = useState(null);
-  const handleFileUploadImage = (event) => {
-    const selectedFile = event.target.files[0];
-    setCategoryImage(selectedFile);
-  };
-  const handleRemoveImage = () => {
-    setCategoryImage(null);
-  };
   return (
-    <form autoComplete="off" noValidate>
-      <Card sx={{ mt: 9 }}>
+    <Box sx={{width: '100%', typography: 'body1' ,p:5}}>
+       <Card sx={{ mt: 5 ,pt:2,pb:2}}>
         <Typography variant="h5" sx={{ ml: 2.5 }}>
           Add Subscription
         </Typography>
@@ -56,22 +47,26 @@ const Page = (props) => {
               <Grid xs={12} md={6}>
                 <TextField fullWidth label="Category Type" name="categoryType" required />
               </Grid>
-              <Grid xs={12} md={6} >
-                <LocalizationProvider dateAdapter={AdapterDayjs} >
+              <Grid xs={12} md={6}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker sx={{ width: "100%" }} />
                 </LocalizationProvider>
               </Grid>
             </Grid>
-
-            <CardActions sx={{ justifyContent: "flex-start", marginTop: "20px"}}>
-              <Button variant="contained" sx={{ p: 1.5 ,marginLeft:"-0.4rem"}}>
-                Save Details
-              </Button>
-            </CardActions>
           </Box>
         </CardContent>
+        <Divider />
+        <CardActions
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            p: 2,
+          }}
+        >
+          <Button variant="contained">Save Details</Button>
+        </CardActions>
       </Card>
-    </form>
+    </Box>
   );
 };
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;

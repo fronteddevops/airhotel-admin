@@ -55,13 +55,10 @@ const Page = (props) => {
   };
 
   return (
-    <form
-      autoComplete="off"
-      noValidate
-      // onSubmit={handleSubmit}
-    >
-     <Card sx={{ mt: 9 }}>
-      <Typography variant="h5" sx={{ml:2.5}}>Edit Vender</Typography>
+ <Box sx={{width: '100%', typography: 'body1' ,p:5}}>
+
+<Card sx={{ mt: 5 ,pt:2,pb:2}}>
+      <Typography variant="h5" sx={{ml:2.5}}>Edit Vendor</Typography>
         <CardContent sx={{ pt: 0 ,mt:4}}>
           <Box sx={{ m: -1.5 }}>
             <Grid container spacing={3}>
@@ -114,14 +111,19 @@ const Page = (props) => {
             </Grid>
           </Box>
         </CardContent>
-
-        <CardActions sx={{ justifyContent: "flex-start", mt: 2 ,ml:1}}>
-          <Button variant="contained" sx={{ p: 1.5 }}>
-            Save Details
-          </Button>
-        </CardActions>
+      <Divider/>
+      <CardActions
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              p: 2,
+            }}
+          >
+            <Button variant="contained">Save Details</Button>
+          </CardActions>
       </Card>
-    </form>
+ </Box>
+  
   );
 };
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
