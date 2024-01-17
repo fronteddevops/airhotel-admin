@@ -21,7 +21,7 @@ const data = [
     date: "5 Jan 2024",
     numberOfProducts: 5,
     price: 29.99,
-    categoryType: "Category 1"
+    currencyType: "usd"
   },
   {
     id: 2,
@@ -29,7 +29,7 @@ const data = [
     date: "5 Jan 2024",
     numberOfProducts: 10,
     price: 49.99,
-    categoryType: "Category 2"
+    currencyType: "usd"
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ const data = [
     date: "5 Jan 2024",
     numberOfProducts: 3,
     price: 19.99,
-    categoryType: "Category 3"
+    currencyType: "usd"
   },
   {
     id: 4,
@@ -45,7 +45,7 @@ const data = [
     date: "5 Jan 2024",
     numberOfProducts: 8,
     price: 39.99,
-    categoryType: "Category 2"
+    currencyType: "usd"
   },
   {
     id: 5,
@@ -53,7 +53,7 @@ const data = [
     date: "5 Jan 2024",
     numberOfProducts: 6,
     price: 34.99,
-    categoryType: "Category 1"
+    currencyType: "usd"
   }
 ]
 

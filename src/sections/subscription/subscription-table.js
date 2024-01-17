@@ -54,7 +54,7 @@ export const SubscriptionCard = (props) => {
                 <TableCell sx={{ textAlign: "center" }}>Date</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>No. of products</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>Price</TableCell>
-                <TableCell sx={{ textAlign: "center" }}>Category Type</TableCell>
+                <TableCell sx={{ textAlign: "center" }}>Currency Type</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>IsActive </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>Actions</TableCell>
               </TableRow>
@@ -71,7 +71,7 @@ export const SubscriptionCard = (props) => {
                     <TableCell sx={{ textAlign: "center" }}>{sub.date}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{sub.numberOfProducts}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{sub.price}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{sub.categoryType}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{sub.currencyType}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>
                       <Switch
                         // checked={category?.status}
@@ -81,9 +81,9 @@ export const SubscriptionCard = (props) => {
                       />
                     </TableCell>
                     <TableCell sx={{ textAlign: "center" }}>
-                      <Typography sx={{ marginLeft: "10px" ,fontSize:"20px"}} onClick={handleEdit}>
+                      <Typography sx={{ marginLeft: "10px" ,fontSize:"20px"}} >
                         {" "}
-                        <FaEdit  style={{ color: "#6366F1" }}/>
+                        <FaEdit  style={{ color: "#6366F1" }} onClick={handleEdit}/>
                       </Typography>
                     </TableCell>
                   </TableRow>

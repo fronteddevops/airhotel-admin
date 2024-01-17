@@ -17,7 +17,7 @@ const Page = () => {
     {
       id: 1,
       hotelName: "Grand Hotel Plaza",
-      images: ["plaza1.jpg", "plaza2.jpg"],
+      images: "/assets/logos/myhotel2.jpeg",
       address: "123 Elegant Avenue",
       city: "Metropolis",
       stateProvince: "Metrostate",
@@ -33,7 +33,7 @@ const Page = () => {
     {
       id: 2,
       hotelName: "Sunset Beach Resort",
-      images: ["sunset1.jpg", "sunset2.jpg"],
+      images: "/assets/logos/myhotel2.jpeg",
       address: "456 Seaside Drive",
       city: "Sunsetville",
       stateProvince: "Beachstate",
@@ -49,7 +49,7 @@ const Page = () => {
     {
       id: 3,
       hotelName: "Mountain Retreat Lodge",
-      images: ["mountain1.jpg", "mountain2.jpg"],
+      images: "/assets/logos/myhotel2.jpeg",
       address: "789 Serene Lane",
       city: "Mountainville",
       stateProvince: "Summitstate",
@@ -65,7 +65,7 @@ const Page = () => {
     {
       id: 4,
       hotelName: "Urban Loft Boutique",
-      images: ["urban1.jpg", "urban2.jpg"],
+      images: "/assets/logos/myhotel2.jpeg",
       address: "101 Loft Street",
       city: "Cityscape",
       stateProvince: "Metrostate",
@@ -81,7 +81,7 @@ const Page = () => {
     {
       id: 5,
       hotelName: "Nature's Haven Inn",
-      images: ["nature1.jpg", "nature2.jpg"],
+      images:"/assets/logos/myhotel2.jpeg",
       address: "567 Tranquil Road",
       city: "Greenfield",
       stateProvince: "Naturestate",

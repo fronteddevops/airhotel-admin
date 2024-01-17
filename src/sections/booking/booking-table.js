@@ -104,7 +104,7 @@ export const BookingTable = (props) => {
                     <TableCell sx={{ textAlign: "center" }} onClick={()=>{
                         handleDetails(id)
                     }}>
-                        <RemoveRedEyeIcon />
+                        <RemoveRedEyeIcon  style={{ color: "#6366F1" }} />
                       </TableCell>
                   </TableRow>
                 );

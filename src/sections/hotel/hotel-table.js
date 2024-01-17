@@ -110,11 +110,11 @@ export const HotelCard = (props) => {
                     <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>
 
                     <TableCell sx={{ textAlign: "center" }}>{hotel.hotelName}</TableCell>
-                    <TableCell>
-                      <Stack alignItems="center" direction="row" spacing={2}>
-                        <Avatar src={hotel.images}></Avatar>
-                      </Stack>
-                    </TableCell>
+                    <TableCell  style={{textAlign:"center",marginLeft:"30px"}} >
+                     
+                     <img  src={hotel.images} style={{height:"60px"}}></img>
+                  
+                 </TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{hotel.address}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{hotel.city}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{hotel.stateProvince}</TableCell>
@@ -134,9 +134,9 @@ export const HotelCard = (props) => {
                       />
                     </TableCell>
                     <TableCell sx={{ textAlign: "center" }}>
-                      <Typography sx={{ marginLeft: "10px" ,fontSize:"20px"}} onClick={handleEdit}>
+                      <Typography sx={{ marginLeft: "10px" ,fontSize:"20px"}}>
                         {" "}
-                        <FaEdit  style={{ color: "#6366F1" }}/>
+                        <FaEdit  style={{ color: "#6366F1" }}  onClick={handleEdit}/>
                       </Typography>
                     </TableCell>
                   </TableRow>

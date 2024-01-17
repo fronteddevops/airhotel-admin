@@ -135,9 +135,9 @@ export const Vendorcard = (props) => {
                         inputProps={{ "aria-label": "toggle button" }}
                       />
                     </TableCell>
-                    <TableCell  sx={{marginLeft:"10px",fontSize:"20px",textAlign:"center"}} onClick={handleEdit}>
+                    <TableCell  sx={{marginLeft:"10px",fontSize:"20px",textAlign:"center"}} >
              
-                    <FaEdit  style={{ color: "#6366F1" }}/>
+                    <FaEdit  style={{ color: "#6366F1" }} onClick={handleEdit}/>
            </TableCell>
                   </TableRow>
                 );

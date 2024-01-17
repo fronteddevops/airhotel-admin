@@ -15,6 +15,8 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import DiscountIcon from '@mui/icons-material/Discount';
+import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
+import RoomIcon from '@mui/icons-material/Room';
 export const items = [
   
   {
@@ -65,6 +67,15 @@ export const items = [
     )
   },
   {
+    title: 'Vendor Buy Subscription',
+    path: '/vendorbuysubscription',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UnsubscribeIcon />
+      </SvgIcon>
+    )
+  },
+  {
     title: 'Support',
     path: '/support',
     icon: (
@@ -100,15 +111,26 @@ export const items = [
       </SvgIcon>
     )
   },
-  // {
-  //   title: 'Coupon',
-  //   path: '/coupon',
-  //   icon: (
-  //     <SvgIcon fontSize="small">
-  //       <DiscountIcon />
-  //     </SvgIcon>
-  //   )
-  // },
+  {
+    title: 'Rooms',
+    path: '/rooms',
+    icon: (
+      <SvgIcon fontSize="small">
+        <RoomIcon />
+      </SvgIcon>
+    )
+  },
+
+
+  {
+    title: 'Coupon',
+    path: '/coupon',
+    icon: (
+      <SvgIcon fontSize="small">
+        <DiscountIcon />
+      </SvgIcon>
+    )
+  },
   {
     title: 'Logout',
     path: '/auth/login',
