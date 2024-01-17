@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-props-per-line */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Container, Stack, SvgIcon, Typography } from "@mui/material";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { CouponTable } from "src/sections/coupon/table";
@@ -8,46 +8,58 @@ import { CouponSearch } from "src/sections/coupon/search";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import services from "src/services";
+
+const data = [
+  {
+    id: 1,
+    couponCode: "SAVE10",
+    discount: 10,
+    description: "10% off on your purchase",
+    createdAt: "04 Jan 2024",
+  },
+  {
+    id: 2,
+    couponCode: "FREESHIP",
+    discount: 0,
+    description: "Free shipping on all orders",
+    createdAt: "04 Jan 2024",
+  },
+  {
+    id: 3,
+    couponCode: "HOLIDAY20",
+    discount: 20,
+    description: "Special holiday discount",
+    createdAt: "04 Jan 2024",
+  },
+  {
+    id: 4,
+    couponCode: "LOYALTY25",
+    discount: 25,
+    description: "Loyalty program discount",
+    createdAt: "04 Jan 2024",
+  },
+  {
+    id: 5,
+    couponCode: "FLASHSALE",
+    discount: 15,
+    description: "Flash sale - limited time offer",
+    createdAt: "04 Jan 2024",
+  },
+]
 
 const Page = () => {
   const router = useRouter();
-  const [data, setData] = useState([
-    {
-      id: 1,
-      couponCode: "SAVE10",
-      discount: 10,
-      description: "10% off on your purchase",
-      createdAt: "04 Jan 2024",
-    },
-    {
-      id: 2,
-      couponCode: "FREESHIP",
-      discount: 0,
-      description: "Free shipping on all orders",
-      createdAt: "04 Jan 2024",
-    },
-    {
-      id: 3,
-      couponCode: "HOLIDAY20",
-      discount: 20,
-      description: "Special holiday discount",
-      createdAt: "04 Jan 2024",
-    },
-    {
-      id: 4,
-      couponCode: "LOYALTY25",
-      discount: 25,
-      description: "Loyalty program discount",
-      createdAt: "04 Jan 2024",
-    },
-    {
-      id: 5,
-      couponCode: "FLASHSALE",
-      discount: 15,
-      description: "Flash sale - limited time offer",
-      createdAt: "04 Jan 2024",
-    },
-  ]);
+  const [details, setDetails] = useState(data);
+
+  const getDetails = async () => {
+    const response = await services.coupon.GET_COUPON()
+    setDetails(response?.data);
+  };
+
+  useEffect(() => {
+    getDetails();
+  }, []);
   const handleAddClick = () => {
     router.push("/couponadd");
   };
@@ -85,7 +97,7 @@ const Page = () => {
               </div>
             </Stack>
             <CouponSearch />
-            <CouponTable count={data?.length} items={data} setData={setData} />
+            <CouponTable count={data?.length} items={data} setDetails={setDetails} />
             <Box
               sx={{
                 display: "flex",

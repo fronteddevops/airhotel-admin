@@ -60,7 +60,7 @@ const Page = () => {
   const [data,setData]=useState(category)
 
   const getDetails = async () => {
-    const response = await services.Category.GET_CATEGORY();
+    const response = await services.category.GET_CATEGORY();
     setData(response?.data);
     
   };

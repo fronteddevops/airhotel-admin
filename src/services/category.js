@@ -11,7 +11,7 @@ export default {
       try {
   
         const response = await Axios.get(
-         api.Category.GET_CATEGORY()
+         api.category.GET_CATEGORY()
         );
         resolve(response);
       } catch (err) {

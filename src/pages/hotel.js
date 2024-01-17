@@ -96,7 +96,7 @@ const Page = () => {
     ];
 
     const getDetails = async () => {
-      const response = await services.Hotel.GET_HOTEL();
+      const response = await services.hotel.GET_HOTEL();
       setHotelDetails(response?.data);
       
     };

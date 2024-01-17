@@ -69,7 +69,7 @@ const Page = () => {
   const customersSelection = useSelection(customersIds);
 
   const getDetails = async () => {
-    const response = await services.UserList.GET_USERS();
+    const response = await services.userList.GET_USERS();
     setData(response?.data);
   };
 

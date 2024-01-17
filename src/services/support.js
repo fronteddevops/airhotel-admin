@@ -11,7 +11,7 @@ export default {
       try {
   
         const response = await Axios.get(
-         api.Support.GET_SUPPORT()
+         api.support.GET_SUPPORT()
         );
         resolve(response);
       } catch (err) {

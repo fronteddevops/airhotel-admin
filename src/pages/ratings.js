@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-props-per-line */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Container, Stack, SvgIcon, Typography } from "@mui/material";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
@@ -12,55 +12,62 @@ import { BookingSearch } from "src/sections/booking/booking-search";
 import { BookingTable } from "src/sections/booking/booking-table";
 import RatingsTable from "src/sections/ratings/ratings-table";
 import { RatingsSearch } from "src/sections/ratings/rating-search";
-
+import services from "src/services";
+const data = [
+  {
+      id: 1,
+      name: "John Doe",
+      bookingId: 2,
+      review: "Great experience!",
+      ratings: "2",
+      status: "Confirmed",
+  },
+  {
+      id: 2,
+      name: "Jane Smith",
+      bookingId: 3,
+      review: "Wonderful service!",
+      ratings: "4 stars",
+      status: "Confirmed",
+  },
+  {
+      id: 3,
+      name: "Bob Johnson",
+      bookingId: 4,
+      review: "Needs improvement.",
+      ratings: "2 stars",
+      status: "Pending",
+  },
+  {
+      id: 4,
+      name: "Alice Williams",
+      bookingId: 5,
+      review: "No complaints!",
+      ratings: "5 stars",
+      status: "Confirmed",
+  },
+  {
+      id: 5,
+      name: "Charlie Brown",
+      bookingId: 6,
+      review: "Average experience.",
+      ratings: "3 stars",
+      status: "Pending",
+  },
+];
 const Page = () => {
   const router = useRouter();
-  const data = [
-    {
-        id: 1,
-        name: "John Doe",
-        bookingId: 2,
-        review: "Great experience!",
-        ratings: "2",
-        status: "Confirmed",
-    },
-    {
-        id: 2,
-        name: "Jane Smith",
-        bookingId: 3,
-        review: "Wonderful service!",
-        ratings: "4 stars",
-        status: "Confirmed",
-    },
-    {
-        id: 3,
-        name: "Bob Johnson",
-        bookingId: 4,
-        review: "Needs improvement.",
-        ratings: "2 stars",
-        status: "Pending",
-    },
-    {
-        id: 4,
-        name: "Alice Williams",
-        bookingId: 5,
-        review: "No complaints!",
-        ratings: "5 stars",
-        status: "Confirmed",
-    },
-    {
-        id: 5,
-        name: "Charlie Brown",
-        bookingId: 6,
-        review: "Average experience.",
-        ratings: "3 stars",
-        status: "Pending",
-    },
-  ];
+  const [details,setDetails]=useState(data)
 
-  const handleAddClick = () => {
-    router.push("/hoteladd");
+  const getDetails = async () => {
+    const response = await services.ratings.GET_RATINGS()
+    setDetails(response?.data);
+    
   };
+
+  useEffect(() => {
+    getDetails();
+  }, []);
 
   return (
     <>

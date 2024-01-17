@@ -103,7 +103,7 @@ const Page = () => {
   const [details, setDetails] = useState(data);
 
   const getDetails = async () => {
-    const response = await services.Subscription.GET_SUBSCRIPTION();
+    const response = await services.rooms.GET_ROOMS()
     setDetails(response?.data);
   };
 

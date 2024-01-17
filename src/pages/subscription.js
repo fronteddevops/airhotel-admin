@@ -89,7 +89,7 @@ const Page = () => {
 
 
   const getDetails = async () => {
-    const response = await services.Subscription.GET_SUBSCRIPTION()
+    const response = await services.subscription.GET_SUBSCRIPTION()
     setDetails(response?.data);
     
   };

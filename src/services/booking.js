@@ -11,7 +11,7 @@ export default {
       try {
   
         const response = await Axios.get(
-         api.Booking.GET_BOOKING()
+         api.booking.GET_BOOKING()
         );
         resolve(response);
       } catch (err) {

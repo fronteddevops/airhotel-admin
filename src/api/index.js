@@ -1,19 +1,29 @@
 /* eslint-disable import/no-anonymous-default-export */
 
-import UserList from "./userList";
-import Category from "./category";
-import Vender from "./vendor";
-import Hotel from "./hotel";
-import Subscription from "./subscription"; 
-import Support from "./support";
-import Booking from "./booking"
+import userList from "./userList";
+import category from "./category";
+import vendor from "./vendor";
+import hotel from "./hotel";
+import subscription from "./subscription"; 
+import support from "./support";
+import booking from "./booking";
+import ratings from "./ratings";
+import payment from "./payment";
+import vedorBuySubscription from "./vendorBuySubscription";
+import rooms from "./rooms";
+import coupon from "./coupon"
 
 export default {
-    UserList,
-    Category,
-    Vender,
-    Hotel,
-    Subscription,
-    Support,
-    Booking
+    userList,
+    category,
+    vendor,
+    hotel,
+    subscription,
+    support,
+    booking,
+    ratings,
+    payment,
+    vedorBuySubscription,
+    rooms,
+    coupon
 };

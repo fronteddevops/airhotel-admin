@@ -56,7 +56,7 @@ const Page = () => {
 
   return (
   <Box sx={{width: '100%', typography: 'body1' ,p:5}}>
-       <Card sx={{ mt: 5 ,pt:2,pb:2}}>
+        <Card sx={{ mt: 5,pt:2,pb:2}}>
     <CardHeader
       
       title="Edit Category"
@@ -75,7 +75,7 @@ const Page = () => {
                   />
                 </Grid>
     <Grid xs={12} lg={6} md={6}>
-                  <div>
+                  <div style={{ position: 'relative' }}>
                     <FormControl fullWidth>
                       {/* <InputLabel htmlFor="categoryImageInput">Category Image</InputLabel> */}
                       <TextField
@@ -84,9 +84,8 @@ const Page = () => {
                         id="categoryImageInput"
                         onChange={handleImageUploadCategory}
                       />
-                      <div>
-                        <br>
-                        </br>
+                      <div style={{ position: 'absolute', bottom: '3.6rem' }}>
+                       
                         {categoryImage && (
                           <Avatar
                             src={URL.createObjectURL(categoryImage)}

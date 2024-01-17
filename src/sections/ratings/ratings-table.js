@@ -80,7 +80,7 @@ export const RatingsTable = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((rate, i) => {
+              {items && items.map((rate, i) => {
                let textColor
                 if (rate.status === 'Confirmed') {
                   textColor = 'green';

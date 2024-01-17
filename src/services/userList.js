@@ -11,7 +11,7 @@ export default {
       try {
   
         const response = await Axios.get(
-         api.UserList.GET_USERS()
+         api.userList.GET_USERS()
         );
         resolve(response);
       } catch (err) {

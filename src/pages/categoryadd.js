@@ -75,7 +75,7 @@ const Page = () => {
                   />
                 </Grid>
     <Grid xs={12} lg={6} md={6}>
-                  <div>
+                  <div style={{ position: 'relative' }}>
                     <FormControl fullWidth>
                       {/* <InputLabel htmlFor="categoryImageInput">Category Image</InputLabel> */}
                       <TextField
@@ -84,9 +84,8 @@ const Page = () => {
                         id="categoryImageInput"
                         onChange={handleImageUploadCategory}
                       />
-                      <div>
-                        <br>
-                        </br>
+                      <div style={{ position: 'absolute', bottom: '3.6rem' }}>
+                       
                         {categoryImage && (
                           <Avatar
                             src={URL.createObjectURL(categoryImage)}

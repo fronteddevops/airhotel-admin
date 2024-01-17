@@ -54,7 +54,7 @@ const Page = () => {
   const [details,setDetails]=useState()
 
   const getDetails = async () => {
-    const response = await services.Support.GET_SUPPORT()
+    const response = await services.support.GET_SUPPORT()
     setDetails(response?.data);
     
   };

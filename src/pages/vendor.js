@@ -55,7 +55,7 @@ const Page = () => {
   const [data, setData] = useState(vendors);
 
   const getDetails = async () => {
-    const response = await services.Vender.GET_VENDER();
+    const response = await services.vendor.GET_VENDOR();
     setData(response?.data);
     
   };

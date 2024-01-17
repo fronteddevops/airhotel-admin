@@ -120,7 +120,7 @@ const Page = () => {
 const [details,setDetails]=useState(data)
 
   const getDetails = async () => {
-    const response = await services.Booking.GET_BOOKING()
+    const response = await services.booking.GET_BOOKING()
     setDetails(response?.data);
     
   };

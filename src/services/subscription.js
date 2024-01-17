@@ -11,7 +11,7 @@ export default {
       try {
   
         const response = await Axios.get(
-         api.Subscription.GET_SUBSCRIPTION()
+         api.subscription.GET_SUBSCRIPTION()
         );
         resolve(response);
       } catch (err) {

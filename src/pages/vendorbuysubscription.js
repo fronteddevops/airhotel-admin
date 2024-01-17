@@ -86,7 +86,7 @@ const Page = () => {
   const [details, setDetails] = useState(data);
 
   const getDetails = async () => {
-    const response = await services.Subscription.GET_SUBSCRIPTION();
+    const response = await services.vendorBuySubscription.GET_VENDORBUYSUBSCRIPTION();
     setDetails(response?.data);
   };
 
