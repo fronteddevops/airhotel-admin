@@ -1,9 +1,9 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import PropTypes from "prop-types";
 import NextLink from "next/link";
 import { Box, Typography, Unstable_Grid2 as Grid } from "@mui/material";
 import { Logo } from "src/components/logo";
 
-// TODO: Change subtitle text
 
 export const Layout = (props) => {
   const { children } = props;
@@ -19,7 +19,7 @@ export const Layout = (props) => {
       <Grid container sx={{ flex: "1 1 auto" }}>
         <Grid
           xs={12}
-          lg={6}
+          lg={12}
           sx={{
             backgroundColor: "background.paper",
             display: "flex",
@@ -52,20 +52,20 @@ export const Layout = (props) => {
           {children}
         </Grid>
         <Grid
-          xs={12}
-          lg={6}
-          sx={{
-            alignItems: "center",
-            background: "radial-gradient(50% 50% at 50% 50%, #122647 0%, #090E23 100%)",
-            color: "white",
-            display: "flex",
-            justifyContent: "center",
-            "& img": {
-              maxWidth: "100%",
-            },
-          }}
+          // xs={12}
+          // lg={6}
+          // sx={{
+          //   alignItems: "center",
+          //   background: "radial-gradient(50% 50% at 50% 50%, #122647 0%, #090E23 100%)",
+          //   color: "white",
+          //   display: "flex",
+          //   justifyContent: "center",
+          //   "& img": {
+          //     maxWidth: "100%",
+          //   },
+          // }}
         >
-          <img height="100%" width="100%" alt="" src="/assets/loginpage.jpg" />
+          {/* <img height="100%" width="100%" alt="" src="/assets/bag.jpeg" /> */}
           {/* <Box sx={{ p: 3 }}>
             <Typography
               align="center"
