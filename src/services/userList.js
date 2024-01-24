@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import Axios from "axios";
-import Constant from "../Constant";
+
 
 import api from "src/api";
 

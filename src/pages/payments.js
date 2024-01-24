@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-max-props-per-line */
 import React, { useState } from "react";
-import { Box, Button, Container, Stack, SvgIcon, Typography } from "@mui/material";
+import { Box, Button, Container, Pagination, Stack, SvgIcon, Typography } from "@mui/material";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
 import { HotelCard, Hotelcard } from "src/sections/hotel/hotel-table";
@@ -121,7 +121,12 @@ const Page = () => {
                 display: "flex",
                 justifyContent: "center",
               }}
-            ></Box>
+            >
+                <Pagination
+              count={3}
+              size="small"
+            />
+            </Box>
           </Stack>
         </Container>
       </Box>

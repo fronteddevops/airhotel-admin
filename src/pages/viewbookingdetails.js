@@ -29,7 +29,7 @@ const Page = (props) => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
+  };  
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' ,p:5}}>

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-max-props-per-line */
 import React, { useEffect, useState } from "react";
-import { Box, Button, Container, Stack, SvgIcon, Typography } from "@mui/material";
+import { Box, Button, Container, Pagination, Stack, SvgIcon, Typography } from "@mui/material";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
 import { HotelCard, Hotelcard } from "src/sections/hotel/hotel-table";
@@ -19,10 +19,10 @@ const data = [
     checkInDate: "2024-01-15",
     checkOutDate: "2024-01-20",
     adult: 2,
-    bookingId:2,
-    roomId:4,
-    paymentType:"cash",
-    amount:8900,
+    bookingId: 2,
+    roomId: 4,
+    paymentType: "cash",
+    amount: 8900,
     children: 1,
     price: 100,
     totalPrice: 500,
@@ -41,10 +41,10 @@ const data = [
     adult: 1,
     children: 0,
     price: 120,
-    bookingId:2,
-    roomId:4,
-    paymentType:"cash",
-    amount:8900,
+    bookingId: 2,
+    roomId: 4,
+    paymentType: "cash",
+    amount: 8900,
     totalPrice: 1200,
     totalRoom: 1,
     roomQuantity: 1,
@@ -60,10 +60,10 @@ const data = [
     checkOutDate: "2024-03-20",
     adult: 2,
     children: 3,
-    bookingId:2,
-    roomId:4,
-    paymentType:"cash",
-    amount:8900,
+    bookingId: 2,
+    roomId: 4,
+    paymentType: "cash",
+    amount: 8900,
     price: 150,
     totalPrice: 1200,
     totalRoom: 2,
@@ -81,10 +81,10 @@ const data = [
     adult: 1,
     children: 0,
     price: 80,
-    bookingId:2,
-    roomId:4,
-    paymentType:"cash",
-    amount:8900,
+    bookingId: 2,
+    roomId: 4,
+    paymentType: "cash",
+    amount: 8900,
     totalPrice: 160,
     totalRoom: 1,
     roomQuantity: 1,
@@ -102,10 +102,10 @@ const data = [
     children: 0,
     price: 100,
     totalPrice: 1500,
-    bookingId:2,
-    roomId:4,
-    paymentType:"cash",
-    amount:8900,
+    bookingId: 2,
+    roomId: 4,
+    paymentType: "cash",
+    amount: 8900,
     totalRoom: 1,
     roomQuantity: 1,
     userId: "112233",
@@ -117,12 +117,11 @@ const data = [
 
 const Page = () => {
   const router = useRouter();
-const [details,setDetails]=useState(data)
+  const [details, setDetails] = useState(data);
 
   const getDetails = async () => {
-    const response = await services.booking.GET_BOOKING()
+    const response = await services.booking.GET_BOOKING();
     setDetails(response?.data);
-    
   };
 
   useEffect(() => {
@@ -147,20 +146,17 @@ const [details,setDetails]=useState(data)
               <Stack spacing={1}>
                 <Typography variant="h4">Booking List</Typography>
               </Stack>
-              
             </Stack>
             <BookingSearch />
-            <BookingTable
-              count={data.length}
-              items={data}
-        
-            />
+            <BookingTable count={data.length} items={data} />
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
               }}
-            ></Box>
+            >
+              <Pagination count={3} size="small" />
+            </Box>
           </Stack>
         </Container>
       </Box>

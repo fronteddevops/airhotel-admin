@@ -128,7 +128,6 @@ const Page = (props) => {
               <Grid xs={12} md={6}>
                 <TextField fullWidth label="Amenities" name="amenities" required />
               </Grid>
-
               <Grid xs={12} md={6}>
                 <TextField fullWidth label="Per night Price *" name="perNightPrice" type="number" />
               </Grid>

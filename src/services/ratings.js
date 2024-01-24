@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import Axios from "axios";
-import Constant from "../Constant";
 
+import constant from "../constant";
 import api from "src/api";
 
 
@@ -11,12 +11,22 @@ export default {
       try {
   
         const response = await Axios.get(
-         api.ratings.GET_RATINGS()
+          constant.BASE_URL + api.ratings.GET_RATINGS()
         );
         resolve(response);
       } catch (err) {
         reject(err);
       }
     });
-  }
+  },
+  UPDATE_RATINGS: (query,data) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await Axios.put(constant.BASE_URL + api.ratings.UPDATE_RATINGS(query), data);
+        resolve(response);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  },
 }

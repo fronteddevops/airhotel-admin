@@ -79,21 +79,21 @@ export const HotelCard = (props) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell sx={{ whiteSpace: "nowrap",textAlign:"center" }}>ID</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap",textAlign:"center" }}>S.No</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap" ,textAlign:"center" }}>Hotel Name</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap",textAlign:"center"  }}>Images</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center" }}>Address</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>City</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center" }}>State/Province</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap",  textAlign:"center" }}>Country</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap",  textAlign:"center" }}>Zip Code</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>Phone Number</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>Email</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center" }}>Website</TableCell>
+                {/* <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center" }}>State/Province</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap",  textAlign:"center" }}>Country</TableCell> */}
+                <TableCell sx={{ whiteSpace: "nowrap",  textAlign:"center" }}>Reviews</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>Room Id</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>Room Type</TableCell>
+                
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>Amenities</TableCell>
                
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>
-                  Per night Price
+                  Price
                 </TableCell>
                
                
@@ -109,22 +109,22 @@ export const HotelCard = (props) => {
                   <TableRow hover key={hotel.id} selected={isSelected}>
                     <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>
 
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.hotelName}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{hotel.name}</TableCell>
                     <TableCell  style={{textAlign:"center",marginLeft:"30px"}} >
                      
-                     <img  src={hotel.images} style={{height:"60px"}}></img>
+                     <img  src={hotel.image} style={{height:"60px"}}></img>
                   
                  </TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.address}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{hotel.location}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{hotel.city}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.stateProvince}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.country}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.zipCode}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.phoneNumber}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.email}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.website}</TableCell>
+                    {/* <TableCell sx={{ textAlign: "center" }}>{hotel.stateProvince}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{hotel.country}</TableCell> */}
+                    <TableCell sx={{ textAlign: "center" }}>{hotel.reviews}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{hotel.roomId}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{hotel.roomType}</TableCell>
+                  
                     <TableCell sx={{ textAlign: "center" }}>{hotel.amenities}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.perNightPrice}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{hotel.price}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>
                       <Switch
                         // checked={category?.status}

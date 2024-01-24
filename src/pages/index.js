@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Head from "next/head";
 
-import { Box, Button, Container, Stack, SvgIcon, Typography } from "@mui/material";
+import { Box, Button, Container, Pagination, Stack, SvgIcon, Typography } from "@mui/material";
 import { useSelection } from "src/hooks/use-selection";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { CustomersTable } from "src/sections/customer/customers-table";
@@ -68,6 +68,14 @@ const Page = () => {
   const customersIds = useCustomerIds(customers);
   const customersSelection = useSelection(customersIds);
 
+  const handlePageChange = useCallback((event, value) => {
+    setPage(value);
+  }, []);
+
+  const handleRowsPerPageChange = useCallback((event) => {
+    setRowsPerPage(event.target.value);
+  }, []);
+
   const getDetails = async () => {
     const response = await services.userList.GET_USERS();
     setData(response?.data);
@@ -87,6 +95,7 @@ const Page = () => {
         sx={{
           flexGrow: 1,
           py: 8,
+          width: "100%",
         }}
       >
         <Container maxWidth="xl">
@@ -102,12 +111,12 @@ const Page = () => {
               items={data}
               onDeselectAll={data?.handleDeselectAll}
               onDeselectOne={data?.handleDeselectOne}
-              // onPageChange={handlePageChange}
-              // onRowsPerPageChange={handleRowsPerPageChange}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleRowsPerPageChange}
               onSelectAll={data?.handleSelectAll}
               onSelectOne={data?.handleSelectOne}
-              // page={page}
-              // rowsPerPage={rowsPerPage}
+              page={page}
+              rowsPerPage={rowsPerPage}
               selected={data?.selected}
             />
             <Box
@@ -115,7 +124,9 @@ const Page = () => {
                 display: "flex",
                 justifyContent: "center",
               }}
-            ></Box>
+            >
+              <Pagination count={3} size="small" />
+            </Box>
           </Stack>
         </Container>
       </Box>

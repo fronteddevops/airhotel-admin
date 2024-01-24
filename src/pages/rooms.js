@@ -3,7 +3,7 @@ import Head from "next/head";
 import { subDays, subHours } from "date-fns";
 
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
-import { Box, Button, Container, Stack, SvgIcon, Typography } from "@mui/material";
+import { Box, Button, Container, Pagination, Stack, SvgIcon, Typography } from "@mui/material";
 import { useSelection } from "src/hooks/use-selection";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
@@ -169,7 +169,19 @@ const Page = () => {
               selected={data.selected}
             />
           </Stack>
+          <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+                <Pagination
+              count={3}
+              size="small"
+            />
+            </Box>
         </Container>
+       
       </Box>
     </>
   );

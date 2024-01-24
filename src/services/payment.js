@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import Axios from "axios";
-import Constant from "../Constant";
 
+import constant from "../constant";
 import api from "src/api";
 
 
@@ -11,7 +11,7 @@ export default {
       try {
   
         const response = await Axios.get(
-         api.payment.GET_PAYMENT()
+          constant.BASE_URL +  api.payment.GET_PAYMENT()
         );
         resolve(response);
       } catch (err) {

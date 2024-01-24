@@ -20,48 +20,17 @@ import { useRouter } from "next/router";
 import { CategorySearch } from "../sections/category/category-search";
 import services from "src/services";
 
-const category = [
-  {
-    id: "2569ce0d517a7f06d3ea1f24",
-    createdAt: "27/03/2019",
 
-    logo: "/assets/logos/myhotel.avif",
-    title: "Mountain View Resorts",
-    downloads: "594",
-  },
-  {
-    id: "ed2b900870ceba72d203ec15",
-    createdAt: "31/03/2019",
-
-    logo: "/assets/logos/myhotel2.jpeg",
-    title: "Modern Comforts",
-    downloads: "625",
-  },
-  {
-    id: "a033e38768c82fca90df3db7",
-    createdAt: "03/04/2019",
-
-    logo: "/assets/logos/myhotel3.jpeg",
-    title: "Charming Villas",
-    downloads: "857",
-  },
-  {
-    id: "1efecb2bf6a51def9869ab0f",
-    createdAt: "04/04/2019",
-
-    logo: "/assets/logos/myhotel4.avif",
-    title: "Eco-Friendly Stays",
-    downloads: "406",
-  },
-];
 
 const Page = () => {
   const router = useRouter();
-  const [data,setData]=useState(category)
+  const [data,setData]=useState("")
 
   const getDetails = async () => {
     const response = await services.category.GET_CATEGORY();
+    console.log(response,"=================")
     setData(response?.data);
+    
     
   };
 
@@ -106,17 +75,17 @@ const Page = () => {
             </Stack>
             <CategorySearch />
             <CategoryCard
-              count={category.length}
-              items={category}
-              onDeselectAll={category.handleDeselectAll}
-              onDeselectOne={category.handleDeselectOne}
+              count={data.length}
+              items={data}
+              onDeselectAll={data.handleDeselectAll}
+              onDeselectOne={data.handleDeselectOne}
               // onPageChange={handlePageChange}
               // onRowsPerPageChange={handleRowsPerPageChange}
-              onSelectAll={category.handleSelectAll}
-              onSelectOne={category.handleSelectOne}
+              onSelectAll={data.handleSelectAll}
+              onSelectOne={data.handleSelectOne}
               // page={page}
               // rowsPerPage={rowsPerPage}
-              selected={category.selected}
+              selected={data.selected}
             />
             <Box
               sx={{
@@ -124,10 +93,10 @@ const Page = () => {
                 justifyContent: "center",
               }}
             >
-              {/* <Pagination
+              <Pagination
               count={3}
               size="small"
-            /> */}
+            />
             </Box>
           </Stack>
         </Container>

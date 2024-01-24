@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-max-props-per-line */
 import React, { useEffect, useState } from "react";
-import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
+import { Box, Button, Container, Pagination, Stack, SvgIcon, Typography } from '@mui/material';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import Vendorcard from 'src/sections/vendor/vendor-table';
 import { VendorSearch } from "src/sections/vendor/vender-search";
@@ -122,10 +122,14 @@ const Page = () => {
               justifyContent: 'center'
             }}
           >
-       
+       <Pagination
+              count={3}
+              size="small"
+            />
           </Box>
         </Stack>
       </Container>
+      
     </Box>
   </>
   );

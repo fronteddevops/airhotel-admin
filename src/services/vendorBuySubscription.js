@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import Axios from "axios";
-import Constant from "../Constant";
+
 
 import api from "src/api";
 
@@ -11,7 +11,7 @@ export default {
       try {
   
         const response = await Axios.get(
-         api.vendorBuySubscription.GET_VENDORBUYSUBSCRIPTION()
+         api.vedorBuySubscription.GET_VENDORBUYSUBSCRIPTION()
         );
         resolve(response);
       } catch (err) {

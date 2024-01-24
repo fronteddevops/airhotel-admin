@@ -20,6 +20,9 @@ import {
 export const BookingDetails = () => {
 
 
+  
+
+
   return (
     <Card>
          <CardHeader
