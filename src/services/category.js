@@ -54,5 +54,15 @@ export default {
         reject(err);
       }
     });
-  }
+  },
+  UPLOAD_IMAGE: (data) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await Axios.post(constant.BASE_URL + api.category.UPLOAD_IMAGE(), data);
+        resolve(response);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  },
 };

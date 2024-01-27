@@ -29,6 +29,7 @@ import { Scrollbar } from "src/components/scrollbar";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import moment from "moment";
 
 export const CustomersTable = (props) => {
   const router = useRouter();
@@ -90,49 +91,56 @@ export const CustomersTable = (props) => {
             </TableHead>
             <TableBody>
               {Array.isArray(items) && items.length > 0 ? (
-                items.map((customer) => (
-                  <TableRow hover key={customer.id}>
+                items.map((user) => (
+                  <TableRow hover key={user.id}>
                     <TableCell>
                       <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        {customer.id}
+                        {user.id}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        {customer.name}
+                        {user.firstName} {user.lastName}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        {customer.email}
+                        {user.email}
                       </Typography>
                     </TableCell>
 
                     <TableCell>
                       <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        {customer.phone}
+                        {user.contact}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        4/5/2024
+                        {moment(user.Dob).format("MMMM D, YYYY")}
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="subtitle2" sx={{ textAlign: "center", color: "green" }}>
-                        Active
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          textAlign: "center",
+                          color: user.isVerify === false ? "red" : "green",
+                        }}
+                      >
+                        {user.isVerify === false ? "InActive" : "Active"}
                       </Typography>
                     </TableCell>
+
                     <TableCell sx={{ textAlign: "center" }}>
                       <Switch
-                        checked={customer?.status}
+                        checked={user?.status}
                         onChange={handleSwitchChange}
                         color="primary"
                         inputProps={{ "aria-label": "toggle button" }}
                       />
                     </TableCell>
                     <TableCell sx={{ textAlign: "center" }} onClick={handleDetails}>
-                      <RemoveRedEyeIcon style={{ color: "#6366F1" }}  />
+                      <RemoveRedEyeIcon style={{ color: "#6366F1" }} />
                     </TableCell>
                   </TableRow>
                 ))

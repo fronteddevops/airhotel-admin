@@ -3,6 +3,7 @@ import Axios from "axios";
 
 
 import api from "src/api";
+import constant from "src/constant";
 
 
 export default {
@@ -11,7 +12,7 @@ export default {
       try {
   
         const response = await Axios.get(
-         api.userList.GET_USERS()
+          constant.BASE_URL +  api.userList.GET_USERS()
         );
         resolve(response);
       } catch (err) {

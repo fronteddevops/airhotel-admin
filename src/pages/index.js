@@ -50,7 +50,7 @@ const user = [
 ];
 
 const Page = () => {
-  const [data, setData] = useState(user);
+  const [data, setData] = useState();
   const useCustomers = (page, rowsPerPage) => {
     return useMemo(() => {
       return applyPagination(data, page, rowsPerPage);
@@ -78,12 +78,15 @@ const Page = () => {
 
   const getDetails = async () => {
     const response = await services.userList.GET_USERS();
-    setData(response?.data);
+    setData(response?.data.data);
+    
+    
   };
 
   useEffect(() => {
     getDetails();
   }, []);
+
 
   return (
     <>

@@ -31,7 +31,7 @@ import { useRouter } from "next/router";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { FaEdit } from "react-icons/fa";
 import services from "src/services";
-
+import constant from "src/constant";
 
 export const CategoryCard = (props) => {
   const router = useRouter();
@@ -39,6 +39,7 @@ export const CategoryCard = (props) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const [toggle, setToggle] = useState();
+
   const {
     count = 0,
     items = [],
@@ -54,10 +55,8 @@ export const CategoryCard = (props) => {
   } = props;
 
   const handleEdit = (id) => {
-
-    console.log("calal")
     router.push({
-      pathname: '/categoryedit',
+      pathname: "/categoryedit",
       query: { id },
     });
   };
@@ -67,14 +66,13 @@ export const CategoryCard = (props) => {
     setConfirmationDialogOpen(true);
   };
 
-  const handleConfirmDelete = async() => {
-    try{
-      const data={
-        status:false
-      }
-      const response = await services.category.DELETE_CATEGORY(selectedCategoryId,data)
-      if(response)
-      {
+  const handleConfirmDelete = async () => {
+    try {
+      const data = {
+        status: false,
+      };
+      const response = await services.category.DELETE_CATEGORY(selectedCategoryId, data);
+      if (response) {
         setToaster({
           type: "success",
           title: "Successful",
@@ -82,13 +80,10 @@ export const CategoryCard = (props) => {
           visiblity: "show",
         });
         setTimeout(() => {
-      
-          window.location.reload()
-      
-      }, 1500);
+          window.location.reload();
+        }, 1500);
       }
     } catch (error) {
-     
       setToaster({
         type: "danger",
         title: "Error Occured",
@@ -96,9 +91,7 @@ export const CategoryCard = (props) => {
         visiblity: "show",
       });
       setTimeout(() => {
-      
-          window.location.reload()
-      
+        window.location.reload();
       }, 1500);
     }
     setConfirmationDialogOpen(false);
@@ -109,15 +102,13 @@ export const CategoryCard = (props) => {
   };
 
   const handleChange = async (id, status) => {
-   
     try {
       const data = {
         isActive: status,
       };
 
       const response = await services.category.UPDATE_CATEGORY(id, data);
-      if(response){
-        
+      if (response) {
         setToaster({
           type: "success",
           title: "Successful",
@@ -125,12 +116,10 @@ export const CategoryCard = (props) => {
           visiblity: "show",
         });
         setTimeout(() => {
-          window.location.reload()
+          window.location.reload();
         }, 1000);
-        
       }
     } catch (error) {
-     
       setToaster({
         type: "danger",
         title: "Error Occured",
@@ -147,87 +136,99 @@ export const CategoryCard = (props) => {
 
   return (
     <div>
-    <Toaster
-    type={toaster.type}
-    title={toaster.title}
-    text={toaster.text}
-    visiblity={toaster.visiblity}
-  />
-    <Card>
-      
-      <Scrollbar>
-        <Box sx={{ minWidth: 800 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell style={{ textAlign: "center" }}>S.No.</TableCell>
-                <TableCell style={{ textAlign: "center" }}>Image</TableCell>
-                <TableCell style={{ textAlign: "center" }}>Category</TableCell>
-                <TableCell style={{ textAlign: "center" }}>Status</TableCell>
-                <TableCell style={{ textAlign: "center" }}>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {items &&
-                Array.isArray(items) &&
-                items.map((category, i) => {
-                  const isSelected = selected.includes(category.id);
-
-                  return (
-                    // eslint-disable-next-line react/jsx-max-props-per-line
-                    <TableRow hover key={category?.id} selected={isSelected}>
-                      <TableCell style={{ textAlign: "center" }}>{i + 1}</TableCell>
-                      <TableCell style={{ textAlign: "center", marginLeft: "30px" }}>
-                        <img src={category?.image} style={{ height: "60px" }}></img>
-                      </TableCell>
-                      <TableCell style={{ textAlign: "center" }}>{category?.name}</TableCell>
-                      <TableCell style={{ textAlign: "center" }}>
-                        <Switch
-                          checked={category?.isActive}
-                          onChange={() => handleChange(category?.id, category?.isActive===true ? false :true)}
-                          color="primary"
-                          inputProps={{ "aria-label": "toggle button" }}
-                        />
-                      </TableCell>
-                      <TableCell style={{ textAlign: "center" }}>
-                        <Typography style={{ color: "#6366F1" }}>
-                          {" "}
-                          <FaEdit style={{ fontSize: "20px" }} onClick={()=>handleEdit(category?.id)} />{" "}
-                          <DeleteIcon onClick={() => handleDeleteClick(category?.id)} />
-                        </Typography>
-                      </TableCell>
-
-                      {/* <DeleteIcon sx={{ fontSize: "20px",marginTop:"10px" }}/> */}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </Box>
-      </Scrollbar>
-      <TablePagination
-        component="div"
-        count={count}
-        onPageChange={onPageChange}
-        onRowsPerPageChange={onRowsPerPageChange}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
+      <Toaster
+        type={toaster.type}
+        title={toaster.title}
+        text={toaster.text}
+        visiblity={toaster.visiblity}
       />
-      {/* ... Delete Confirmation ... */}
-      <Dialog open={isConfirmationDialogOpen} onClose={handleCloseConfirmationDialog}>
-        <DialogTitle>Confirmation</DialogTitle>
-        <DialogContent>
-          <Typography variant="body1">Are you sure you want to delete the category?</Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseConfirmationDialog}>Cancel</Button>
-          <Button onClick={handleConfirmDelete} color="primary">
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Card>
+      <Card>
+        <Scrollbar>
+          <Box sx={{ minWidth: 800 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell style={{ textAlign: "center" }}>S.No.</TableCell>
+                  <TableCell style={{ textAlign: "center" }}>Image</TableCell>
+                  <TableCell style={{ textAlign: "center" }}>Category</TableCell>
+                  <TableCell style={{ textAlign: "center" }}>Status</TableCell>
+                  <TableCell style={{ textAlign: "center" }}>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {items &&
+                  Array.isArray(items) &&
+                  items.map((category, i) => {
+                    const isSelected = selected.includes(category.id);
+
+                    return (
+                      // eslint-disable-next-line react/jsx-max-props-per-line
+                      <TableRow hover key={category?.id} selected={isSelected}>
+                        <TableCell style={{ textAlign: "center" }}>{i + 1}</TableCell>
+                        <TableCell style={{ textAlign: "center", marginLeft: "30px" }}>
+                          <img
+                            crossOrigin="anonymous"
+                            src={`${constant.BASE_URL_UPLOADS}${category?.image}`}
+                            alt="CategoryImage"
+                            width={40}
+                            height={40}
+                          />
+                          
+                          {/* <img src={category?.image} style={{ height: "60px" }}></img> */}
+                        </TableCell>
+                        <TableCell style={{ textAlign: "center" }}>{category?.name}</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>
+                          <Switch
+                            checked={category?.isActive}
+                            onChange={() =>
+                              handleChange(category?.id, category?.isActive === true ? false : true)
+                            }
+                            color="primary"
+                            inputProps={{ "aria-label": "toggle button" }}
+                          />
+                        </TableCell>
+                        <TableCell style={{ textAlign: "center" }}>
+                          <Typography style={{ color: "#6366F1" }}>
+                            {" "}
+                            <FaEdit
+                              style={{ fontSize: "20px" }}
+                              onClick={() => handleEdit(category?.id)}
+                            />{" "}
+                            <DeleteIcon onClick={() => handleDeleteClick(category?.id)} />
+                          </Typography>
+                        </TableCell>
+
+                        {/* <DeleteIcon sx={{ fontSize: "20px",marginTop:"10px" }}/> */}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </Box>
+        </Scrollbar>
+        <TablePagination
+          component="div"
+          count={count}
+          onPageChange={onPageChange}
+          onRowsPerPageChange={onRowsPerPageChange}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={[5, 10, 25]}
+        />
+        {/* ... Delete Confirmation ... */}
+        <Dialog open={isConfirmationDialogOpen} onClose={handleCloseConfirmationDialog}>
+          <DialogTitle>Confirmation</DialogTitle>
+          <DialogContent>
+            <Typography variant="body1">Are you sure you want to delete the category?</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseConfirmationDialog}>Cancel</Button>
+            <Button onClick={handleConfirmDelete} color="primary">
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Card>
     </div>
   );
 };

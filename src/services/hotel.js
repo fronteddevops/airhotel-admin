@@ -20,6 +20,19 @@ export default {
       }
     });
   },
+  GET_HOTEL_BY_ID: (query) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+  
+        const response = await Axios.get(
+         constant.BASE_URL + api.hotel.GET_HOTEL_BY_ID(query)
+        );
+        resolve(response);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  },
 
   ADD_HOTEL: (data) => {
     return new Promise(async (resolve, reject) => {

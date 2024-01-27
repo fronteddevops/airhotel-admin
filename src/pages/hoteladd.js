@@ -26,6 +26,8 @@ import services from "../services";
 
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { TimePicker, TimePickerToolbar } from "@mui/x-date-pickers";
+import Toaster from "src/components/toaster";
+import { useRouter } from "next/router";
 
 const initialCheckInTime = new Date();
 initialCheckInTime.setHours(8, 0, 0); // Set initial time to 8:00 AM
@@ -33,6 +35,7 @@ initialCheckInTime.setHours(8, 0, 0); // Set initial time to 8:00 AM
 const initialCheckOutTime = new Date();
 initialCheckOutTime.setHours(12, 0, 0);
 const Page = (props) => {
+  const router = useRouter()
   const [categoryList, setCategoryList] = React.useState("");
   const [isDisabled, setIsDisabled] = useState(true);
   const [categoryImageResponse, setCategoryNameImageResponse] = useState("");
@@ -49,18 +52,21 @@ const Page = (props) => {
   const [location, setLocation] = useState("");
   const [numberOfRoom, setNumberOfRoom] = useState("");
   const [startingPrice, setStartingPrice] = useState("");
-  const [checkInTime, setCheckInTime] = useState(new Date());
-  const [checkOutTime, setCheckOutTime] = useState(new Date());
+  const [checkInTime, setCheckInTime] = useState();
+  const [checkOutTime, setCheckOutTime] = useState();
+  const [toaster, setToaster] = useState({ visiblity: "hide" });
+  const [selectFacility, setSelectFacility] = useState([]);
 
-  const [selectFacility, setSelectFacility] = useState("");
   const [description, setDescription] = useState("");
 
   const handleChange = (event) => {
     setCategoryList(event.target.value);
   };
-
   const handleChangeFacility = (event) => {
-    setSelectFacility(event.target.value);
+    const {
+      target: { value },
+    } = event;
+    setSelectFacility(value);
   };
   //  handle category  image
   const handleImageUploadCategory = (e) => {
@@ -94,18 +100,43 @@ const Page = (props) => {
         description: description,
         selectFacility: selectFacility,
         name: hotelName,
-
-        categoryId: 6,
+        categoryId: categoryList,
       };
       const response = await services.hotel.ADD_HOTEL(data);
-      console.log(response);
-    } catch (error) {}
+      if (response) {
+        setIsDisabled(false);
+        setToaster({
+          type: "success",
+          title: "Successful",
+          text: "Add Category successfully",
+          visiblity: "show",
+        });
+        setTimeout(() => {
+          router.push("/category");
+        }, 500);
+      }
+    } catch (error) {
+      setIsDisabled(true);
+      setToaster({
+        type: "danger",
+        title: "Error Occured",
+        text: error.response.data.message,
+        visiblity: "show",
+      });
+      setTimeout(() => {
+        setToaster({
+          visiblity: "hide",
+        });
+      }, 1500);
+    }
+  
   };
 
   const getDetails = async () => {
     try {
       const response = await services.category.GET_CATEGORY();
       setData(response?.data);
+     
     } catch (error) {
       console.log(error);
     }
@@ -116,7 +147,14 @@ const Page = (props) => {
   }, []);
 
   return (
-    <Box sx={{ width: "100%", typography: "body1", p: 5 }}>
+  <div>
+    <Toaster
+        type={toaster.type}
+        title={toaster.title}
+        text={toaster.text}
+        visiblity={toaster.visiblity}
+      />
+      <Box sx={{ width: "100%", typography: "body1", p: 5 }}>
       <Card sx={{ mt: 5, pt: 2, pb: 2 }}>
         <Typography variant="h5" sx={{ ml: 2.5 }}>
           Add Hotel
@@ -134,9 +172,6 @@ const Page = (props) => {
                     value={categoryList}
                     onChange={handleChange}
                   >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
                     {data &&
                       data.map((category) => (
                         <MenuItem key={category.id} value={category.id}>
@@ -205,6 +240,7 @@ const Page = (props) => {
               <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
+                  type="number"
                   label="Pin Code"
                   name="pinCode"
                   value={pincode}
@@ -282,39 +318,25 @@ const Page = (props) => {
               </Grid>
 
               <Grid xs={12} md={6}>
-                <FormControl fullWidth variant="filled">
-                  <InputLabel id="demo-simple-select-filled-label">Select Facility *</InputLabel>
+               
 
-                  <Select
-                    labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
-                    value={selectFacility}
-                    onChange={handleChangeFacility}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
+                  <FormControl fullWidth variant="filled">
+                    <InputLabel id="demo-simple-select-filled-label">Select Facility *</InputLabel>
 
-                    <MenuItem
-                      // key={category.id}
-                      value="Wifi"
+                    <Select
+                      labelId="demo-simple-select-filled-label"
+                      id="demo-simple-select-filled"
+                      multiple
+                      value={selectFacility}
+                      onChange={handleChangeFacility}
+                      renderValue={(selected) => selected.join(", ")}
                     >
-                      Wifi
-                    </MenuItem>
-                    <MenuItem
-                      // key={category.id}
-                      value="swimmingPool"
-                    >
-                      Swimming Pool
-                    </MenuItem>
-                    <MenuItem
-                      // key={category.id}
-                      value="gym"
-                    >
-                      Gym
-                    </MenuItem>
-                  </Select>
-                </FormControl>
+                      <MenuItem value={["Wifi"]}>Wifi</MenuItem>
+                      <MenuItem value={["swimmingPool"]}>Swimming Pool</MenuItem>
+                      <MenuItem value={["gym"]}>Gym</MenuItem>
+                    </Select>
+                  </FormControl>
+             
               </Grid>
 
               {/* <Grid xs={12} md={6}>
@@ -361,6 +383,17 @@ const Page = (props) => {
                   )}
                 </div>
               </Grid> */}
+              <Grid xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  type="text"
+                  label="Description"
+                  name="Description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                />
+              </Grid>
             </Grid>
           </Box>
         </CardContent>
@@ -378,6 +411,7 @@ const Page = (props) => {
         </CardActions>
       </Card>
     </Box>
+  </div>
   );
 };
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;

@@ -5,5 +5,6 @@ export default {
     UPDATE_CATEGORY : (query) => `/category/${query}`,
     DELETE_CATEGORY:(query)=> `/category/${query}`,
     GET_BY_CATEGORY: (query) => `/category/${query}`,
+    UPLOAD_IMAGE:()=>`/auth/documentImage`
 
 };

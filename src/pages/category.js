@@ -28,7 +28,7 @@ const Page = () => {
 
   const getDetails = async () => {
     const response = await services.category.GET_CATEGORY();
-    console.log(response,"=================")
+   
     setData(response?.data);
     
     
