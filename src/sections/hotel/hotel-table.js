@@ -104,7 +104,7 @@ export const HotelCard = (props) => {
     } catch (error) {
      
       setToaster({
-        type: "danger",
+        type: "error",
         title: "Error Occured",
         text: "Error",
         visiblity: "show",
@@ -167,9 +167,9 @@ export const HotelCard = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((hotel, i) => {
+              {items && items.map((hotel, i) => {
                 const isSelected = selected.includes(hotel.id);
-                console.log(typeof hotel?.status);
+               
                 return (
                   <TableRow hover key={hotel.id} selected={isSelected}>
                     <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>

@@ -16,6 +16,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormLabel,
   Stack,
   Table,
   TableBody,
@@ -32,14 +33,10 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { FaEdit } from "react-icons/fa";
 import services from "src/services";
 import constant from "src/constant";
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleCategory } from '../../redux/actions';
 
 export const CategoryCard = (props) => {
-  const router = useRouter();
-  const [toaster, setToaster] = useState({ visiblity: "hide" });
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-  const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
-  const [toggle, setToggle] = useState();
-
   const {
     count = 0,
     items = [],
@@ -52,8 +49,17 @@ export const CategoryCard = (props) => {
     page = 0,
     rowsPerPage = 0,
     selected = [],
+    update = () => {},
+    confirmDelete = () => {}
   } = props;
-
+  const router = useRouter();
+  const [toaster, setToaster] = useState({ visiblity: "hide" });
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
+  const [toggle, setToggle] = useState();
+  const imageUrl = constant.BASE_URL_UPLOADS;
+  const dispatch = useDispatch();
+  const categories = useSelector(state => state.categories);
   const handleEdit = (id) => {
     router.push({
       pathname: "/categoryedit",
@@ -66,6 +72,15 @@ export const CategoryCard = (props) => {
     setConfirmationDialogOpen(true);
   };
 
+  const getDetails = async () => {
+    try {
+      const response = await services.category.GET_CATEGORY();
+      setToggle(response.data.isActive);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleConfirmDelete = async () => {
     try {
       const data = {
@@ -73,26 +88,32 @@ export const CategoryCard = (props) => {
       };
       const response = await services.category.DELETE_CATEGORY(selectedCategoryId, data);
       if (response) {
+        getDetails()
+       confirmDelete("confirm")
         setToaster({
           type: "success",
           title: "Successful",
           text: "Delete Category successfully",
           visiblity: "show",
         });
+
         setTimeout(() => {
-          window.location.reload();
+          setToaster({
+            type: "success",
+            title: "Successful",
+            text: "Delete Category successfully",
+            visiblity: "hide",
+          });
         }, 1500);
       }
     } catch (error) {
       setToaster({
-        type: "danger",
+        type: "error",
         title: "Error Occured",
-        text: error.response.data.message,
+        text: "Error",
         visiblity: "show",
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
+      
     }
     setConfirmationDialogOpen(false);
   };
@@ -100,30 +121,38 @@ export const CategoryCard = (props) => {
   const handleCloseConfirmationDialog = () => {
     setConfirmationDialogOpen(false);
   };
-
-  const handleChange = async (id, status) => {
+  const handleToggle = async (id, isActiveStatus) => {
+    dispatch(toggleCategory(id, isActiveStatus));
     try {
       const data = {
-        isActive: status,
-      };
+     isActive : isActiveStatus
+      }
 
       const response = await services.category.UPDATE_CATEGORY(id, data);
       if (response) {
+        getDetails();
+        update("update")
         setToaster({
           type: "success",
           title: "Successful",
-          text: "Update Category successfully",
+          text: "Category Updated successfully",
           visiblity: "show",
         });
+
         setTimeout(() => {
-          window.location.reload();
+          setToaster({
+            visiblity: "hide",
+          });
         }, 1000);
+     
+        
       }
     } catch (error) {
+      console.log(error)
       setToaster({
-        type: "danger",
+        type: "error",
         title: "Error Occured",
-        text: error.response.data.message,
+        text: "Error",
         visiblity: "show",
       });
       setTimeout(() => {
@@ -160,41 +189,41 @@ export const CategoryCard = (props) => {
                   Array.isArray(items) &&
                   items.map((category, i) => {
                     const isSelected = selected.includes(category.id);
-
+                    const images = category?.image;
                     return (
-                      // eslint-disable-next-line react/jsx-max-props-per-line
                       <TableRow hover key={category?.id} selected={isSelected}>
                         <TableCell style={{ textAlign: "center" }}>{i + 1}</TableCell>
                         <TableCell style={{ textAlign: "center", marginLeft: "30px" }}>
                           <img
                             crossOrigin="anonymous"
-                            src={`${constant.BASE_URL_UPLOADS}${category?.image}`}
+                            src={imageUrl + category?.image}
                             alt="CategoryImage"
-                            width={40}
-                            height={40}
+                            width={80}
+                            height={80}
                           />
-                          
-                          {/* <img src={category?.image} style={{ height: "60px" }}></img> */}
+                        
                         </TableCell>
                         <TableCell style={{ textAlign: "center" }}>{category?.name}</TableCell>
                         <TableCell style={{ textAlign: "center" }}>
+                          
                           <Switch
-                            checked={category?.isActive}
-                            onChange={() =>
-                              handleChange(category?.id, category?.isActive === true ? false : true)
-                            }
-                            color="primary"
-                            inputProps={{ "aria-label": "toggle button" }}
+                            checked={category.isActive}
+                            onChange={(e) =>{
+                              handleToggle(category.id,!category?.isActive)
+                            
+                            }}
                           />
+
+                        
                         </TableCell>
                         <TableCell style={{ textAlign: "center" }}>
                           <Typography style={{ color: "#6366F1" }}>
                             {" "}
                             <FaEdit
                               style={{ fontSize: "20px" }}
-                              onClick={() => handleEdit(category?.id)}
+                              onClick={(e) => handleEdit(category?.id)}
                             />{" "}
-                            <DeleteIcon onClick={() => handleDeleteClick(category?.id)} />
+                            <DeleteIcon onClick={(e) => handleDeleteClick(category?.id)} />
                           </Typography>
                         </TableCell>
 
@@ -244,4 +273,6 @@ CategoryCard.propTypes = {
   page: PropTypes.number,
   rowsPerPage: PropTypes.number,
   selected: PropTypes.array,
+  update: PropTypes.number,
+  confirmDelete: PropTypes.number
 };

@@ -4,7 +4,8 @@ export default {
     ADD_CATEGORY: () => "/category/createcategory",
     UPDATE_CATEGORY : (query) => `/category/${query}`,
     DELETE_CATEGORY:(query)=> `/category/${query}`,
-    GET_BY_CATEGORY: (query) => `/category/${query}`,
-    UPLOAD_IMAGE:()=>`/auth/documentImage`
+    GET_CATEGORY_BY_ID: (query) => `/category/${query}`,
+    UPLOAD_IMAGE:()=>`/auth/documentImage`,
+    
 
 };

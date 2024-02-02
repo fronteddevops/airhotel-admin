@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, Container, Pagination, Stack, SvgIcon, Typography } from "@mui/material";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
-import { HotelCard, Hotelcard } from "src/sections/hotel/hotel-table";
-import { HotelSearch } from "src/sections/hotel/hotel-search";
-import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
+
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { BookingSearch } from "src/sections/booking/booking-search";

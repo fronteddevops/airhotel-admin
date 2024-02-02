@@ -71,7 +71,7 @@ export const SupportTable = (props) => {
             <TableBody>
               {items.map((support, i) => {
                 const isSelected = selected.includes(support.id);
-                console.log(typeof support?.status);
+              
                 return (
                   <TableRow hover key={support.id} selected={isSelected}>
                     <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>

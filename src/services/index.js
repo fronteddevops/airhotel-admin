@@ -11,6 +11,7 @@ import payment from "./payment";
 import vendorBuySubscription from "src/api/vendorBuySubscription";
 import rooms from "./rooms";
 import coupon from "./coupon";
+import auth from "./auth"
 
 export default {
     userList,
@@ -24,5 +25,6 @@ export default {
     payment,
     vendorBuySubscription,
     rooms,
-    coupon
+    coupon,
+    auth
 };

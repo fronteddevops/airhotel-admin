@@ -45,10 +45,10 @@ export default {
       }
     });
   },
-  GET_BY_CATEGORY: (query) => {
+  GET_CATEGORY_BY_ID: (query) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await Axios.get(constant.BASE_URL + api.category.GET_BY_CATEGORY(query));
+        const response = await Axios.get(constant.BASE_URL + api.category.GET_CATEGORY_BY_ID(query));
         resolve(response);
       } catch (err) {
         reject(err);

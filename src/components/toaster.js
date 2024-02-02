@@ -9,21 +9,28 @@ function Toaster(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Snackbar
-        open={visiblity === 'show'}
-        autoHideDuration={2000}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    <Snackbar
+      open={visiblity === 'show'}
+      // autoHideDuration={6000}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    >
+      <Alert
+        // severity={type}
+        style={{fontWeight:"bold",padding:"10px"}}
+        variant="filled"
+        sx={{
+          width: '100%',
+          // height:'60px',
+          backgroundColor: type === 'success' ? 'royalblue' : '', 
+        }}
       >
-    <Alert severity={type} sx={{ width: '130%', maxHeight: '300px' }}>
-          <div className="d-flex align-items-center">
-            <i className="bx bx-bell me-2" style={{ fontSize: '1rem' }}></i>
-            <div className="me-auto fw-semibold">{title}</div>
-            <button className="btn-close" onClick={props.onClose} aria-label="Close"></button>
-          </div>
-          <div>{text}</div>
-        </Alert>
-      </Snackbar>
-    </ThemeProvider>
+        
+        {/* <button className="btn-close" onClick={props.onClose} aria-label="Close"></button> */}
+       {text}
+      </Alert>
+    </Snackbar>
+  </ThemeProvider>
+  
   );
 }
 

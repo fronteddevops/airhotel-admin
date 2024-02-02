@@ -36,46 +36,199 @@ initialCheckOutTime.setHours(12, 0, 0);
 const Page = (props) => {
   const router = useRouter();
   const { id } = router.query;
-  const [categoryList, setCategoryList] = React.useState();
+  const [categoryList, setCategoryList] = React.useState([]);
+  const [categoryListError, setCategoryListError] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
+  const [categoryName, setCategoryName] = useState("");
+  
 
-  const [data, setData] = useState();
-  const [categoryImage, setCategoryNameImage] = useState("");
   const [hotelName, setHotelName] = useState("");
   const [hotelNameError, setHotelNameError] = useState("");
   const [address, setAddress] = useState("");
   const [addressError, setAddressError] = useState("");
   const [city, setCity] = useState("");
+  const [cityError, setCityError] = useState("");
   const [state, setState] = useState("");
+  const [stateError, setStateError] = useState("");
   const [country, setCountry] = useState("");
+  const [countryError, setCountryError] = useState("");
   const [pincode, setPincode] = useState("");
-  const [distanceFromAirport, setDistanceFromAirport] = useState();
-  const [distanceFromCenter, setDistanceFromCenter] = useState();
+  const [pincodeError, setPincodeError] = useState("");
+  const [distanceFromAirport, setDistanceFromAirport] = useState("");
+  const [distanceFromAirportError, setDistanceFromAirportError] = useState("");
+  const [distanceFromCenter, setDistanceFromCenter] = useState("");
+  const [distanceFromCenterError, setDistanceFromCenterError] = useState("");
   const [location, setLocation] = useState("");
+  const [locationError, setLocationError] = useState("");
   const [numberOfRoom, setNumberOfRoom] = useState("");
+  const [numberOfRoomError, setNumberOfRoomError] = useState("");
   const [startingPrice, setStartingPrice] = useState("");
-  const [checkInTime, setCheckInTime] = useState();
-  const [checkOutTime, setCheckOutTime] = useState();
+  const [startingPriceError, setStartingPriceError] = useState("");
+  const [checkInTime, setCheckInTime] = useState(new Date());
+  const [checkInTimeError, setCheckInTimeError] = useState();
+  const [checkOutTime, setCheckOutTime] = useState(new Date());
+  const [checkOutTimeError, setCheckOutTimeError] = useState();
   const [toaster, setToaster] = useState({ visiblity: "hide" });
   const [selectFacility, setSelectFacility] = useState([]);
+  const [selectFacilityError, setSelectFacilityError] = useState("");
 
   const [description, setDescription] = useState("");
-  const [isHotelNameValid, setIsHotelNameValid] = useState(true);
-  const [isAddressValid, setIsAddressValid] = useState(true);
+  const [descriptionError, setDescriptionError] = useState("");
 
   const handleHotelNameChange = (e) => {
-    const value = e.target.value;
-    setHotelName(value);
-    setIsHotelNameValid(value.trim() !== ""); 
+    if (e.target.value === "") {
+      setHotelNameError("Required");
+    } else {
+      setHotelName(e.target.value.trimStart());
+      setHotelNameError("");
+    }
+    setHotelName(e.target.value.trimStart());
   };
   const handleAddressChange = (e) => {
-    const value = e.target.value;
-    setAddress(value);
-    setIsAddressValid(value.trim() !== ""); 
+    if (e.target.value === "") {
+      setAddressError("Required");
+    } else {
+      setAddress(e.target.value.trimStart());
+      setAddressError("");
+    }
+    setAddress(e.target.value.trimStart());
   };
-  const handleChange = (event) => {
-    setCategoryList(event.target.value);
+
+const handleChange = (event) => {
+  // const selectedValue = event.target.value.trim();
+  // setCategoryList(selectedValue);
+  // setCategoryName(selectedValue);
+  // setCategoryList([]);
+  // setCategoryName("");
+  // if (selectedValue === "") {
+  //   // setCategoryNameError("Required");
+  //   setCategoryName("");
+  // } else {
+  //   // setCategoryNameError("");
+  // }
+   setCategoryName(event.target.value);
+};
+
+  const handleCity = (e) => {
+    if (e.target.value === "") {
+      setCityError("Required");
+    } else {
+      setCity(e.target.value.trimStart());
+      setCityError("");
+    }
+    setCity(e.target.value.trimStart());
   };
+
+  const handleState = (e) => {
+    if (e.target.value === "") {
+      setStateError("Required");
+    } else {
+      setState(e.target.value.trimStart());
+      setStateError("");
+    }
+    setState(e.target.value.trimStart());
+  };
+
+  const handleCountry = (e) => {
+    if (e.target.value === "") {
+      setCountryError("Required");
+    } else {
+      setCountry(e.target.value.trimStart());
+      setCountryError("");
+    }
+    setCountry(e.target.value.trimStart());
+  };
+
+  const handlePinCode = (e) => {
+    if (e.target.value === "") {
+      setPincodeError("Required");
+    } else {
+      setPincode(e.target.value.trimStart());
+      setPincodeError("");
+    }
+    setPincode(e.target.value.trimStart());
+  };
+
+  const handleDisTanceFromAirport = (e) => {
+    if (e.target.value === "") {
+      setDistanceFromAirportError("Required");
+    } else {
+      setDistanceFromAirport(e.target.value.trimStart());
+      setDistanceFromAirportError("");
+    }
+    setDistanceFromAirport(e.target.value.trimStart());
+  };
+
+  const handleDisTanceFromCenter = (e) => {
+    if (e.target.value === "") {
+      setDistanceFromCenterError("Required");
+    } else {
+      setDistanceFromCenter(e.target.value.trimStart());
+      setDistanceFromCenterError("");
+    }
+    setDistanceFromCenter(e.target.value.trimStart());
+  };
+
+  const handleLocation = (e) => {
+    if (e.target.value === "") {
+      setLocationError("Required");
+    } else {
+      setLocation(e.target.value.trimStart());
+      setLocationError("");
+    }
+    setLocation(e.target.value.trimStart());
+  };
+
+  const handleNoOfRoom = (e) => {
+    if (e.target.value === "") {
+      setNumberOfRoomError("Required");
+    } else {
+      setNumberOfRoom(e.target.value.trimStart());
+      setNumberOfRoomError("");
+    }
+    setNumberOfRoom(e.target.value.trimStart());
+  };
+
+  const handlePrice = (e) => {
+    if (e.target.value === "") {
+      setStartingPriceError("Required");
+    } else {
+      setStartingPrice(e.target.value.trimStart());
+      setStartingPriceError("");
+    }
+    setStartingPrice(e.target.value.trimStart());
+  };
+
+  const handleCheckIn = (e) => {
+    if (e?.target?.value === "") {
+      setCheckInTimeError("Required");
+    } else {
+      setCheckInTime(e?.target.value.trimStart());
+      setCheckInTimeError("");
+    }
+    setCheckInTime(e.target.value.trimStart());
+  };
+
+  const handleCheckOut = (e) => {
+    if (e.target.value === "") {
+      setCheckOutTimeError("Required");
+    } else {
+      setCheckOutTime(e.target.value.trimStart());
+      setCheckOutTimeError("");
+    }
+    setCheckOutTime(e.target.value.trimStart());
+  };
+
+  const handleDescription = (e) => {
+    if (e.target.value === "") {
+      setDescriptionError("Required");
+    } else {
+      setDescription(e.target.value.trimStart());
+      setDescriptionError("");
+    }
+    setDescription(e.target.value.trimStart());
+  };
+
   const handleChangeFacility = (event) => {
     const {
       target: { value },
@@ -83,11 +236,103 @@ const Page = (props) => {
     setSelectFacility(value);
   };
 
-  const handleHotelChange = (e) => {
-    setHotelName(e.target.value);
-  };
-
   const editDetails = async () => {
+    if (hotelName.length === 0) {
+      setHotelNameError("Required");
+      return;
+    } else {
+      setHotelNameError("");
+    }
+    if (categoryList.length === 0) {
+      setCategoryListError("Required");
+      return;
+    } else {
+      setCategoryListError("");
+    }
+
+    if (address.length === 0) {
+      setAddressError("Required");
+      return;
+    } else {
+      setAddressError("");
+    }
+
+    if (city.length === 0) {
+      setCityError("Required");
+      return;
+    } else {
+      setCityError("");
+    }
+    if (state.length === 0) {
+      setStateError("Required");
+      return;
+    } else {
+      setStateError("");
+    }
+    if (country.length === 0) {
+      setCountryError("Required");
+      return;
+    } else {
+      setCountryError("");
+    }
+    if (pincode.length === 0) {
+      setPincodeError("Required");
+      return;
+    } else {
+      setPincodeError("");
+    }
+    if (distanceFromAirport.length === 0) {
+      setDistanceFromAirportError("Required");
+      return;
+    } else {
+      setDistanceFromAirportError("");
+    }
+    if (distanceFromCenter.length === 0) {
+      setDistanceFromCenterError("Required");
+      return;
+    } else {
+      setDistanceFromCenterError("");
+    }
+    if (location.length === 0) {
+      setLocationError("Required");
+      return;
+    } else {
+      setLocationError("");
+    }
+    if (numberOfRoom.length === 0) {
+      setNumberOfRoomError("Required");
+      return;
+    } else {
+      setNumberOfRoomError("");
+    }
+    if (startingPrice.length === 0) {
+      setStartingPriceError("Required");
+      return;
+    }
+    if (checkInTime?.length === 0) {
+      setStartingPriceError("Required");
+      return;
+    } else {
+      setAddressError("");
+    }
+    if (checkOutTime?.length === 0) {
+      setCheckOutTimeError("Required");
+      return;
+    } else {
+      setCheckOutTimeError("");
+    }
+    if (selectFacility.length === 0) {
+      setSelectFacilityError("Required");
+      return;
+    } else {
+      setSelectFacilityError("");
+    }
+    if (description.length === 0) {
+      setDescriptionError("Required");
+      return;
+    } else {
+      setDescriptionError("");
+    }
     try {
       const data = {
         address: address,
@@ -123,9 +368,9 @@ const Page = (props) => {
     } catch (error) {
       setIsDisabled(true);
       setToaster({
-        type: "danger",
+        type: "error",
         title: "Error Occured",
-        text: error.response.data.message,
+        text: "Error",
         visiblity: "show",
       });
       setTimeout(() => {
@@ -146,6 +391,7 @@ const Page = (props) => {
       setCountry(response?.data?.data?.country);
       setPincode(response?.data?.data?.pincode);
       setDistanceFromAirport(response?.data?.data?.distanceFromAirport);
+      setCategoryName(response?.data?.data?.Category?.name);
 
       setDistanceFromCenter(response?.data?.data?.distanceFromCenter);
       setLocation(response?.data?.data?.location);
@@ -161,7 +407,8 @@ const Page = (props) => {
   const getDetails = async () => {
     try {
       const response = await services.category.GET_CATEGORY();
-      setData(response?.data);
+      setCategoryList(response?.data?.data);
+     
     } catch (error) {
       console.log(error);
     }
@@ -178,34 +425,51 @@ const Page = (props) => {
         type={toaster.type}
         title={toaster.title}
         text={toaster.text}
-        visiblity={toaster.visiblity}
+        visibility={toaster.visibility}
       />
-      <Box sx={{ width: "100%", typography: "body1", p: 5 }}>
-        <Card sx={{ mt: 5, pt: 2, pb: 2 }}>
-          <Typography variant="h5" sx={{ ml: 2.5 }}>
+      <Box sx={{ width: "100%", typography: "body1", p: 2, overflowX: "auto" }}>
+        <Card sx={{ mt: 2, pt: 2, pb: 2 }}>
+          <Typography variant="h5" sx={{ m: 2 }}>
             Edit Hotel
           </Typography>
-          <CardContent sx={{ pt: 0, mt: 4 }}>
-            <Box sx={{ m: -1.5 }}>
-              <Grid container spacing={3}>
+          <CardContent sx={{ pt: 0, mt: 2 }}>
+            <Box sx={{ m: -1 }}>
+              <Grid container spacing={2}>
                 <Grid xs={12} md={6}>
                   <FormControl fullWidth variant="filled">
                     <InputLabel id="demo-simple-select-filled-label">Select Category *</InputLabel>
 
-                    <Select
-                      labelId="demo-simple-select-filled-label"
-                      id="demo-simple-select-filled"
-                      value={categoryList}
-                      onChange={handleChange}
-                    >
-                      {data &&
-                        data.map((category) => (
-                          <MenuItem key={category.id} value={category.id}>
-                            {category.name}
+                    <Select 
+                     labelId="demo-simple-select-filled-label"
+                     id="demo-simple-select-filled"
+                     value={categoryName} 
+                     onChange={handleChange}
+                     >
+                       <MenuItem value={categoryName}>{categoryName}</MenuItem>
+                      {categoryList?.length > 0 &&
+                        categoryList.map((item) => (
+                          <MenuItem key={item.id} value={item.id}>
+                             {item.isActive ===true ?  item.name:""}
                           </MenuItem>
                         ))}
+
                     </Select>
                   </FormControl>
+                  {categoryListError && (
+                    <>
+                      <span
+                        style={{
+                          // marginTop: "4.5rem",
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                          // position: "absolute",
+                        }}
+                      >
+                        {categoryListError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
                 <Grid xs={12} md={6}>
                   <TextField
@@ -214,65 +478,75 @@ const Page = (props) => {
                     name="hotelName"
                     value={hotelName}
                     onChange={handleHotelNameChange}
-                    error={!isHotelNameValid}
-                    helperText={!isHotelNameValid ? "Hotel Name is required" : ""}
                     required
                   />
+                  {hotelNameError && (
+                    <>
+                      <span
+                        style={{
+                          // marginTop: "4.5rem",
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                          // position: "absolute",
+                        }}
+                      >
+                        {hotelNameError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
-                {hotelNameError && (
-                  <>
-                    <span
-                      style={{
-                        marginTop: "4.5rem",
-                        marginLeft: "1rem",
-                        color: "red",
-                        fontSize: "12px",
-                        position: "absolute",
-                      }}
-                    >
-                      {hotelNameError}
-                    </span>
-                  </>
-                )}
-                {/* <Grid xs={12} md={6}>
-                <TextField fullWidth label="Email" name="email" required />
-              </Grid> */}
+
                 <Grid xs={12} md={6}>
-                <TextField
+                  <TextField
                     fullWidth
                     label="Hotel Address"
                     name="hotelAddress"
-                    value={address} 
+                    value={address}
                     onChange={handleAddressChange}
-                    error={!isAddressValid}
-                    helperText={!isAddressValid ? "Hotel Address is required" : ""}
                     required
                   />
+                  {addressError && (
+                    <>
+                      <span
+                        style={{
+                          // marginTop: "4.5rem",
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                          // position: "absolute",
+                        }}
+                      >
+                        {addressError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
-                {addressError && (
-                  <>
-                    <span
-                      style={{
-                        marginTop: "4.5rem",
-                        marginLeft: "1rem",
-                        color: "red",
-                        fontSize: "12px",
-                        position: "absolute",
-                      }}
-                    >
-                      {addressError}
-                    </span>
-                  </>
-                )}
+
                 <Grid xs={12} md={6}>
                   <TextField
                     fullWidth
                     label="City"
                     name="city"
                     value={city}
-                    onChange={(e) => setCity(e.target.value)}
+                    onChange={(e) => handleCity}
                     required
                   />
+                  {cityError && (
+                    <>
+                      <span
+                        style={{
+                         
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                       
+                        }}
+                      >
+                        {cityError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
                 <Grid xs={12} md={6}>
                   <TextField
@@ -280,9 +554,24 @@ const Page = (props) => {
                     label="State/Province"
                     name="stateProvince"
                     value={state}
-                    onChange={(e) => setState(e.target.value)}
+                    onChange={(e) => handleState}
                     required
                   />
+                  {stateError && (
+                    <>
+                      <span
+                        style={{
+                        
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                         
+                        }}
+                      >
+                        {stateError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
                 <Grid xs={12} md={6}>
                   <TextField
@@ -290,9 +579,24 @@ const Page = (props) => {
                     label="Country"
                     name="Country"
                     value={country}
-                    onChange={(e) => setCountry(e.target.value)}
+                    onChange={(e) => handleCountry}
                     required
                   />
+                  {countryError && (
+                    <>
+                      <span
+                        style={{
+                          
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                         
+                        }}
+                      >
+                        {countryError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
                 <Grid xs={12} md={6}>
                   <TextField
@@ -300,9 +604,24 @@ const Page = (props) => {
                     label="Pin Code"
                     name="pinCode"
                     value={pincode}
-                    onChange={(e) => setPincode(e.target.value)}
+                    onChange={(e) => handlePinCode}
                     required
                   />
+                  {pincodeError && (
+                    <>
+                      <span
+                        style={{
+                         
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                          
+                        }}
+                      >
+                        {pincodeError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
                 <Grid xs={12} md={6}>
                   <TextField
@@ -310,8 +629,23 @@ const Page = (props) => {
                     label="Distance From Airport"
                     name="distanceFromAirport"
                     value={distanceFromAirport}
-                    onChange={(e) => setDistanceFromAirport(e.target.value)}
+                    onChange={(e) => handleDisTanceFromAirport}
                   />
+                  {distanceFromAirportError && (
+                    <>
+                      <span
+                        style={{
+                        
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                         
+                        }}
+                      >
+                        {distanceFromAirportError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
                 <Grid xs={12} md={6}>
                   <TextField
@@ -319,8 +653,23 @@ const Page = (props) => {
                     label="Distance From Center"
                     name="distanceFromCenter"
                     value={distanceFromCenter}
-                    onChange={(e) => setDistanceFromCenter(e.target.value)}
+                    onChange={(e) => handleDisTanceFromCenter}
                   />
+                  {distanceFromCenterError && (
+                    <>
+                      <span
+                        style={{
+                        
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                        
+                        }}
+                      >
+                        {distanceFromCenterError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
 
                 <Grid xs={12} md={6}>
@@ -329,9 +678,24 @@ const Page = (props) => {
                     label="Location"
                     name="location"
                     value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    onChange={(e) => handleLocation}
                     required
                   />
+                  {locationError && (
+                    <>
+                      <span
+                        style={{
+                         
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                          
+                        }}
+                      >
+                        {locationError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
 
                 <Grid xs={12} md={6}>
@@ -341,9 +705,24 @@ const Page = (props) => {
                     label="Number Of Room"
                     name="numberOfRoom"
                     value={numberOfRoom}
-                    onChange={(e) => setNumberOfRoom(e.target.value)}
+                    onChange={(e) => handleNoOfRoom}
                     required
                   />
+                  {numberOfRoomError && (
+                    <>
+                      <span
+                        style={{
+                        
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                          
+                        }}
+                      >
+                        {numberOfRoomError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
                 <Grid xs={12} md={6}>
                   <TextField
@@ -352,23 +731,73 @@ const Page = (props) => {
                     label="Starting Price"
                     name="startingPrice"
                     value={startingPrice}
-                    onChange={(e) => setStartingPrice(e.target.value)}
+                    onChange={(e) => handlePrice}
                     required
                   />
+                  {startingPriceError && (
+                    <>
+                      <span
+                        style={{
+                        
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                         
+                        }}
+                      >
+                        {startingPriceError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
-                <Grid xs={12} md={6} width={100}>
+                <Grid xs={12} md={6}>
                   <TimePicker
+                    fullWidth
+                    sx={{ width: "100%" }}
                     value={checkInTime}
-                    onChange={(newValue) => setCheckInTime(newValue)}
+                    onChange={(newValue) => handleCheckIn(newValue)}
                     label="Check In Time"
                   />
+                  {checkInTimeError && (
+                    <>
+                      <span
+                        style={{
+                          
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                         
+                        }}
+                      >
+                        {checkInTimeError}
+                      </span>
+                    </>
+                  )}
+                </Grid>
 
+                <Grid xs={12} md={6}>
                   <TimePicker
-                    sx={{ marginLeft: 4.9, position: "absolute" }}
+                    fullWidth
+                    sx={{ width: "100%" }}
                     value={checkOutTime}
-                    onChange={(newValue) => setCheckOutTime(newValue)}
+                    onChange={(newValue) => handleCheckOut(newValue)}
                     label="Check Out Time"
                   />
+                  {checkOutTimeError && (
+                    <>
+                      <span
+                        style={{
+                       
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                          
+                        }}
+                      >
+                        {checkOutTimeError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
 
                 <Grid xs={12} md={6}>
@@ -388,6 +817,21 @@ const Page = (props) => {
                       <MenuItem value={["gym"]}>Gym</MenuItem>
                     </Select>
                   </FormControl>
+                  {selectFacilityError && (
+                    <>
+                      <span
+                        style={{
+                        
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                          
+                        }}
+                      >
+                        {selectFacilityError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
                 <Grid xs={12} md={6}>
                   <TextField
@@ -396,9 +840,24 @@ const Page = (props) => {
                     label="Description"
                     name="Description"
                     value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e) => handleDescription}
                     required
                   />
+                  {descriptionError && (
+                    <>
+                      <span
+                        style={{
+                          
+                          marginLeft: "0.2rem",
+                          color: "red",
+                          fontSize: "12px",
+                          
+                        }}
+                      >
+                        {descriptionError}
+                      </span>
+                    </>
+                  )}
                 </Grid>
               </Grid>
             </Box>
@@ -411,30 +870,7 @@ const Page = (props) => {
               p: 2,
             }}
           >
-            <Button
-              variant="contained"
-              disabled={
-                !(
-                  categoryList &&
-                  hotelName?.trim() &&
-                  address.trim() &&
-                  city &&
-                  state &&
-                  country &&
-                  pincode &&
-                  distanceFromAirport &&
-                  distanceFromCenter &&
-                  location &&
-                  numberOfRoom &&
-                  startingPrice &&
-                  checkInTime &&
-                  checkOutTime &&
-                  selectFacility &&
-                  description
-                )
-              }
-              onClick={editDetails}
-            >
+            <Button variant="contained" onClick={editDetails}>
               Save Details
             </Button>
           </CardActions>

@@ -56,16 +56,12 @@ export const RoomsTable = (props) => {
   };
 
   const handleConfirmDelete = () => {
-   
-    console.log("Deleting category with ID:", selectedCategoryId);
-
-    
     setConfirmationDialogOpen(false);
   };
 
   const handleCloseConfirmationDialog = () => {
     setConfirmationDialogOpen(false);
-  } 
+  };
   return (
     <Card>
       <Scrollbar>
@@ -74,15 +70,25 @@ export const RoomsTable = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>S.No.</TableCell>
-                <TableCell sx={{  whiteSpace: "nowrap",textAlign: "center" }}>Hotel Name</TableCell>
-                <TableCell sx={{  whiteSpace: "nowrap",textAlign: "center" }}>Room Images</TableCell>
-                <TableCell sx={{  whiteSpace: "nowrap",textAlign: "center" }}>Room Type</TableCell>
-                <TableCell sx={{  whiteSpace: "nowrap",textAlign: "center" }}>Extra Mattress</TableCell>
-    
-                <TableCell sx={{  whiteSpace: "nowrap",textAlign: "center" }}>Room Price</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>AC Or Non-AC</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>Number Of Guest</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>Number Of Children</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>Hotel Name</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>
+                  Room Images
+                </TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>Room Type</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>
+                  Extra Mattress
+                </TableCell>
+
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>Room Price</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>
+                  AC Or Non-AC
+                </TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>
+                  Number Of Guest
+                </TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>
+                  Number Of Children
+                </TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>Amenities</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>Status </TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>IsActive </TableCell>
@@ -92,16 +98,13 @@ export const RoomsTable = (props) => {
             <TableBody>
               {items.map((room, i) => {
                 const isSelected = selected.includes(room.id);
-                console.log(typeof room?.status);
+
                 return (
                   <TableRow hover key={room.id} selected={isSelected}>
                     <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>
-
                     <TableCell sx={{ textAlign: "center" }}>{room.hotelName}</TableCell>
-                    <TableCell  style={{textAlign:"center",marginLeft:"30px"}} >
-                     
-                        <img  src={room.roomImages} style={{height:"60px"}}></img>
-                     
+                    <TableCell style={{ textAlign: "center", marginLeft: "30px" }}>
+                      <img src={room.roomImages} style={{ height: "60px" }}></img>
                     </TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{room.roomType}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{room.extraMattress}</TableCell>
@@ -110,22 +113,17 @@ export const RoomsTable = (props) => {
                     <TableCell sx={{ textAlign: "center" }}>{room.numberOfGuest}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{room.numberOfChildren}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{room.amenities}</TableCell>
-                   
                     <TableCell sx={{ textAlign: "center" }}>{room.status}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>
-                      <Switch
-                     
-                        color="primary"
-                        inputProps={{ "aria-label": "toggle button" }}
-                      />
+                      <Switch color="primary" inputProps={{ "aria-label": "toggle button" }} />
                     </TableCell>
                     <TableCell sx={{ textAlign: "center" }}>
-                      <Typography sx={{ marginLeft: "10px" ,fontSize:"20px"}}
-                   
-                       >
-                      
-                        <FaEdit  style={{ color: "#6366F1" }}  onClick={handleEdit}/>
-                        <DeleteIcon  style={{ color: "#6366F1" }} onClick={() => handleDeleteClick(room.id)}/>
+                      <Typography sx={{ marginLeft: "10px", fontSize: "20px" }}>
+                        <FaEdit style={{ color: "#6366F1" }} onClick={handleEdit} />
+                        <DeleteIcon
+                          style={{ color: "#6366F1" }}
+                          onClick={() => handleDeleteClick(room.id)}
+                        />
                       </Typography>
                     </TableCell>
                   </TableRow>
@@ -144,16 +142,11 @@ export const RoomsTable = (props) => {
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
       />
-            {/* ... Delete Confirmation ... */}
-            <Dialog
-        open={isConfirmationDialogOpen}
-        onClose={handleCloseConfirmationDialog}
-      >
+      {/* ... Delete Confirmation ... */}
+      <Dialog open={isConfirmationDialogOpen} onClose={handleCloseConfirmationDialog}>
         <DialogTitle>Confirmation</DialogTitle>
         <DialogContent>
-          <Typography variant="body1">
-            Are you sure you want to delete the category?
-          </Typography>
+          <Typography variant="body1">Are you sure you want to delete the category?</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseConfirmationDialog}>Cancel</Button>

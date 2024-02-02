@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import Head from "next/head";
 import ArrowUpOnSquareIcon from "@heroicons/react/24/solid/ArrowUpOnSquareIcon";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
@@ -20,18 +21,15 @@ import { useRouter } from "next/router";
 import { CategorySearch } from "../sections/category/category-search";
 import services from "src/services";
 
-
-
 const Page = () => {
   const router = useRouter();
-  const [data,setData]=useState("")
+  const [data, setData] = useState("");
 
   const getDetails = async () => {
     const response = await services.category.GET_CATEGORY();
-   
-    setData(response?.data);
-    
-    
+
+    setData(response?.data?.data);
+
   };
 
   useEffect(() => {
@@ -40,6 +38,12 @@ const Page = () => {
 
   const handleAddClick = () => {
     router.push("/categoryadd");
+  };
+  const update = (data) => {
+    getDetails();
+  };
+  const confirmDelete = (data) => {
+    getDetails();
   };
   return (
     <>
@@ -86,6 +90,8 @@ const Page = () => {
               // page={page}
               // rowsPerPage={rowsPerPage}
               selected={data.selected}
+              update={update}
+              confirmDelete={confirmDelete}
             />
             <Box
               sx={{
@@ -93,10 +99,7 @@ const Page = () => {
                 justifyContent: "center",
               }}
             >
-              <Pagination
-              count={3}
-              size="small"
-            />
+              <Pagination count={3} size="small" />
             </Box>
           </Stack>
         </Container>

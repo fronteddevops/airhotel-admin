@@ -35,57 +35,49 @@ const Page = () => {
   const [categoryNameError, setCategoryNameError] = useState("");
   const [categoryImage, setCategoryNameImage] = useState("");
   const [selectedValue, setSelectedValue] = useState(true);
-  const [imageResponse , setImageResponse]=useState()
- console.log(categoryImage?.name,"image")
+  const [imageResponse, setImageResponse] = useState();
+
   const handleImageUploadCategory = (e) => {
-    setIsDisabled(true);
     setCategoryNameImageResponse("");
     const file = e.target.files[0];
     if (file) {
+      setIsDisabled(false);
       setCategoryNameImage(file);
+      setUpload(true);
     } else {
     }
   };
   const uploadCategoryImage = async () => {
-    try{
+    try {
       const formData = new FormData();
       formData.append("image", categoryImage);
-      const response = await services.category.UPLOAD_IMAGE(formData)
-      setImageResponse(response.data.filename)
-    }catch{
+      const response = await services.category.UPLOAD_IMAGE(formData);
+      setImageResponse(response?.data?.image);
 
-    }
-
-    setUpload(false);
-   
+      setIsDisabled(true);
+      setUpload(false);
+    } catch {}
   };
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
   };
 
   const handleChange = (e) => {
-    const selectedValue = e.target.value;
-    setCategoryName(selectedValue);
-    setIsDisabled(true);
-  
-   
-    const trimmedValue = selectedValue.trim();
-    if (trimmedValue === "") {
-      setCategoryNameError("Required");
+    const inputValue = e.target.value.trimStart();
+
+    if (inputValue.length > 50) {
+      setCategoryNameError("Maximum length is 50 characters");
     } else {
+      setCategoryName(inputValue);
+
       setCategoryNameError("");
+      if (e.target.value.length == 0) {
+        setCategoryNameError("Category Name is required");
+      }
     }
   };
-  
 
-  // const handleKeyDown = (e) => {
-  //   const isLetter = /^[a-zA-Z]$/.test(e.key);
-  //   const isBackspace = e.key === "Backspace";
-
-  //   if (!isLetter && !isBackspace) {
-  //     e.preventDefault();
-  //   }
-  // };
+ 
   const addCategory = async () => {
     try {
       const data = {
@@ -108,9 +100,9 @@ const Page = () => {
         }, 500);
       }
     } catch (error) {
-      setIsDisabled(true);
+   
       setToaster({
-        type: "danger",
+        type: "error",
         title: "Error Occured",
         text: "Error",
         visiblity: "show",
@@ -142,7 +134,7 @@ const Page = () => {
                   label="Category Name"
                   name="categoryName"
                   onChange={handleChange}
-                  // onKeyDown={handleKeyDown}
+                 
                   required
                   value={categoryName}
                 />
@@ -170,6 +162,7 @@ const Page = () => {
                       required
                       accept="image/*"
                       id="categoryImageInput"
+                     
                       onChange={handleImageUploadCategory}
                     />
                   </FormControl>
@@ -221,7 +214,7 @@ const Page = () => {
                     <span style={{ paddingTop: "8px", marginLeft: "1rem" }}>Status :</span>
                     <span style={{ marginLeft: "20px" }}>
                       <FormControlLabel value={true} control={<Radio />} label="Active" />
-                      <FormControlLabel value={false} control={<Radio />} label="InActive" />
+                      <FormControlLabel value={false} control={<Radio />} label="In Active" />
                     </span>
                   </RadioGroup>
                 </FormControl>

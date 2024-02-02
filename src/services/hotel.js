@@ -67,4 +67,14 @@ export default {
       }
     });
   },
+  UPLOAD_MULTIPLE_IMAGE: (data) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await Axios.post(constant.BASE_URL + api.hotel.UPLOAD_MULTIPLE_IMAGE(), data);
+        resolve(response);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  },
 }

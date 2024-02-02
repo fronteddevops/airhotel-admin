@@ -63,7 +63,7 @@ export const VendorBuyTable = (props) => {
             <TableBody>
               {items.map((sub, i) => {
                 const isSelected = selected.includes(sub.id);
-                console.log(typeof sub?.status);
+           
                 return (
                   <TableRow hover key={sub.id} selected={isSelected}>
                     <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>

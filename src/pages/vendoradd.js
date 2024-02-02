@@ -33,7 +33,7 @@ const Page = (props) => {
     website: "",
   });
   const handleAddVendor = () => {
-    console.log("Adding new vendor:", newVendor);
+   
     setVendors((prevVendors) => [...prevVendors, newVendor]);
     setNewVendor({
       name: "",

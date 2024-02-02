@@ -12,6 +12,7 @@ import payment from "./payment";
 import vedorBuySubscription from "./vendorBuySubscription";
 import rooms from "./rooms";
 import coupon from "./coupon"
+import auth from "./auth"
 
 export default {
     userList,
@@ -25,5 +26,6 @@ export default {
     payment,
     vedorBuySubscription,
     rooms,
-    coupon
+    coupon,
+    auth
 };

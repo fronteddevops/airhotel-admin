@@ -5,5 +5,6 @@ export default {
     UPDATE_HOTEL: (query) => `/hotel/${query}`,
     GET_HOTEL_BY_ID: (query) => `/hotel/${query}`,
     DELETE_HOTEL: (query) => `/hotel/deletehotels/${query}`,
+    UPLOAD_MULTIPLE_IMAGE:()=>`/auth/images`
     
 };

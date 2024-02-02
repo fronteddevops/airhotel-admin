@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import Switch from "@mui/material/Switch";
@@ -62,7 +63,7 @@ export const SubscriptionCard = (props) => {
             <TableBody>
               {items.map((sub, i) => {
                 const isSelected = selected.includes(sub.id);
-                console.log(typeof sub?.status);
+           
                 return (
                   <TableRow hover key={sub.id} selected={isSelected}>
                     <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>
