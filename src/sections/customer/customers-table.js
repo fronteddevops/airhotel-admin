@@ -50,7 +50,7 @@ export const CustomersTable = (props) => {
     onSelectAll,
     onSelectOne,
     page = 0,
-    rowsPerPage = 0,
+    rowsPerPage = 10,  // Set default value to 10
     selected = [],
   } = props;
 
@@ -181,9 +181,10 @@ export const CustomersTable = (props) => {
         onPageChange={onPageChange}
         onRowsPerPageChange={onRowsPerPageChange}
         page={page}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPage={rowsPerPage} 
+        rowsPerPageOptions={[5, 10, 25]}  
       />
+       
     </Card>
   );
 };

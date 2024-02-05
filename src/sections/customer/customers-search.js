@@ -1,14 +1,20 @@
 import MagnifyingGlassIcon from '@heroicons/react/24/solid/MagnifyingGlassIcon';
 import { Card, InputAdornment, OutlinedInput, SvgIcon } from '@mui/material';
 
-export const CustomersSearch = () => (
+export const CustomersSearch = ({ onInputChange }) => (
   <Card sx={{ p: 2 }}>
     <OutlinedInput
+          onChange={(e) => {
+            const inputValue = e.target.value;
+            console.log('[[[[[[[[[[[[[[[[', inputValue);
+            onInputChange(inputValue); // Call the parent's callback function with the input value
+          }}
+    
       defaultValue=""
       fullWidth
       placeholder="Search User"
       startAdornment={(
-        <InputAdornment position="start">
+        <InputAdornment position="start" >
           <SvgIcon
             color="action"
             fontSize="small"

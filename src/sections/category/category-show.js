@@ -81,6 +81,7 @@ export const CategoryCard = (props) => {
     }
   };
 
+
   const handleConfirmDelete = async () => {
     try {
       const data = {
@@ -198,6 +199,7 @@ export const CategoryCard = (props) => {
                             crossOrigin="anonymous"
                             src={imageUrl + category?.image}
                             alt="CategoryImage"
+                            style={{ borderRadius: "10px" }}
                             width={80}
                             height={80}
                           />

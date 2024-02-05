@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
 export default {
-    GET_USERS: () => `/auth/user`,
+    GET_USERS: (query) => `/auth/user/?${query}`,
 
 };

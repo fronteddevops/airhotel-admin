@@ -157,7 +157,7 @@ const Page = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: 'airadmin@yopmail.com',
+      email: 'admin@gmail.com',
       password: 'admin123',
       submit: null,
     },
@@ -173,7 +173,7 @@ const Page = () => {
           password: values.password,
          
         };
-  
+  console.log("payload",payload)
         const response = await services.auth.LOGIN_USER(payload)
        
         if (response) {

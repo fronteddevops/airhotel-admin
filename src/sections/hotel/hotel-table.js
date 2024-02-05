@@ -50,6 +50,8 @@ export const HotelCard = (props) => {
     rowsPerPage = 0,
     selected = [],
   } = props;
+
+  console.log("itemssssssss",items)
   const [selectedCustomerId, setSelectedCustomerId] = useState(null);
   const [isSwitchOn, setSwitchOn] = useState(false);
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
@@ -167,7 +169,7 @@ export const HotelCard = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items && items.map((hotel, i) => {
+              {items && items.rows?.map((hotel, i) => {
                 const isSelected = selected.includes(hotel.id);
                
                 return (

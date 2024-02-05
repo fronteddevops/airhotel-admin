@@ -1,3 +1,11 @@
 export function applyPagination(documents, page, rowsPerPage) {
-  return documents?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  if (!Array.isArray(documents)) {
+    console.error("Invalid 'documents' parameter. Expected an array.");
+    return [];
+  }
+
+  const startIndex = page * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+
+  return documents.slice(startIndex, endIndex);
 }
