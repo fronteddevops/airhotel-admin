@@ -6,7 +6,6 @@ export const CustomersSearch = ({ onInputChange }) => (
     <OutlinedInput
           onChange={(e) => {
             const inputValue = e.target.value;
-            console.log('[[[[[[[[[[[[[[[[', inputValue);
             onInputChange(inputValue); // Call the parent's callback function with the input value
           }}
     

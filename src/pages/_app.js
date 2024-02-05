@@ -11,6 +11,7 @@ import { createEmotionCache } from 'src/utils/create-emotion-cache';
 import 'simplebar-react/dist/simplebar.min.css';
 import { Provider } from 'react-redux'; 
 import store from '../redux/store';
+import initialiseInterceptor from 'src/Interceptor';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -18,7 +19,7 @@ const SplashScreen = () => null;
 
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-
+  initialiseInterceptor()
   useNProgress();
 
   const getLayout = Component.getLayout ?? ((page) => page);

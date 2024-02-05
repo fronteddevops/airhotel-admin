@@ -10,7 +10,6 @@ export default {
     return new Promise(async (resolve, reject) => {
       
       try {
-        console.log("objectyyyyyyyyyyyy:")
         const response = await Axios.get(
           constant.BASE_URL +  api.userList.GET_USERS(query),data
         );

@@ -19,34 +19,7 @@ const user = [
     phone: "123-456-7890",
     date_of_birth: "1990-05-15",
   },
-  {
-    id: 2,
-    user_name: "AliceSmith",
-    email: "alice.smith@example.com",
-    phone: "987-654-3210",
-    date_of_birth: "1985-08-22",
-  },
-  {
-    id: 3,
-    user_name: "AliceSmith",
-    email: "alice.smith@example.com",
-    phone: "987-654-3210",
-    date_of_birth: "1985-08-22",
-  },
-  {
-    id: 4,
-    user_name: "AliceSmith",
-    email: "alice.smith@example.com",
-    phone: "987-654-3210",
-    date_of_birth: "1985-08-22",
-  },
-  {
-    id: 5,
-    user_name: "AliceSmith",
-    email: "alice.smith@example.com",
-    phone: "987-654-3210",
-    date_of_birth: "1985-08-22",
-  },
+  // ... (other user data)
 ];
 
 const Page = () => {
@@ -57,6 +30,7 @@ const Page = () => {
   const [search, setSearch] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
+
   const useCustomers = (page, rowsPerPage) => {
     return useMemo(() => {
       return applyPagination(data, page, rowsPerPage);
@@ -68,19 +42,19 @@ const Page = () => {
       return customers?.map((customer) => customer.id);
     }, [customers]);
   };
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const [rowsPerPage, setRowsPerPage] = useState(10);  // Set to 10 rows per page
   const customers = useCustomers(page, rowsPerPage);
   const customersIds = useCustomerIds(customers);
   const customersSelection = useSelection(customersIds);
 
   const handlePageChange = useCallback((event, value) => {
     setPage(value);
-
   }, []);
 
   const handleRowsPerPageChange = useCallback((event) => {
-
     setRowsPerPage(event.target.value);
+    setPage(1);  // Reset page to 1 when changing rowsPerPage
   }, []);
 
   const getDetails = async () => {
@@ -109,13 +83,13 @@ const Page = () => {
   const handleInputChange = (inputValue) => {
     console.log('Input value from child component:', inputValue);
     setSearch(inputValue)
+    getDetails()
     // Do something with the input value in the parent component
   };
 
   useEffect(() => {
     getDetails();
   }, []);
-
 
   return (
     <>
@@ -140,7 +114,7 @@ const Page = () => {
             <CustomersSearch onInputChange={handleInputChange} />
             <CustomersTable
               count={data?.rows?.length}
-              items={data?.rows}
+              items={data?.rows?.slice((page - 1) * rowsPerPage, page * rowsPerPage)}
               onDeselectAll={data?.rows?.handleDeselectAll}
               onDeselectOne={data?.rows?.handleDeselectOne}
               onPageChange={handlePageChange}
@@ -157,12 +131,12 @@ const Page = () => {
                 justifyContent: "center",
               }}
             >
-              <Pagination count={Math.ceil(totalCount / rowsPerPage)} page={page} onChange={handlePageChange} size="small" />
-
-              {/* <Pagination count={totalCount} size="small" /> */}
-
-
-
+              <Pagination
+                count={Math.ceil(totalCount / rowsPerPage)}  // Adjusted count based on rowsPerPage
+                page={page}
+                onChange={handlePageChange}
+                size="small"
+              />
             </Box>
           </Stack>
         </Container>

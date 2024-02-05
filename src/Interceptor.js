@@ -1,10 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Axios from 'axios'
 const initialiseInterceptor = () => {
-  Axios.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${localStorage.getItem("access_token")}`;
-
+  if (typeof window !== 'undefined') {
+    Axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${sessionStorage.getItem("access_token")}`;
+  
+    // Use sessionStorage here
+  }
+ 
   // Add a request interceptor
   Axios.interceptors.request.use(
     (config) => {
@@ -22,8 +26,7 @@ const initialiseInterceptor = () => {
     (error) => {
       console.log('error in interceptor ==>', error)
       if  (error.response && (error.response.status == 401 || error.response.status == 403)) {
-       
-          localStorage.clear();
+
           if (window.location.pathname !== "/") {
             setTimeout(() => {
               window.location.replace("/");

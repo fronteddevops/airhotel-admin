@@ -5,10 +5,13 @@ import constant from "../constant";
 import api from "src/api";
 
 export default {
-  GET_CATEGORY: () => {
+  GET_CATEGORY: (query) => {
     return new Promise(async (resolve, reject) => {
+    
       try {
-        const response = await Axios.get(constant.BASE_URL + api.category.GET_CATEGORY());
+        
+        const response = await Axios.get(constant.BASE_URL + api.category.GET_CATEGORY(query));
+      
         resolve(response);
       } catch (err) {
         reject(err);

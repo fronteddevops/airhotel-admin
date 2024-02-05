@@ -16,7 +16,7 @@ import {
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { CategoryCard } from "src/sections/category/category-show";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { CategorySearch } from "../sections/category/category-search";
 import services from "src/services";
@@ -24,14 +24,45 @@ import services from "src/services";
 const Page = () => {
   const router = useRouter();
   const [data, setData] = useState("");
+  const [totalCount, setTotalCount] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);  
+  const [rows, setRows] = useState(10);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  // const getDetails = async () => {
+  //   const response = await services.category.GET_CATEGORY();
+
+  //   setData(response?.data?.data);
+
+  // };
+  const handlePageChange = useCallback((event, value) => {
+    setPage(value);
+  }, []);
 
   const getDetails = async () => {
-    const response = await services.category.GET_CATEGORY();
+   
+    try {
+      let object = {
+        page: page,
+        limit: rowsPerPage,
+        search: search,
+      };
 
-    setData(response?.data?.data);
-
+      const payload = new URLSearchParams(object).toString();
+     
+      const response = await services.category.GET_CATEGORY(payload);
+   
+      setTotalCount(response?.data?.data?.count);
+      setData(response?.data.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
+  const handleRowsPerPageChange = useCallback((event) => {
+    setRowsPerPage(event.target.value);
+    setPage(1);  // Reset page to 1 when changing rowsPerPage
+  }, []);
   useEffect(() => {
     getDetails();
   }, []);
@@ -44,6 +75,13 @@ const Page = () => {
   };
   const confirmDelete = (data) => {
     getDetails();
+  };
+
+  const handleInputChange = (inputValue) => {
+    console.log('Input value from child component:', inputValue);
+    setSearch(inputValue)
+    getDetails()
+    // Do something with the input value in the parent component
   };
   return (
     <>
@@ -77,19 +115,19 @@ const Page = () => {
                 </Button>
               </div>
             </Stack>
-            <CategorySearch />
+            <CategorySearch onInputChange={handleInputChange} />
             <CategoryCard
-              count={data.length}
-              items={data}
-              onDeselectAll={data.handleDeselectAll}
-              onDeselectOne={data.handleDeselectOne}
-              // onPageChange={handlePageChange}
-              // onRowsPerPageChange={handleRowsPerPageChange}
-              onSelectAll={data.handleSelectAll}
-              onSelectOne={data.handleSelectOne}
-              // page={page}
-              // rowsPerPage={rowsPerPage}
-              selected={data.selected}
+              count={data?.rows?.length}
+              items={data?.rows?.slice((page - 1) * rowsPerPage, page * rowsPerPage)}
+              onDeselectAll={data?.rows?.handleDeselectAll}
+              onDeselectOne={data?.rows?.handleDeselectOne}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleRowsPerPageChange}
+              onSelectAll={data?.rows?.handleSelectAll}
+              onSelectOne={data?.rows?.handleSelectOne}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              selected={data?.rows?.selected}
               update={update}
               confirmDelete={confirmDelete}
             />
@@ -99,7 +137,12 @@ const Page = () => {
                 justifyContent: "center",
               }}
             >
-              <Pagination count={3} size="small" />
+              <Pagination
+                count={Math.ceil(totalCount / rowsPerPage)}  // Adjusted count based on rowsPerPage
+                page={page}
+                onChange={handlePageChange}
+                size="small"
+              />
             </Box>
           </Stack>
         </Container>

@@ -22,7 +22,6 @@ import { useEffect, useState } from "react";
 import services from "../services";
 import Toaster from "../components/toaster";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
-import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/router";
 
 const Page = () => {

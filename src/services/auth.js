@@ -18,12 +18,12 @@ LOGIN_USER: (data) => {
         );
 
         if (response?.data?.tokens?.access?.token) {
-          localStorage.setItem('access_token', response.data.tokens.access.token)
+          sessionStorage.setItem('access_token', response.data.tokens.access.token)
         }
 
         Axios.defaults.headers.common[
           "Authorization"
-        ] = `Bearer ${localStorage.getItem("access_token")}`;
+        ] = `Bearer ${sessionStorage.getItem("access_token")}`;
         resolve(response);
       } catch (err) {
      

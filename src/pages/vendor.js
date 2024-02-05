@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-props-per-line */
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Box, Button, Container, Pagination, Stack, SvgIcon, Typography } from '@mui/material';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import Vendorcard from 'src/sections/vendor/vendor-table';
@@ -52,13 +52,36 @@ const vendors = [
 
 const Page = () => {
   const router = useRouter()
-  const [data, setData] = useState(vendors);
+  const [data, setData] = useState();
+  const [totalCount, setTotalCount] = useState(0);
+  const [rows, setRows] = useState(10);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);  // Set to 10 rows per page
+  const [search, setSearch] = useState('');
 
+const [vandorData,setVandorData]=useState()
   const getDetails = async () => {
-    const response = await services.vendor.GET_VENDOR();
-    setData(response?.data);
-    
+    try {
+      let object = {
+        page: page,
+        limit: rowsPerPage,
+        search: search,
+      };
+
+      const payload = new URLSearchParams(object).toString();
+      const response = await services.userList.GET_USERS(payload);
+      const vendorData = response?.data?.data?.rows?.filter(item => item?.role.toLowerCase() === 'vendor');
+setVandorData(vendorData)
+      setTotalCount(vendorData?.length);
+      setData(response?.data?.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
+  const handlePageChange = useCallback((event, value) => {
+    setPage(value);
+  }, []);
+
 
   useEffect(() => {
     getDetails();
@@ -67,6 +90,17 @@ const Page = () => {
   const handleAddClick = () => {
     router.push("/vendoradd")
    
+  };
+  const handleRowsPerPageChange = useCallback((event) => {
+    setRowsPerPage(event.target.value);
+    setPage(1);  // Reset page to 1 when changing rowsPerPage
+  }, []);
+
+  const handleInputChange = (inputValue) => {
+    console.log('Input value from child component:', inputValue);
+    setSearch(inputValue)
+    getDetails()
+    // Do something with the input value in the parent component
   };
 
   return (
@@ -109,11 +143,19 @@ const Page = () => {
                 </Button>
               </div>
           </Stack>
-        <VendorSearch/>
+        <VendorSearch onInputChange={handleInputChange}/>
               <Vendorcard
-              count={vendors?.length}
-              vendors={vendors} 
-             
+              count={vandorData?.length}
+              vendors={vandorData?.slice((page - 1) * rowsPerPage, page * rowsPerPage)}
+              onDeselectAll={vandorData?.handleDeselectAll}
+              onDeselectOne={vandorData?.handleDeselectOne}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleRowsPerPageChange}
+              onSelectAll={vandorData?.handleSelectAll}
+              onSelectOne={vandorData?.handleSelectOne}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              selected={vandorData?.selected}
               
             />
           <Box
@@ -122,10 +164,12 @@ const Page = () => {
               justifyContent: 'center'
             }}
           >
-       <Pagination
-              count={3}
-              size="small"
-            />
+        <Pagination
+                count={Math.ceil(totalCount / rowsPerPage)}  // Adjusted count based on rowsPerPage
+                page={page}
+                onChange={handlePageChange}
+                size="small"
+              />
           </Box>
         </Stack>
       </Container>
