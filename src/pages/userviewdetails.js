@@ -32,7 +32,7 @@ import { UserDetails } from "src/sections/customer/user-details";
   
     return (
       <Box sx={{ width: '100%', typography: 'body1' ,p:5}}>
-        <AddressDetails/>
+        {/* <AddressDetails/> */}
         <br></br>
         <br></br>
         <UserDetails/>

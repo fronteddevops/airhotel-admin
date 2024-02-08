@@ -95,31 +95,67 @@ const useSubscriptionIds = (subscription) => {
 
 const Page = () => {
   const router = useRouter();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  const [rowsPerPage, setRowsPerPage] = useState(10);  
   const subscription = useSubscription(page, rowsPerPage);
   const subscriptionIds = useSubscriptionIds(subscription);
   const subscriptionSelection = useSelection(subscriptionIds);
   const [details, setDetails] = useState(data);
+  const [totalCount, setTotalCount] = useState(0);
+  const [rows, setRows] = useState(10);
+
+
+  // const getDetails = async () => {
+  //   const response = await services.rooms.GET_ROOMS()
+  //   setDetails(response?.data);
+  // };
+
+
 
   const getDetails = async () => {
-    const response = await services.rooms.GET_ROOMS()
-    setDetails(response?.data);
+    try {
+      let object = {
+        page: page,
+        limit: rowsPerPage,
+        search: "",  
+      };
+
+      const payload = new URLSearchParams(object).toString();
+      const response = await await services.rooms.GET_ROOMS(payload);
+      setDetails(response?.data?.data?.rows);
+      console.log(response?.data?.data?.rows);
+      setTotalCount(response?.data?.data?.rows.length);
+    } catch (err) {
+      console.error(err);
+    }
   };
-
-  useEffect(() => {
-    getDetails();
-  }, []);
-
-  const handlePageChange = useCallback((event, value) => {
-    setPage(value);
-  }, []);
 
   const handleAdd = () => {
     router.push("/roomsadd");
   };
+
+  const handlePageChange = useCallback((event, value) => {
+    setPage(value);
+  }, []);
+  const update = (data) => {
+    getDetails();
+  };
+
   const handleRowsPerPageChange = useCallback((event) => {
     setRowsPerPage(event.target.value);
+    setPage(1); 
+  }, []);
+
+  const handleInputChange = (inputValue) => {
+    console.log('Input value from child component:', inputValue);
+    setSearch(inputValue)
+    getDetails()
+  };
+
+
+  useEffect(() => {
+    getDetails();
   }, []);
 
   return (
@@ -140,7 +176,7 @@ const Page = () => {
               <Stack spacing={1}>
                 <Typography variant="h4">Rooms List</Typography>
               </Stack>
-              <div>
+              {/* <div>
                 <Button
                   startIcon={
                     <SvgIcon fontSize="small">
@@ -152,21 +188,22 @@ const Page = () => {
                 >
                   Add
                 </Button>
-              </div>
+              </div> */}
             </Stack>
-            <RoomSearch />
+            <RoomSearch  onInputChange={handleInputChange}/>
             <RoomsTable
-              count={data.length}
-              items={data}
-              onDeselectAll={data.handleDeselectAll}
-              onDeselectOne={data.handleDeselectOne}
+              count={details?.length}
+              items={details?.slice((page - 1) * rowsPerPage, page * rowsPerPage)}
+              onDeselectAll={details?.handleDeselectAll}
+              onDeselectOne={details?.handleDeselectOne}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handleRowsPerPageChange}
-              onSelectAll={data.handleSelectAll}
-              onSelectOne={data.handleSelectOne}
+              onSelectAll={details?.handleSelectAll}
+              onSelectOne={details?.handleSelectOne}
               page={page}
               rowsPerPage={rowsPerPage}
-              selected={data.selected}
+              selected={details?.selected}
+              update={update}
             />
           </Stack>
           <Box
@@ -175,10 +212,12 @@ const Page = () => {
                 justifyContent: "center",
               }}
             >
-                <Pagination
-              count={3}
-              size="small"
-            />
+               <Pagination
+                count={Math.ceil(totalCount / rowsPerPage)}  // Adjusted count based on rowsPerPage
+                page={page}
+                onChange={handlePageChange}
+                size="small"
+              />
             </Box>
         </Container>
        

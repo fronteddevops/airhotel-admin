@@ -78,10 +78,13 @@ setVandorData(vendorData)
       console.error(err);
     }
   };
+  
   const handlePageChange = useCallback((event, value) => {
     setPage(value);
   }, []);
-
+  const update = (data) => {
+    getDetails();
+  };
 
   useEffect(() => {
     getDetails();
@@ -116,7 +119,7 @@ setVandorData(vendorData)
         flexGrow: 1,
         py: 8
       }}
-    >
+    > 
       <Container maxWidth="xl">
         <Stack spacing={3}>
           <Stack
@@ -156,7 +159,7 @@ setVandorData(vendorData)
               page={page}
               rowsPerPage={rowsPerPage}
               selected={vandorData?.selected}
-              
+              update={update}
             />
           <Box
             sx={{

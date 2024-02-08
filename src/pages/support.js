@@ -46,37 +46,57 @@ const useSupportIds = (support) => {
 
 const Page = () => {
   const router = useRouter()
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10); 
+  const [search, setSearch] = useState('');
   const support = useSupport(page, rowsPerPage);
   const supportIds = useSupportIds(support);
   const supportSelection = useSelection(supportIds);
   const [details,setDetails]=useState()
+  const [totalCount, setTotalCount] = useState(0);
+  const [rows, setRows] = useState(10);
+ 
+
 
   const getDetails = async () => {
-    const response = await services.support.GET_SUPPORT()
-    setDetails(response?.data);
-    
+    try {
+      let object = {
+        page: page,
+        limit: rowsPerPage,
+        search: search,
+      };
+
+      const payload = new URLSearchParams(object).toString();
+      const response = await services.support.GET_SUPPORT(payload);
+      setDetails(response?.data?.data?.rows);
+      setTotalCount(response?.data?.data?.rows?.length);
+    } catch (err) {
+      console.error(err);
+    }
   };
+ 
+  const handlePageChange = useCallback((event, value) => {
+    setPage(value);
+  }, []);
+  const update = (data) => {
+    getDetails();
+  };
+
+
+  const handleRowsPerPageChange = useCallback((event) => {
+    setRowsPerPage(event.target.value);
+    setPage(1);  
+  }, []);
+
+  const handleInputChange = (inputValue) => {
+    setSearch(inputValue)
+    getDetails()
+  };
+
 
   useEffect(() => {
     getDetails();
   }, []);
-
-  const handlePageChange = useCallback(
-    (event, value) => {
-      setPage(value);
-    },
-    []
-  );
-
- 
-  const handleRowsPerPageChange = useCallback(
-    (event) => {
-      setRowsPerPage(event.target.value);
-    },
-    []
-  );
 
   return (
     <>
@@ -107,19 +127,20 @@ const Page = () => {
               </Stack>
      
             </Stack>
-            <SupportSearch />
+            <SupportSearch  onInputChange={handleInputChange}/>
             <SupportTable
-              count={data.length}
-              items={data}
-              onDeselectAll={data.handleDeselectAll}
-              onDeselectOne={data.handleDeselectOne}
+              count={details?.length}
+              items={details?.slice((page - 1) * rowsPerPage, page * rowsPerPage)}
+              onDeselectAll={details?.handleDeselectAll}
+              onDeselectOne={details?.handleDeselectOne}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handleRowsPerPageChange}
-              onSelectAll={data.handleSelectAll}
-              onSelectOne={data.handleSelectOne}
+              onSelectAll={details?.handleSelectAll}
+              onSelectOne={details?.handleSelectOne}
               page={page}
               rowsPerPage={rowsPerPage}
-              selected={data.selected}
+              selected={details?.selected}
+              update={update}
             />
           </Stack>
           <Box
@@ -128,10 +149,12 @@ const Page = () => {
                 justifyContent: "center",
               }}
             >
-                <Pagination
-              count={3}
-              size="small"
-            />
+           <Pagination
+                count={Math.ceil(totalCount / rowsPerPage)} 
+                page={page}
+                onChange={handlePageChange}
+                size="small"
+              />
             </Box>
         </Container>
       

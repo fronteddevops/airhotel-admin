@@ -83,6 +83,7 @@ const Page = () => {
     getDetails()
     // Do something with the input value in the parent component
   };
+  
   return (
     <>
       <Head>

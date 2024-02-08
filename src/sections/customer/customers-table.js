@@ -30,15 +30,28 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import moment from "moment";
+import { useDispatch, useSelector } from 'react-redux';
+import services from "src/services";
+import { toggleUser } from "src/redux/action";
+import Toaster from "../../components/toaster"
+
 
 export const CustomersTable = (props) => {
   const router = useRouter();
   const [selectedCustomerId, setSelectedCustomerId] = useState(null);
   const [isSwitchOn, setSwitchOn] = useState(false);
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
+  const dispatch = useDispatch();
+  const users = useSelector(state => state.users);
+  const [toggle, setToggle] = useState();
+  const [toaster, setToaster] = useState({ visiblity: "hide" });
 
-  const handleDetails = () => {
-    router.push("/userviewdetails");
+ 
+  const handleDetails = (id) => {
+    router.push({
+      pathname:"/userviewdetails",
+      query: { id },
+    });
   };
   const {
     count = 0,
@@ -52,7 +65,59 @@ export const CustomersTable = (props) => {
     page = 0,
     rowsPerPage = 10,  // Set default value to 10
     selected = [],
+    update = () => {},
   } = props;
+
+
+  const getDetails = async () => {
+    try {
+      const response = await services.userList.GET_USERS();
+      setToggle(response.data.isActive);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleToggle = async (id, isverify) => {
+    dispatch(toggleUser(id, isverify));
+    try {
+      const data = {
+        isVerify: isverify===false?true:false
+    };
+      const response = await services.vendor.UPDATE_VENDOR(id, data);
+      if (response) {
+        // getDetails();
+        update("update")
+        setToaster({
+          type: "success",
+          title: "Successful",
+          text: "Vendor Updated successfully",
+          visiblity: "show",
+        });
+
+        setTimeout(() => {
+          setToaster({
+            visiblity: "hide",
+          });
+        }, 1000);
+     
+        
+      }
+    } catch (error) {
+      console.log(error)
+      setToaster({
+        type: "error",
+        title: "Error Occured",
+        text: "Error",
+        visiblity: "show",
+      });
+      setTimeout(() => {
+        setToaster({
+          visiblity: "hide",
+        });
+      }, 1500);
+    }
+  };
 
   const handleSwitchChange = (customerId) => {
     setSelectedCustomerId(customerId);
@@ -71,28 +136,37 @@ export const CustomersTable = (props) => {
   };
 
   return (
-    <Card>
+    <div><Toaster
+    type={toaster.type}
+    title={toaster.title}
+    text={toaster.text}
+    visiblity={toaster.visiblity}
+  />
+   <Card>
       <Scrollbar>
         <TableContainer sx={{ minWidth: 800, overflowX: "auto" }}>
           <Table>
             <TableHead>
               <TableRow>
+              <TableCell sx={{ whiteSpace: "nowrap",textAlign:"center" }}>S.No</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", padding: "20px" }}>ID</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>User Name</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Email</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Phone</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Date of Birth</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>
+                {/* <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>
                   Verification Status
-                </TableCell>
+                </TableCell> */}
                 <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Is Active</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {Array.isArray(items) && items.length > 0 ? (
-                items.map((user) => (
+                items.map((user,i) => (
                   <TableRow hover key={user.id}>
+
+<TableCell style={{ textAlign: "center" }}>{i + 1}</TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
                         {user.id}
@@ -119,7 +193,7 @@ export const CustomersTable = (props) => {
                         {moment(user.Dob).format("MMMM D, YYYY")}
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    {/* <TableCell>
                       <Typography
                         variant="subtitle2"
                         sx={{
@@ -129,17 +203,21 @@ export const CustomersTable = (props) => {
                       >
                         {user.isVerify === false ? "InActive" : "Active"}
                       </Typography>
-                    </TableCell>
+                    </TableCell> */}
 
                     <TableCell sx={{ textAlign: "center" }}>
                       <Switch
-                        checked={user?.status}
-                        onChange={handleSwitchChange}
+                        checked={user?.isVerify}
+                        onChange={(e) =>{
+                          handleToggle(user.id,user?.isVerify)
+                        }}
+                        // onChange={handleSwitchChange}
                         color="primary"
                         inputProps={{ "aria-label": "toggle button" }}
                       />
                     </TableCell>
-                    <TableCell sx={{ textAlign: "center" }} onClick={handleDetails}>
+                    <TableCell sx={{ textAlign: "center" }}
+                    onClick={(e) => handleDetails(user?.id)}>
                       <RemoveRedEyeIcon style={{ color: "#6366F1" }} />
                     </TableCell>
                   </TableRow>
@@ -186,8 +264,11 @@ export const CustomersTable = (props) => {
       />
        
     </Card>
+  </div>
+   
   );
 };
+
 
 CustomersTable.propTypes = {
   count: PropTypes.number,
@@ -201,4 +282,5 @@ CustomersTable.propTypes = {
   page: PropTypes.number,
   rowsPerPage: PropTypes.number,
   selected: PropTypes.array,
+  update: PropTypes.number,
 };

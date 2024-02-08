@@ -173,7 +173,6 @@ const Page = () => {
           password: values.password,
          
         };
-  console.log("payload",payload)
         const response = await services.auth.LOGIN_USER(payload)
        
         if (response) {

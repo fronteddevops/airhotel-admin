@@ -34,7 +34,7 @@ import { FaEdit } from "react-icons/fa";
 import services from "src/services";
 import constant from "src/constant";
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleCategory } from '../../redux/actions';
+import { toggleCategory } from '../../redux/action/index';
 
 export const CategoryCard = (props) => {
   const {
@@ -60,6 +60,7 @@ export const CategoryCard = (props) => {
   const imageUrl = constant.BASE_URL_UPLOADS;
   const dispatch = useDispatch();
   const categories = useSelector(state => state.categories);
+  
   const handleEdit = (id) => {
     router.push({
       pathname: "/categoryedit",
@@ -119,10 +120,12 @@ export const CategoryCard = (props) => {
     setConfirmationDialogOpen(false);
   };
 
+
   const handleCloseConfirmationDialog = () => {
     setConfirmationDialogOpen(false);
   };
   const handleToggle = async (id, isActiveStatus) => {
+    
     dispatch(toggleCategory(id, isActiveStatus));
     try {
       const data = {
@@ -131,7 +134,7 @@ export const CategoryCard = (props) => {
 
       const response = await services.category.UPDATE_CATEGORY(id, data);
       if (response) {
-        getDetails();
+        // getDetails();
         update("update")
         setToaster({
           type: "success",

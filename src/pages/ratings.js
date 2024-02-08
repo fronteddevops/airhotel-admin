@@ -63,9 +63,9 @@ const Page = () => {
     
   };
 
-  useEffect(() => {
-    getDetails();
-  }, []);
+  // useEffect(() => {
+  //   getDetails();
+  // }, []);
 
   return (
     <>

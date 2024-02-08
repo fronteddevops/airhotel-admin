@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-props-per-line */
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Box, Button, Container, Pagination, Stack, SvgIcon, Typography } from "@mui/material";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
@@ -13,10 +13,54 @@ import services from "src/services";
 const Page = () => {
   const router = useRouter();
   const [hotelDetails, setHotelDetails] = useState();
+  const [data, setData] = useState();
+  const [totalCount, setTotalCount] = useState(0);
+  const [rows, setRows] = useState(10);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);  // Set to 10 rows per page
+  const [search, setSearch] = useState('');
   const getDetails = async () => {
-    const response = await services.hotel.GET_HOTEL();
-    setHotelDetails(response?.data?.data);
+    try {
+      let object = {
+        page: page,
+        limit: rowsPerPage,
+        search: search,
+      };
+
+      const payload = new URLSearchParams(object).toString();
+      const response = await services.hotel.GET_HOTEL(payload);
+        setHotelDetails(response?.data?.data.rows);
+      setTotalCount(response?.data?.data.count);
+      setData(response?.data?.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
+  const handlePageChange = useCallback((event, value) => {
+    setPage(value);
+  }, []);
+
+  const update = (data) => {
+    getDetails();
+  };
+
+  useEffect(() => {
+    getDetails();
+  }, []);
+
+  
+  const handleRowsPerPageChange = useCallback((event) => {
+    setRowsPerPage(event.target.value);
+    setPage(1);  // Reset page to 1 when changing rowsPerPage
+  }, []);
+
+  const handleInputChange = (inputValue) => {
+    setSearch(inputValue)
+    getDetails()
+  };
+
+
+
 
   useEffect(() => {
     getDetails();
@@ -44,7 +88,7 @@ const Page = () => {
               <Stack spacing={1}>
                 <Typography variant="h4">Hotel List</Typography>
               </Stack>
-              <div>
+              {/* <div>
                 <Button
                   startIcon={
                     <SvgIcon fontSize="small">
@@ -54,14 +98,26 @@ const Page = () => {
                   variant="contained"
                   onClick={handleAddClick}
                 >
+
                   Add
                 </Button>
-              </div>
+              </div> */}
             </Stack>
-            <HotelSearch />
+            <HotelSearch  onInputChange={handleInputChange}/>
             <HotelCard
               count={hotelDetails?.length}
-              items={hotelDetails}
+              // item={hotelDetails}
+              items={hotelDetails?.slice((page - 1) * rowsPerPage, page * rowsPerPage)}
+              onDeselectAll={hotelDetails?.handleDeselectAll}
+              onDeselectOne={hotelDetails?.handleDeselectOne}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleRowsPerPageChange}
+              onSelectAll={hotelDetails?.handleSelectAll}
+              onSelectOne={hotelDetails?.handleSelectOne}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              selected={hotelDetails?.selected}
+              update={update}
             />
             <Box
               sx={{
@@ -69,7 +125,10 @@ const Page = () => {
                 justifyContent: "center",
               }}
             >
-              <Pagination count={3} size="small" />
+              <Pagination  count={Math.ceil(totalCount / rowsPerPage)}  // Adjusted count based on rowsPerPage
+                page={page}
+                onChange={handlePageChange}
+                size="small"/>
             </Box>
           </Stack>
         </Container>

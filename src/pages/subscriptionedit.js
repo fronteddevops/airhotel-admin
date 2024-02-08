@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
@@ -48,7 +48,7 @@ const Page = (props) => {
                 <TextField fullWidth label="Category Type" name="categoryType" required />
               </Grid>
               <Grid xs={12} md={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider >
                   <DatePicker sx={{ width: "100%" }} />
                 </LocalizationProvider>
               </Grid>

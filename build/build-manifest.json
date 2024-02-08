@@ -22,10 +22,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/vendoradd": [
+    "/ratings": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/vendoradd.js"
+      "static/chunks/pages/ratings.js"
+    ],
+    "/rooms": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/rooms.js"
     ]
   },
   "ampFirstPages": []

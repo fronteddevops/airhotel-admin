@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+
 import {
   Box,
   Card,
@@ -34,6 +36,8 @@ import { useRouter } from "next/router";
 import Toaster from "../../components/toaster";
 import moment from "moment";
 import services from "src/services";
+import { useDispatch, useSelector } from 'react-redux';
+import {  toggleHotel} from '../../redux/action/index';
 
 export const HotelCard = (props) => {
 
@@ -47,16 +51,20 @@ export const HotelCard = (props) => {
     onSelectAll,
     onSelectOne,
     page = 0,
+    update = () => {},
     rowsPerPage = 0,
     selected = [],
   } = props;
 
-  console.log("itemssssssss",items)
   const [selectedCustomerId, setSelectedCustomerId] = useState(null);
   const [isSwitchOn, setSwitchOn] = useState(false);
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const [toaster, setToaster] = useState({ visiblity: "hide" });
-  const router=useRouter()
+  const dispatch = useDispatch();
+  const vendor = useSelector(state => state.vendors);
+  const router=useRouter() // Set to 10 rows per page
+  const [search, setSearch] = useState('');
+
 
   const handleSwitchChange = (customerId) => {
     setSelectedCustomerId(customerId);
@@ -81,30 +89,60 @@ export const HotelCard = (props) => {
       query: { id },
     });
   }
-  const handleChange = async (id,isActive) => {
 
+  const handleDetails = (id) => {
+    router.push({
+      pathname:"/hotelviewdetails",
+      query: { id },
+    });
+  };
+
+
+
+  const getDetails = async () => {
     try {
-      const data = {
-        status: isActive,
+      let object = {
+        page: page,
+        limit: rowsPerPage,
+        search: search,
       };
 
-      const response = await services.hotel.UPDATE_HOTEL(id, data);
-    
-      if(response){
+      const payload = new URLSearchParams(object).toString();
+      const response = await services.hotel.GET_HOTEL(payload);
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleToggle = async (id, status) => {
+    dispatch(toggleHotel(id, status));
+    try {
+      const data = {
+        status: status===false?true:false
         
+    };
+    const response = await services.hotel.UPDATE_HOTEL(id, data);
+      if (response) {
+        // getDetails();
+        update("update")
         setToaster({
           type: "success",
           title: "Successful",
-          text: "Updated successfully",
+          text: "Hotel Updated successfully",
           visiblity: "show",
         });
+
         setTimeout(() => {
-          window.location.reload()
+          setToaster({
+            visiblity: "hide",
+          });
         }, 1000);
+     
         
       }
     } catch (error) {
-     
+      console.log(error)
       setToaster({
         type: "error",
         title: "Error Occured",
@@ -118,6 +156,7 @@ export const HotelCard = (props) => {
       }, 1500);
     }
   };
+
   return (
     <div>
     <Toaster
@@ -133,7 +172,7 @@ export const HotelCard = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell sx={{ whiteSpace: "nowrap",textAlign:"center" }}>S.No</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap" ,textAlign:"center" }}>Category</TableCell>
+                {/* <TableCell sx={{ whiteSpace: "nowrap" ,textAlign:"center" }}>Category</TableCell> */}
                 <TableCell sx={{ whiteSpace: "nowrap",textAlign:"center"  }}>Hotel Name</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center" }}>Hotel Address</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>City</TableCell>
@@ -169,13 +208,13 @@ export const HotelCard = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items && items.rows?.map((hotel, i) => {
+              {items && items?.map((hotel, i) => {
                 const isSelected = selected.includes(hotel.id);
-               
+                
                 return (
                   <TableRow hover key={hotel.id} selected={isSelected}>
                     <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{hotel?.Category?.name}</TableCell>
+                    {/* <TableCell sx={{ textAlign: "center" }}>{hotel?.Category?.name}</TableCell> */}
                     <TableCell sx={{ textAlign: "center" }}>{hotel.name}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{hotel.address}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{hotel.city}</TableCell>
@@ -198,23 +237,28 @@ export const HotelCard = (props) => {
                       </Typography>
                     </TableCell>
                  
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.selectFacility}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.description}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>
+                      {hotel.selectFacility}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>
+                      {/* {hotel.description} */}
+                    {hotel.description ? hotel.description.substring(0, 50) : "-"}...
+                    </TableCell>
                   
                    
                     <TableCell sx={{ textAlign: "center" }}>
                       <Switch
                         checked={hotel?.status}
-                        onChange={() => handleChange(hotel?.id, hotel?.status===true ? false :true)}
+                        onChange={() => handleToggle(hotel?.id, hotel?.status)}
                         color="primary"
                         inputProps={{ "aria-label": "toggle button" }}
                       />
                     </TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>
-                      <Typography sx={{ marginLeft: "10px" ,fontSize:"20px"}}>
-                        {" "}
-                        <FaEdit  style={{ color: "#6366F1" }}  onClick={(e)=>handleEdit(hotel.id)}/>
-                      </Typography>
+
+                    <TableCell sx={{ textAlign: "center" }} 
+                         onClick={(e) => handleDetails(hotel?.id)}
+                    
+                    >
+                      <RemoveRedEyeIcon style={{ color: "#6366F1" }} />
                     </TableCell>
                   </TableRow>
                 );
@@ -222,7 +266,6 @@ export const HotelCard = (props) => {
             </TableBody>
           </Table>
         </TableContainer>
-        {/* Confirmation Active InActive */}
         <Dialog open={isConfirmationDialogOpen} onClose={handleCloseConfirmationDialog}>
           <DialogTitle>Confirmation</DialogTitle>
           <DialogContent>
@@ -249,6 +292,7 @@ export const HotelCard = (props) => {
         page={page}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
+        
       />
     </Card>
     </div>
@@ -258,6 +302,16 @@ export const HotelCard = (props) => {
 HotelCard.propTypes = {
   data: PropTypes.array.isRequired,
   setData: PropTypes.func.isRequired,
+  onDeselectAll: PropTypes.func,
+  onDeselectOne: PropTypes.func,
+  onPageChange: PropTypes.func,
+  onRowsPerPageChange: PropTypes.func,
+  onSelectAll: PropTypes.func,
+  onSelectOne: PropTypes.func,
+  page: PropTypes.number,
+  rowsPerPage: PropTypes.number,
+  selected: PropTypes.array,
+  update: PropTypes.number,
 };
 
 export default HotelCard;

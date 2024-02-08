@@ -49,4 +49,14 @@ export default {
       }
     });
   },
+  GET_VENDOR_BY_ID: (query) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await Axios.get(constant.BASE_URL + api.vendor.GET_VENDOR_BY_ID(query));
+        resolve(response);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  },
 }

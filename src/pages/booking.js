@@ -16,11 +16,12 @@ import services from "../services";
 
 const Page = () => {
   const router = useRouter();
-  const [details, setDetails] = useState(data);
+  const [details, setDetails] = useState();
 
   const getDetails = async () => {
     const response = await services.booking.GET_BOOKING();
-    setDetails(response?.data);
+    setDetails(response?.data?.data?.rows);
+    console.log(response?.data?.data?.rows,"kkkkkkkkkkkkkkk");
   };
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const Page = () => {
               </Stack>
             </Stack>
             <BookingSearch />
-            <BookingTable count={data.length} items={data} />
+            <BookingTable count={details.length} items={details} />
             <Box
               sx={{
                 display: "flex",

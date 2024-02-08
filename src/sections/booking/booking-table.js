@@ -70,7 +70,7 @@ export const BookingTable = (props) => {
                 <TableCell sx={{ whiteSpace: "nowrap",textAlign:"center" }}>ID</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap" ,textAlign:"center" }}>Name</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap",textAlign:"center"  }}>Room Id</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center" }}>Payment Type</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center" }}>Address</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>Amount</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center" }}>Status</TableCell>
 
@@ -96,9 +96,9 @@ export const BookingTable = (props) => {
                    
                     <TableCell sx={{ textAlign: "center" }}>{booking.name}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{booking.roomId}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{booking.paymentType}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{booking.amount}</TableCell>
-                    <TableCell sx={{ textAlign: "center" ,color: textColor }}>{booking.status}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{booking.address}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{booking.totalPrice}</TableCell>
+                    <TableCell sx={{ textAlign: "center" ,color: textColor }}>{booking?.status==true?"Available":"Unavailable"}</TableCell>
 
                     
                     <TableCell sx={{ textAlign: "center" }} onClick={()=>{

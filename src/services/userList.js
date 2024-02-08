@@ -19,5 +19,17 @@ export default {
         reject(err);
       }
     });
-  }
+  },  GET_USERS_BY_ID: (id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+  
+        const response = await Axios.get(
+         constant.BASE_URL + api.userList.GET_USERS_BY_ID(id)
+        );
+        resolve(response);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  },
 }

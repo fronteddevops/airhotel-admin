@@ -7,12 +7,12 @@ import constant from "../constant"
 
 
 export default {
-    GET_HOTEL: () => {
+    GET_HOTEL: (query) => {
     return new Promise(async (resolve, reject) => {
       try {
   
         const response = await Axios.get(
-         constant.BASE_URL + api.hotel.GET_HOTEL()
+         constant.BASE_URL + api.hotel.GET_HOTEL(query)
         );
         resolve(response);
       } catch (err) {
@@ -20,12 +20,12 @@ export default {
       }
     });
   },
-  GET_HOTEL_BY_ID: (query) => {
+  GET_HOTEL_BY_ID: (id) => {
     return new Promise(async (resolve, reject) => {
       try {
   
         const response = await Axios.get(
-         constant.BASE_URL + api.hotel.GET_HOTEL_BY_ID(query)
+         constant.BASE_URL + api.hotel.GET_HOTEL_BY_ID(id)
         );
         resolve(response);
       } catch (err) {

@@ -6,12 +6,12 @@ import api from "src/api";
 
 
 export default {
-  GET_ROOMS: () => {
+  GET_ROOMS: (query) => {
     return new Promise(async (resolve, reject) => {
       try {
   
         const response = await Axios.get(
-          constant.BASE_URL +   api.rooms.GET_ROOMS()
+          constant.BASE_URL +   api.rooms.GET_ROOMS(query)
         );
         resolve(response);
       } catch (err) {

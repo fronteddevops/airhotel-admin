@@ -87,6 +87,9 @@ const Page = () => {
     // Do something with the input value in the parent component
   };
 
+  const update = (data) => {
+    getDetails();
+  };
   useEffect(() => {
     getDetails();
   }, []);
@@ -124,7 +127,9 @@ const Page = () => {
               page={page}
               rowsPerPage={rowsPerPage}
               selected={data?.rows?.selected}
+              update={update}
             />
+
             <Box
               sx={{
                 display: "flex",

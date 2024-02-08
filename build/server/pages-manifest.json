@@ -2,6 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/vendor": "pages/vendor.js",
-  "/vendoradd": "pages/vendoradd.js"
+  "/category": "pages/category.js",
+  "/ratings": "pages/ratings.js",
+  "/rooms": "pages/rooms.js"
 }
