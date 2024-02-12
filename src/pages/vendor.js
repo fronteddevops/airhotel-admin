@@ -56,7 +56,7 @@ const Page = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);  // Set to 10 rows per page
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [search, setSearch] = useState('');
 
 const [vandorData,setVandorData]=useState()
@@ -86,9 +86,7 @@ setVandorData(vendorData)
     getDetails();
   };
 
-  useEffect(() => {
-    getDetails();
-  }, []);
+ 
 
   const handleAddClick = () => {
     router.push("/vendoradd")
@@ -96,15 +94,17 @@ setVandorData(vendorData)
   };
   const handleRowsPerPageChange = useCallback((event) => {
     setRowsPerPage(event.target.value);
-    setPage(1);  // Reset page to 1 when changing rowsPerPage
+    setPage(1); 
   }, []);
 
   const handleInputChange = (inputValue) => {
-    console.log('Input value from child component:', inputValue);
     setSearch(inputValue)
     getDetails()
-    // Do something with the input value in the parent component
   };
+
+  useEffect(() => {
+    getDetails();
+  }, [search,page,rowsPerPage]);
 
   return (
     <>

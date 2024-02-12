@@ -155,7 +155,7 @@ const Page = (props) => {
         <CardContent sx={{ pt: 0, mt: 4 }}>
           <Box sx={{ m: -1.5 }}>
             <Grid container spacing={3}>
-              <Grid xs={12} md={6}>
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
                 <TextField
                   fullWidth
                   placeholder="First Name"
@@ -176,12 +176,11 @@ const Page = (props) => {
                   }}
                   value={FirstName}
                 />
-              </Grid>
-              {FirstNameError && (
+                  {FirstNameError && (
                 <>
                   <span
-                    style={{
-                      marginTop: "4.5rem",
+                     style={{
+                      marginTop: "3.9rem",
                       marginLeft: "1rem",
                       color: "red",
                       fontSize: "12px",
@@ -192,8 +191,10 @@ const Page = (props) => {
                   </span>
                 </>
               )}
+              </Grid>
+            
 
-              <Grid xs={12} md={6}>
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
                 <TextField
                   fullWidth
                   placeholder="Last Name"
@@ -214,23 +215,24 @@ const Page = (props) => {
                   }}
                   value={lastName}
                 />
-              </Grid>
-              {LastNameError && (
+                {LastNameError && (
                 <>
                   <span
-                    style={{
-                      marginTop: "4.5rem",
-                      marginLeft: "1rem",
-                      color: "red",
-                      fontSize: "12px",
-                      position: "absolute",
-                    }}
+                      style={{
+                        marginTop: "3.9rem",
+                        marginLeft: "1rem",
+                        color: "red",
+                        fontSize: "12px",
+                        position: "absolute",
+                      }}
                   >
                     {LastNameError}
                   </span>
                 </>
               )}
-              <Grid xs={12} md={6}>
+              </Grid>
+              
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
                 <TextField
                   fullWidth
                   placeholder="Email"
@@ -253,12 +255,11 @@ const Page = (props) => {
                   onKeyDown={(e) => exceptThisSymbols.includes(e.key) && e.preventDefault()}
                   required
                 />
-              </Grid>
-              {emailError && (
+                 {emailError && (
                 <>
                   <span
-                    style={{
-                      marginTop: "4.5rem",
+                     style={{
+                      marginTop: "3.9rem",
                       marginLeft: "1rem",
                       color: "red",
                       fontSize: "12px",
@@ -269,8 +270,10 @@ const Page = (props) => {
                   </span>
                 </>
               )}
+              </Grid>
+             
 
-              <Grid xs={12} md={6}>
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
                 <TextField
                   fullWidth
                   placeholder="Phone Number"
@@ -281,9 +284,9 @@ const Page = (props) => {
 
                     if (enteredNumber >= 0 || enteredNumber === "") {
                       setPhone(enteredNumber);
-                      if (enteredNumber.length > 13) {
+                      if (enteredNumber.length > 10 ||enteredNumber.length < 10) {
                         setIsDisabled(false);
-                        setPhoneError("Must be enter beetween  7 and  13 digit");
+                        setPhoneError("Must be enter beetween 10 digit");
                       } else if (enteredNumber.length === 0) {
                         setIsDisabled(false);
                         setPhoneError("Required");
@@ -296,13 +299,13 @@ const Page = (props) => {
                   onKeyDown={(e) => {
                     exceptThisSymbolsForPhoneNumber.includes(e.key) && e.preventDefault();
                     if (
-                      e.target.value.length >= 15 &&
+                      e.target.value.length >= 10 &&
                       e.key !== "Backspace" &&
                       e.key !== "Delete"
                     ) {
                       e.preventDefault();
 
-                      setPhoneError("Must be entered between 7 and 15 digits");
+                      setPhoneError("Must be entered between 10 digits");
                       setIsDisabled(false);
                     }
                   }}
@@ -310,23 +313,24 @@ const Page = (props) => {
                   type="number"
                   // value={values.phone}
                 />
-              </Grid>
-              {phoneError && (
+                {phoneError && (
                 <>
                   <span
-                    style={{
-                      marginTop: "4.5rem",
-                      marginLeft: "1rem",
-                      color: "red",
-                      fontSize: "12px",
-                      position: "absolute",
-                    }}
+                      style={{
+                        marginTop: "3.9rem",
+                        marginLeft: "1rem",
+                        color: "red",
+                        fontSize: "12px",
+                        position: "absolute",
+                      }}
                   >
                     {phoneError}
                   </span>
                 </>
               )}
-              <Grid xs={12} md={6}>
+              </Grid>
+              
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
                 <TextField
                   fullWidth
                   placeholder="Country"
@@ -347,14 +351,23 @@ const Page = (props) => {
                   }}
                   value={country}
                 />
-              </Grid>
-              {countryError ? (
-                <p className="text-start  position-absolute mt-1" style={{ color: "red" }}>
-                  {countryError}
-                </p>
+                 {countryError ? (
+               <span
+               style={{
+                 marginTop: "3.9rem",
+                 marginLeft: "1rem",
+                 color: "red",
+                 fontSize: "12px",
+                 position: "absolute",
+               }}
+           >
+             {countryError}
+           </span>
               ) : null}
+              </Grid>
+             
 
-              <Grid xs={12} md={6}>
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
                 <TextField
                   fullWidth
                   placeholder="City"
@@ -375,14 +388,23 @@ const Page = (props) => {
                   }}
                   value={city}
                 />
-              </Grid>
-              {cityError ? (
-                <p className="text-start  position-absolute mt-1" style={{ color: "red" }}>
-                  {cityError}
-                </p>
+                  {cityError ? (
+                <span
+                style={{
+                  marginTop: "3.9rem",
+                  marginLeft: "1rem",
+                  color: "red",
+                  fontSize: "12px",
+                  position: "absolute",
+                }}
+            >
+              {cityError}
+            </span>
               ) : null}
+              </Grid>
+            
 
-              <Grid xs={12} md={6}>
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
                 <TextField
                   fullWidth
                   placeholder="Pin Code"
@@ -392,7 +414,8 @@ const Page = (props) => {
                     const enteredNumber = e.target.value.trimStart();
                     if (enteredNumber >= 0 || enteredNumber === "") {
                       setPinCode(enteredNumber);
-                      if (enteredNumber.length > 6) {
+                     
+                      if (enteredNumber.length > 6 || enteredNumber.length < 6) {
                         setPinCodeError("Require Must be enter 6 digit");
                       } else if (enteredNumber.length === 0) {
                         setIsDisabled(false);
@@ -417,21 +440,30 @@ const Page = (props) => {
                   // onChange={handleChange}
                   type="number"
                 />
-              </Grid>
-              {pinCodeError ? (
-                <p className="text-start  position-absolute mt-1" style={{ color: "red" }}>
-                  {pinCodeError}
-                </p>
+                   {pinCodeError ? (
+               <span
+               style={{
+                 marginTop: "3.9rem",
+                 marginLeft: "1rem",
+                 color: "red",
+                 fontSize: "12px",
+                 position: "absolute",
+               }}
+           >
+             {pinCodeError}
+           </span>
               ) : null}
+              </Grid>
+           
 
-              <Grid xs={12} md={6}>
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     sx={{ width: "100%" }}
                     max={getFifteenYearsAgoDate()}
                     // value={date}
                     // selected={date}
-                    defaultValue={dayjs(date)}
+                    // defaultValue={dayjs(date)}
 
                     onChange={(date) => {
                       const fifteenYearsAgo = getFifteenYearsAgoDate();
@@ -456,16 +488,16 @@ const Page = (props) => {
                 {dateError && ( 
                   <>
                     <span
-                      style={{
-                        marginTop: "4.5rem",
-                        marginLeft: "1rem",
-                        color: "red",
-                        fontSize: "12px",
-                        position: "absolute",
-                      }}
-                    >
-                      {dateError}
-                    </span>
+               style={{
+                 marginTop: "3.9rem",
+                 marginLeft: "1rem",
+                 color: "red",
+                 fontSize: "12px",
+                 position: "absolute",
+               }}
+           >
+             {dateError}
+           </span>
                   </>
                 )}
               </Grid>

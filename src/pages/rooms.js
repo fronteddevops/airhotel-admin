@@ -96,8 +96,8 @@ const useSubscriptionIds = (subscription) => {
 const Page = () => {
   const router = useRouter();
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-  const [rowsPerPage, setRowsPerPage] = useState(10);  
+  const [search, setSearch] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const subscription = useSubscription(page, rowsPerPage);
   const subscriptionIds = useSubscriptionIds(subscription);
   const subscriptionSelection = useSelection(subscriptionIds);
@@ -105,26 +105,17 @@ const Page = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [rows, setRows] = useState(10);
 
-
-  // const getDetails = async () => {
-  //   const response = await services.rooms.GET_ROOMS()
-  //   setDetails(response?.data);
-  // };
-
-
-
   const getDetails = async () => {
     try {
       let object = {
         page: page,
         limit: rowsPerPage,
-        search: "",  
+        search: "",
       };
 
       const payload = new URLSearchParams(object).toString();
       const response = await await services.rooms.GET_ROOMS(payload);
       setDetails(response?.data?.data?.rows);
-      console.log(response?.data?.data?.rows);
       setTotalCount(response?.data?.data?.rows.length);
     } catch (err) {
       console.error(err);
@@ -144,19 +135,17 @@ const Page = () => {
 
   const handleRowsPerPageChange = useCallback((event) => {
     setRowsPerPage(event.target.value);
-    setPage(1); 
+    setPage(1);
   }, []);
 
   const handleInputChange = (inputValue) => {
-    console.log('Input value from child component:', inputValue);
-    setSearch(inputValue)
-    getDetails()
+    setSearch(inputValue);
+    getDetails();
   };
-
 
   useEffect(() => {
     getDetails();
-  }, []);
+  }, [search, page, rowsPerPage]);
 
   return (
     <>
@@ -190,7 +179,7 @@ const Page = () => {
                 </Button>
               </div> */}
             </Stack>
-            <RoomSearch  onInputChange={handleInputChange}/>
+            <RoomSearch onInputChange={handleInputChange} />
             <RoomsTable
               count={details?.length}
               items={details?.slice((page - 1) * rowsPerPage, page * rowsPerPage)}
@@ -207,20 +196,19 @@ const Page = () => {
             />
           </Stack>
           <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-               <Pagination
-                count={Math.ceil(totalCount / rowsPerPage)}  // Adjusted count based on rowsPerPage
-                page={page}
-                onChange={handlePageChange}
-                size="small"
-              />
-            </Box>
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Pagination
+              count={Math.ceil(totalCount / rowsPerPage)}
+              page={page}
+              onChange={handlePageChange}
+              size="small"
+            />
+          </Box>
         </Container>
-       
       </Box>
     </>
   );

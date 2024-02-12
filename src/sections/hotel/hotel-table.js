@@ -182,7 +182,7 @@ export const HotelCard = (props) => {
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>Distance From Airport</TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>Distance From Center</TableCell>
                 
-                <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>Location</TableCell>
+                {/* <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>Location</TableCell> */}
                
                 <TableCell sx={{ whiteSpace: "nowrap", textAlign:"center"  }}>
                   No. Of Room
@@ -213,7 +213,7 @@ export const HotelCard = (props) => {
                 
                 return (
                   <TableRow hover key={hotel.id} selected={isSelected}>
-                    <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{hotel.id}</TableCell>
                     {/* <TableCell sx={{ textAlign: "center" }}>{hotel?.Category?.name}</TableCell> */}
                     <TableCell sx={{ textAlign: "center" }}>{hotel.name}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{hotel.address}</TableCell>
@@ -223,25 +223,29 @@ export const HotelCard = (props) => {
                     <TableCell sx={{ textAlign: "center" }}>{hotel.pincode}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{hotel.distanceFromAirport}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{hotel.distanceFromCenter}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{hotel.location}</TableCell>
+                    {/* <TableCell sx={{ textAlign: "center" }}>{hotel.location}</TableCell> */}
                     <TableCell sx={{ textAlign: "center" }}>{hotel.numberOfRoom}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{hotel.startingPrice}</TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        {moment(hotel.checkInTime).format("MMMM D, YYYY")}
+                        {moment(hotel.checkInTime).format("hh:mm A")}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        {moment(hotel.checkOutTime).format("MMMM D, YYYY")}
+                        {moment(hotel.checkOutTime).format("hh:mm A")}
                       </Typography>
                     </TableCell>
                  
                     <TableCell sx={{ textAlign: "center" }}>
-                      {hotel.selectFacility}</TableCell>
+                      {hotel?.selectFacility.map((item,key)=>{return(
+
+                       <p key={key}>{item}</p>
+                      )
+                      })}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>
                       {/* {hotel.description} */}
-                    {hotel.description ? hotel.description.substring(0, 50) : "-"}...
+                    {hotel?.description ? hotel.description.substring(0, 50) : "-"}...
                     </TableCell>
                   
                    
@@ -258,7 +262,7 @@ export const HotelCard = (props) => {
                          onClick={(e) => handleDetails(hotel?.id)}
                     
                     >
-                      <RemoveRedEyeIcon style={{ color: "#6366F1" }} />
+                      <RemoveRedEyeIcon style={{ color: "#6366F1",cursor:"pointer" }} />
                     </TableCell>
                   </TableRow>
                 );
@@ -284,7 +288,7 @@ export const HotelCard = (props) => {
           </DialogActions>
         </Dialog>
       </Scrollbar>
-      <TablePagination
+      {/* <TablePagination
         component="div"
         count={count}
         onPageChange={onPageChange}
@@ -293,7 +297,7 @@ export const HotelCard = (props) => {
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
         
-      />
+      /> */}
     </Card>
     </div>
   );

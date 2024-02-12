@@ -122,8 +122,8 @@ export const CouponTable = (props) => {
                    
                        >
                       
-                        <FaEdit  style={{ color: "#6366F1" }}  onClick={handleEdit}/>
-                        <DeleteIcon  style={{ color: "#6366F1" }} onClick={() => handleDeleteClick(coupon.id)}/>
+                        <FaEdit  style={{ color: "#6366F1",cursor:"pointer" }}  onClick={handleEdit}/>
+                        <DeleteIcon  style={{ color: "#6366F1",cursor:"pointer" }} onClick={() => handleDeleteClick(coupon.id)}/>
                       </Typography>
                     </TableCell>
                   </TableRow>
@@ -151,7 +151,7 @@ export const CouponTable = (props) => {
           </DialogActions>
         </Dialog>
       </Scrollbar>
-      <TablePagination
+      {/* <TablePagination
         component="div"
         count={count}
         onPageChange={onPageChange}
@@ -159,7 +159,7 @@ export const CouponTable = (props) => {
         page={page}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
-      />
+      /> */}
     </Card>
   );
 };

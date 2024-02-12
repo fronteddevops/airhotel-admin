@@ -62,6 +62,7 @@ export default function hoteldetails() {
             crossOrigin="anonymous"
             image={imageUrl + hotelData?.image}
             alt="Hotel Image"
+            
           />
           <CardContent>
             <Typography variant="h5" component="div" gutterBottom>
@@ -80,7 +81,7 @@ export default function hoteldetails() {
               <strong>Number of Rooms:</strong>  {hotelData?.numberOfRoom}
             </Typography>
             <Typography variant="body1" gutterBottom>
-              <strong>Starting Price:</strong>  {hotelData?.startingPrice}
+              <strong>Starting Price:</strong> $ {hotelData?.startingPrice}
             </Typography>
             <Typography variant="body1" gutterBottom>
               <strong>Check-in Time:</strong> 

@@ -19,8 +19,15 @@ const Page = () => {
   const [details, setDetails] = useState();
 
   const getDetails = async () => {
-    const response = await services.booking.GET_BOOKING();
+    let object = {
+      page: 1,
+      limit: 10,
+      // search: ".",  
+    };
+    const payload = new URLSearchParams(object).toString();
+    const response = await services.booking.GET_BOOKING(payload);
     setDetails(response?.data?.data?.rows);
+    // setTotalCount(response?.data?.data?.rows.length);
     console.log(response?.data?.data?.rows,"kkkkkkkkkkkkkkk");
   };
 
@@ -48,7 +55,7 @@ const Page = () => {
               </Stack>
             </Stack>
             <BookingSearch />
-            <BookingTable count={details.length} items={details} />
+            <BookingTable count={details} items={details} />
             <Box
               sx={{
                 display: "flex",

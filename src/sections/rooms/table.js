@@ -29,8 +29,11 @@ import { getInitials } from "src/utils/get-initials";
 import { useRouter } from "next/router";
 import { FaEdit } from "react-icons/fa";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import constant from "src/constant";
 export const RoomsTable = (props) => {
   const router = useRouter();
+  const imageUrl = constant.BASE_URL_UPLOADS;
+
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const {
@@ -99,16 +102,17 @@ export const RoomsTable = (props) => {
               {items.map((room, i) => {
                 const isSelected = selected.includes(room.id);
 
+
                 return (
                   <TableRow hover key={room.id} selected={isSelected}>
                     <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{room.hotelName}</TableCell>
                     <TableCell style={{ textAlign: "center", marginLeft: "30px" }}>
-                      <img src={room.roomImages} style={{ height: "60px" }}></img>
+                      <img crossOrigin="anonymous" src={imageUrl+room?.image?.url} style={{ height: "60px", borderRadius:"5px" }}></img>
                     </TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{room.roomType}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{room.extraMattress}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{room.roomPrice}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{room?.perNightCharge}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{room.acornonac}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{room.numberOfGuest}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{room.numberOfChildren}</TableCell>
@@ -119,9 +123,9 @@ export const RoomsTable = (props) => {
                     </TableCell>
                     <TableCell sx={{ textAlign: "center" }}>
                       <Typography sx={{ marginLeft: "10px", fontSize: "20px" }}>
-                        <FaEdit style={{ color: "#6366F1" }} onClick={handleEdit} />
+                        <FaEdit style={{ color: "#6366F1",cursor:"pointer" }} onClick={handleEdit} />
                         <DeleteIcon
-                          style={{ color: "#6366F1" }}
+                          style={{ color: "#6366F1",cursor:"pointer" }}
                           onClick={() => handleDeleteClick(room.id)}
                         />
                       </Typography>
@@ -133,7 +137,7 @@ export const RoomsTable = (props) => {
           </Table>
         </Box>
       </Scrollbar>
-      <TablePagination
+      {/* <TablePagination
         component="div"
         count={count}
         onPageChange={onPageChange}
@@ -141,7 +145,7 @@ export const RoomsTable = (props) => {
         page={page}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
-      />
+      /> */}
       {/* ... Delete Confirmation ... */}
       <Dialog open={isConfirmationDialogOpen} onClose={handleCloseConfirmationDialog}>
         <DialogTitle>Confirmation</DialogTitle>

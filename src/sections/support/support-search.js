@@ -5,8 +5,12 @@ export const SupportSearch = ({ onInputChange }) => (
   <Card sx={{ p: 2 }}>
     <OutlinedInput
     onChange={(e) => {
-      const inputValue = e.target.value;
-      onInputChange(inputValue); // Call the parent's callback function with the input value
+      const inputValue = e.target.value.trim();
+      if(inputValue==''){
+        onInputChange('');
+      }else{
+        onInputChange(inputValue);
+      }
     }}
       defaultValue=""
       fullWidth

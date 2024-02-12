@@ -63,9 +63,7 @@ const Page = () => {
     setRowsPerPage(event.target.value);
     setPage(1);  // Reset page to 1 when changing rowsPerPage
   }, []);
-  useEffect(() => {
-    getDetails();
-  }, []);
+ 
 
   const handleAddClick = () => {
     router.push("/categoryadd");
@@ -78,11 +76,13 @@ const Page = () => {
   };
 
   const handleInputChange = (inputValue) => {
-    console.log('Input value from child component:', inputValue);
     setSearch(inputValue)
     getDetails()
-    // Do something with the input value in the parent component
   };
+
+  useEffect(() => {
+    getDetails();
+  }, [search,page,rowsPerPage]);
   
   return (
     <>
@@ -139,7 +139,7 @@ const Page = () => {
               }}
             >
               <Pagination
-                count={Math.ceil(totalCount / rowsPerPage)}  // Adjusted count based on rowsPerPage
+                count={Math.ceil(totalCount / rowsPerPage)}  
                 page={page}
                 onChange={handlePageChange}
                 size="small"
