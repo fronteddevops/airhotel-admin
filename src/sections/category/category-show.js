@@ -206,6 +206,7 @@ export const CategoryCard = (props) => {
                             width={80}
                             height={80}
                           />
+                          
                         
                         </TableCell>
                         <TableCell style={{ textAlign: "center" }}>{category?.name}</TableCell>
