@@ -65,5 +65,24 @@ LOGIN_USER: (data) => {
       }
     });
   },
+  LOGOUT: (data) => {
+    return new Promise(async (resolve, reject) => {
+   
+      try {
+        const response = await Axios.post(
+          constant.BASE_URL + api.auth.LOGOUT(),
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        resolve(response);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  },
 
 }

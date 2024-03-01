@@ -12,7 +12,11 @@ import {
   CardHeader,
   Card,
   CardContent,
+  IconButton, InputAdornment
 } from "@mui/material";
+
+// import { Box, Button, IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material';
+
 import { useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -20,6 +24,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import services from "src/services";
 import { useRouter } from "next/router";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { padding } from "@mui/system";
 const Page = (props) => {
   const router = useRouter();
   const { vendors, setVendors } = props;
@@ -37,7 +43,6 @@ const Page = (props) => {
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
   const [dateError, setDateError] = useState("");
-
 
   const [isDisabled, setIsDisabled] = useState("");
   const [toaster, setToaster] = useState({ visiblity: "hide" });
@@ -98,43 +103,47 @@ const Page = (props) => {
   };
 
   const addVandor = async () => {
-    try {
-      const data = {
-        firstName: FirstName,
-        lastName: lastName,
-        contact: phone,
-        password: password,
-        email: email,
-        Dob: date,
-        role:"Vendor"
-      };
 
-      const response = await services.auth.REGISTER_USER(data);
-      if (response) {
-        setIsDisabled(false);
+    if(phone.length>9&&email&&password&&date&&FirstName&&lastName){
+      try {
+        const data = {
+          firstName: FirstName,
+          lastName: lastName,
+          contact: phone,
+          password: password,
+          email: email,
+          Dob: date,
+          role: "Vendor",
+        };
+  
+        const response = await services.auth.REGISTER_USER(data);
+        if (response) {
+          setIsDisabled(false);
+          setToaster({
+            type: "success",
+            title: "Successful",
+            text: "Add Vendor successfully",
+            visiblity: "show",
+          });
+          setTimeout(() => {
+            router.push("/vendor");
+          }, 500);
+        }
+      } catch (error) {
         setToaster({
-          type: "success",
-          title: "Successful",
-          text: "Add Category successfully",
+          type: "error",
+          title: "Error Occured",
+          text: "Error",
           visiblity: "show",
         });
         setTimeout(() => {
-          router.push("/vendor");
-        }, 500);
+          setToaster({
+            visiblity: "hide",
+          });
+        }, 1500);
       }
-    } catch (error) {
-      setToaster({
-        type: "error",
-        title: "Error Occured",
-        text: "Error",
-        visiblity: "show",
-      });
-      setTimeout(() => {
-        setToaster({
-          visiblity: "hide",
-        });
-      }, 1500);
-    }
+    }else{setIsDisabled(false);}
+  
   };
   return (
     <Box sx={{ width: "100%", typography: "body1", p: 5 }}>
@@ -145,14 +154,13 @@ const Page = (props) => {
         <CardContent sx={{ pt: 0, mt: 4 }}>
           <Box sx={{ m: -1.5 }}>
             <Grid container spacing={3}>
-              <Grid xs={12} md={6}>
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
                 <TextField
                   fullWidth
                   label="First Name"
                   name="firstName"
                   // onChange={handleChange}
                   required
-                  // value={values.firstName}
                   onChange={(e) => {
                     if (e.target.value.trim() === "") {
                       setIsDisabled(false);
@@ -166,24 +174,24 @@ const Page = (props) => {
                   }}
                   value={FirstName}
                 />
+                {FirstNameError && (
+                  <>
+                    <span
+                      style={{
+                        marginTop: "3.9rem",
+                        marginLeft: "1rem",
+                        color: "red",
+                        fontSize: "12px",
+                        position: "absolute",
+                      }}
+                    >
+                      {FirstNameError}
+                    </span>
+                  </>
+                )}
               </Grid>
-              {FirstNameError && (
-                <>
-                  <span
-                    style={{
-                      marginTop: "4.5rem",
-                      marginLeft: "1rem",
-                      color: "red",
-                      fontSize: "12px",
-                      position: "absolute",
-                    }}
-                  >
-                    {FirstNameError}
-                  </span>
-                </>
-              )}
 
-<Grid xs={12} md={6}>
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}} >
                 <TextField
                   fullWidth
                   label="Last Name"
@@ -204,23 +212,24 @@ const Page = (props) => {
                   }}
                   value={lastName}
                 />
+                {LastNameError && (
+                  <>
+                    <span
+                      style={{
+                        marginTop: "3.9rem",
+                        marginLeft: "1rem",
+                        color: "red",
+                        fontSize: "12px",
+                        position: "absolute",
+                      }}
+                    >
+                      {LastNameError}
+                    </span>
+                  </>
+                )}
               </Grid>
-              {LastNameError && (
-                <>
-                  <span
-                    style={{
-                      marginTop: "4.5rem",
-                      marginLeft: "1rem",
-                      color: "red",
-                      fontSize: "12px",
-                      position: "absolute",
-                    }}
-                  >
-                    {LastNameError}
-                  </span>
-                </>
-              )}
-              <Grid xs={12} md={6}>
+
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
                 <TextField
                   fullWidth
                   label="Email"
@@ -243,24 +252,24 @@ const Page = (props) => {
                   required
                   // value={values.lastName}
                 />
+                {emailError && (
+                  <>
+                    <span
+                      style={{
+                        marginTop: "3.9rem",
+                        marginLeft: "1rem",
+                        color: "red",
+                        fontSize: "12px",
+                        position: "absolute",
+                      }}
+                    >
+                      {emailError}
+                    </span>
+                  </>
+                )}
               </Grid>
-              {emailError && (
-                <>
-                  <span
-                    style={{
-                      marginTop: "4.5rem",
-                      marginLeft: "1rem",
-                      color: "red",
-                      fontSize: "12px",
-                      position: "absolute",
-                    }}
-                  >
-                    {emailError}
-                  </span>
-                </>
-              )}
 
-              <Grid xs={12} md={6}>
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
                 <TextField
                   fullWidth
                   label="Phone Number"
@@ -271,9 +280,9 @@ const Page = (props) => {
 
                     if (enteredNumber >= 0 || enteredNumber === "") {
                       setPhone(enteredNumber);
-                      if (enteredNumber.length > 13) {
+                      if (enteredNumber.length > 10||enteredNumber.length < 10) {
                         setIsDisabled(false);
-                        setPhoneError("Must be enter beetween  7 and  13 digit");
+                        setPhoneError("Must be enter beetween 10 digit");
                       } else if (enteredNumber.length === 0) {
                         setIsDisabled(false);
                         setPhoneError("Required");
@@ -286,13 +295,13 @@ const Page = (props) => {
                   onKeyDown={(e) => {
                     exceptThisSymbolsForPhoneNumber.includes(e.key) && e.preventDefault();
                     if (
-                      e.target.value.length >= 15 &&
+                      e.target.value.length >= 10 &&
                       e.key !== "Backspace" &&
                       e.key !== "Delete"
                     ) {
                       e.preventDefault();
 
-                      setPhoneError("Must be entered between 7 and 15 digits");
+                      setPhoneError("Must be entered between 10 digits");
                       setIsDisabled(false);
                     }
                   }}
@@ -300,23 +309,25 @@ const Page = (props) => {
                   type="number"
                   // value={values.phone}
                 />
+
+                {phoneError && (
+                  <>
+                    <span
+                      style={{
+                        marginTop: "3.9rem",
+                        marginLeft: "1rem",
+                        color: "red",
+                        fontSize: "12px",
+                        position: "absolute",
+                      }}
+                    >
+                      {phoneError}
+                    </span>
+                  </>
+                )}
               </Grid>
-              {phoneError && (
-                <>
-                  <span
-                    style={{
-                      marginTop: "4.5rem",
-                      marginLeft: "1rem",
-                      color: "red",
-                      fontSize: "12px",
-                      position: "absolute",
-                    }}
-                  >
-                    {phoneError}
-                  </span>
-                </>
-              )}
-              <Grid xs={12} md={6}>
+
+              <Grid xs={12} md={6} container style={{marginTop:"1rem" ,padding:"1rem"}}>
                 <TextField
                   fullWidth
                   type={passwordType}
@@ -347,35 +358,55 @@ const Page = (props) => {
                   // onChange={handleChange}
                   required
                   // value={values.country}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={() => {
+                    passwordType === "password"
+                      ? setPasswordType("text")
+                      : setPasswordType("password");
+                  }} edge="end">
+                          {passwordType === "password" ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
-              </Grid>
-              {passwordError ? (
-                <p className="text-start  position-absolute mt-1" style={{ color: "red" }}>
-                  {passwordError}
-                </p>
-              ) : null}
+                {passwordError ? (
+                  <p  style={{
+                    marginTop: "3.9rem",
+                    marginLeft: "1rem",
+                    color: "red",
+                    fontSize: "12px",
+                    position: "absolute",
+                  }}>
+                    {passwordError}
+                  </p>
+                ) : null}
 
-              <span
-                className="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2 mt-4"
-                data-kt-password-meter-control="visibility"
-                onClick={() => {
-                  passwordType === "password"
-                    ? setPasswordType("text")
-                    : setPasswordType("password");
-                }}
-              >
-                {passwordType === "password" ? (
-                  <i className="bi bi-eye fs-2"></i>
-                ) : (
-                  <i className="bi bi-eye-slash fs-2"></i>
-                )}
-              </span>
-              <Grid xs={12} md={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                {/* <span
+                  className="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2 mt-4"
+                  data-kt-password-meter-control="visibility"
+                  onClick={() => {
+                    passwordType === "password"
+                      ? setPasswordType("text")
+                      : setPasswordType("password");
+                  }}
+                >
+                  {passwordType === "password" ? (
+                    <i className="bi bi-eye fs-2"></i>
+                  ) : (
+                    <i className="bi bi-eye-slash fs-2"></i>
+                  )}
+                </span> */}
+              </Grid>
+
+              <Grid xs={12} md={6} container style={{marginTop:"1rem",padding:"1rem"}}>
+                <LocalizationProvider dateAdapter={AdapterDayjs} >
                   <DatePicker
                     sx={{ width: "100%" }}
                     max={getFifteenYearsAgoDate()}
-                    value={date} // Add this line to set the value of the DatePicker
+                    // value={date} 
                     onChange={(date) => {
                       const fifteenYearsAgo = getFifteenYearsAgoDate();
                       if (!date) {
@@ -385,12 +416,12 @@ const Page = (props) => {
                         const fifteenYearsAgoDate = new Date(fifteenYearsAgo);
                         console.log("Selected date:", selectedDate);
                         if (selectedDate <= fifteenYearsAgoDate) {
-                          setDateError("")
+                          setDateError("");
                           setIsDisabled(true);
                           setDate(selectedDate);
                         } else {
                           setIsDisabled(false);
-                          setDateError("you are not eligible")
+                          setDateError("you are not eligible");
                           // Handle the case where the selected date is greater than 15 years ago
                         }
                       }
@@ -398,20 +429,20 @@ const Page = (props) => {
                   />
                 </LocalizationProvider>
                 {dateError && (
-                <>
-                  <span
-                    style={{
-                      marginTop: "4.5rem",
-                      marginLeft: "1rem",
-                      color: "red",
-                      fontSize: "12px",
-                      position: "absolute",
-                    }}
-                  >
-                    {dateError}
-                  </span>
-                </>
-              )}
+                  <>
+                    <span
+                      style={{
+                        marginTop: "4.5rem",
+                        marginLeft: "1rem",
+                        color: "red",
+                        fontSize: "12px",
+                        position: "absolute",
+                      }}
+                    >
+                      {dateError}
+                    </span>
+                  </>
+                )}
               </Grid>
             </Grid>
           </Box>
@@ -426,7 +457,9 @@ const Page = (props) => {
         >
           <Button
             variant="contained"
-            disabled={!isDisabled || !FirstName || !phone || !password || !email || !date || !lastName}
+            disabled={
+              !isDisabled || !FirstName || !phone || !password || !email || !date || !lastName
+            }
             onClick={addVandor}
           >
             Save Details

@@ -159,12 +159,12 @@ export const SupportTable = (props) => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ textAlign: "center" }}>S.No.</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>UserName</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>Title</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>Subject</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>Status</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>Action</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px",textAlign: "center" }}>ID</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px",textAlign: "center" }}>UserName</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px",textAlign: "center" }}>Title</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px",textAlign: "center" }}>Subject</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px",textAlign: "center" }}>Status</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px",textAlign: "center" }}>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -173,7 +173,7 @@ export const SupportTable = (props) => {
 
                   return (
                     <TableRow hover key={support.id} selected={isSelected}>
-                      <TableCell sx={{ textAlign: "center" }}>{i + 1}</TableCell>
+                      <TableCell sx={{ textAlign: "center" }}>{support.id} </TableCell>
                       <TableCell sx={{ textAlign: "center" }}>{support.sentBy}</TableCell>
                       <TableCell sx={{ textAlign: "center" }}>{support.title}</TableCell>
                       <TableCell sx={{ textAlign: "center" }}>{support.subject}</TableCell>
@@ -192,7 +192,7 @@ export const SupportTable = (props) => {
                             onClick={handleIconClick}
                           >
                             <FaEdit
-                              style={{ color: "#6366F1" }}
+                              style={{ color: "#6366F1",cursor:"pointer" }}
                               onClick={() => {
                                 setUserId(support.id);
                               }}
@@ -224,7 +224,7 @@ export const SupportTable = (props) => {
             </Table>
           </Box>
         </Scrollbar>
-        <TablePagination
+        {/* <TablePagination
           component="div"
           count={count}
           onPageChange={onPageChange}
@@ -232,7 +232,7 @@ export const SupportTable = (props) => {
           page={page}
           rowsPerPage={rowsPerPage}
           rowsPerPageOptions={[5, 10, 25]}
-        />
+        /> */}
       </Card>
     </div>
   );

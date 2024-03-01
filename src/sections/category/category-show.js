@@ -206,6 +206,7 @@ export const CategoryCard = (props) => {
                             width={80}
                             height={80}
                           />
+                          
                         
                         </TableCell>
                         <TableCell style={{ textAlign: "center" }}>{category?.name}</TableCell>
@@ -225,10 +226,10 @@ export const CategoryCard = (props) => {
                           <Typography style={{ color: "#6366F1" }}>
                             {" "}
                             <FaEdit
-                              style={{ fontSize: "20px" }}
+                              style={{ fontSize: "20px",cursor:"pointer" }}
                               onClick={(e) => handleEdit(category?.id)}
                             />{" "}
-                            <DeleteIcon onClick={(e) => handleDeleteClick(category?.id)} />
+                            <DeleteIcon style={{cursor:"pointer"}} onClick={(e) => handleDeleteClick(category?.id)} />
                           </Typography>
                         </TableCell>
 
@@ -240,7 +241,7 @@ export const CategoryCard = (props) => {
             </Table>
           </Box>
         </Scrollbar>
-        <TablePagination
+        {/* <TablePagination
           component="div"
           count={count}
           onPageChange={onPageChange}
@@ -248,7 +249,7 @@ export const CategoryCard = (props) => {
           page={page}
           rowsPerPage={rowsPerPage}
           rowsPerPageOptions={[5, 10, 25]}
-        />
+        /> */}
         {/* ... Delete Confirmation ... */}
         <Dialog open={isConfirmationDialogOpen} onClose={handleCloseConfirmationDialog}>
           <DialogTitle>Confirmation</DialogTitle>

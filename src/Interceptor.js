@@ -27,9 +27,10 @@ const initialiseInterceptor = () => {
       console.log('error in interceptor ==>', error)
       if  (error.response && (error.response.status == 401 || error.response.status == 403)) {
 
-          if (window.location.pathname !== "/") {
+          if (window.location.pathname !== "/auth/login/") {
+            sessionStorage.clear
             setTimeout(() => {
-              window.location.replace("/");
+              window.location.replace("/auth/login/");
             }, 500);
         
           }

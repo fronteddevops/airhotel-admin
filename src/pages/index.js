@@ -27,14 +27,13 @@ const Page = () => {
   const [rows, setRows] = useState(10);
   const [data, setData] = useState();
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
-
   const useCustomers = (page, rowsPerPage) => {
     return useMemo(() => {
       return applyPagination(data, page, rowsPerPage);
-    }, [page, rowsPerPage]);
+    }, [page, rowsPerPage,data]);
   };
 
   const useCustomerIds = (customers) => {
@@ -43,7 +42,7 @@ const Page = () => {
     }, [customers]);
   };
 
-  const [rowsPerPage, setRowsPerPage] = useState(10);  // Set to 10 rows per page
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const customers = useCustomers(page, rowsPerPage);
   const customersIds = useCustomerIds(customers);
   const customersSelection = useSelection(customersIds);
@@ -54,7 +53,7 @@ const Page = () => {
 
   const handleRowsPerPageChange = useCallback((event) => {
     setRowsPerPage(event.target.value);
-    setPage(1);  // Reset page to 1 when changing rowsPerPage
+    setPage(1);
   }, []);
 
   const getDetails = async () => {
@@ -68,7 +67,7 @@ const Page = () => {
       const payload = new URLSearchParams(object).toString();
       const response = await services.userList.GET_USERS(payload);
       setTotalCount(response?.data?.data?.count);
-      setData(response?.data.data);
+      setData(response?.data?.data);
     } catch (err) {
       console.error(err);
     }
@@ -81,10 +80,13 @@ const Page = () => {
   };
 
   const handleInputChange = (inputValue) => {
-    console.log('Input value from child component:', inputValue);
-    setSearch(inputValue)
-    getDetails()
-    // Do something with the input value in the parent component
+    if (inputValue === "") {
+      setSearch("");
+      getDetails();
+    } else {
+      setSearch(inputValue);
+      getDetails();
+    }
   };
 
   const update = (data) => {
@@ -92,7 +94,7 @@ const Page = () => {
   };
   useEffect(() => {
     getDetails();
-  }, []);
+  }, [search, page, rowsPerPage]);
 
   return (
     <>
@@ -137,7 +139,7 @@ const Page = () => {
               }}
             >
               <Pagination
-                count={Math.ceil(totalCount / rowsPerPage)}  // Adjusted count based on rowsPerPage
+                count={Math.ceil(totalCount / rowsPerPage)}
                 page={page}
                 onChange={handlePageChange}
                 size="small"

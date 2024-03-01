@@ -49,36 +49,38 @@ export const UserDetails = () => {
   return (
 
     <Container maxWidth="md">
-    <Typography variant="h3" gutterBottom>
-      User Information
-    </Typography>
-    <Paper elevation={3} sx={{ padding: 3 }}>
-      <Grid container spacing={3} alignItems="center">
-        <Grid item>
-          <Avatar
-            alt="User Image"
-            crossOrigin="anonymous"
-            image={imageUrl + userImageData}
-            sx={{ width: 150, height: 150 }}
-          />
-        </Grid>
-        <Grid item xs={12} sm>
-          <Box>
-            <Typography variant="h5">Name: {userData?.firstName} &nbsp; {userData?.lastName}</Typography>
-            <Typography variant="body1"><strong>Email:</strong>  {userData?.lastName}</Typography>
-            <Typography variant="body1"><strong>Role:</strong>  {userData?.role}</Typography>
-            <Typography variant="body1"><strong>Date of Birth:</strong> N/A {userData?.Dob}</Typography>
-            <Typography variant="body1"><strong>City:</strong>  {userData?.city}</Typography>
-            <Typography variant="body1"><strong>Pin Code:</strong>  {userData?.pincode}</Typography>
-            <Typography variant="body1"><strong>Country:</strong>  {userData?.country}</Typography>
-            <Typography variant="body1"><strong>Company Name:</strong>  {userData?.companyName}</Typography>
-            <Typography variant="body1"><strong>Contact:</strong>  {userData?.contact}</Typography>
-            <Typography variant="body1"><strong>Verified:</strong>  {userData?.isVerify==true?"Yes":"No"}</Typography>
-            <Typography variant="body1"><strong>Hotels:</strong>  {userData?.Hotels}</Typography>
-          </Box>
-        </Grid>
-      </Grid>
-    </Paper>
+   
+   <Paper elevation={3} sx={{ padding: 3, backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: 16 }}>
+  <Typography variant="h3" gutterBottom align="center" sx={{ marginBottom: 4 }}>
+    User Information
+  </Typography>
+  <Grid container spacing={20} alignItems="center" justifyContent="center">
+    <Grid item>
+      <Avatar
+      // variant="rounded"
+        alt="User Image"
+        image={imageUrl + userImageData}
+        sx={{ width: 150, height: 150 }}
+      />
+    </Grid>
+    <Grid item xs={12} sm={8}>
+      <Box sx={{ textAlign: 'start' }}>
+        <Typography variant="body1" sx={{ marginBottom: 1 }}><strong>Name:</strong>{userData?.firstName} {userData?.lastName}</Typography>
+        <Typography variant="body1" sx={{ marginBottom: 1 }}><strong>Email:</strong> {userData?.email}</Typography>
+        <Typography variant="body1" sx={{ marginBottom: 1 }}><strong>Role:</strong> {userData?.role}</Typography>
+        <Typography variant="body1" sx={{ marginBottom: 1 }}><strong>Date of Birth:</strong> {userData?.dob}</Typography>
+        <Typography variant="body1" sx={{ marginBottom: 1 }}><strong>City:</strong> {userData?.city}</Typography>
+        <Typography variant="body1" sx={{ marginBottom: 1 }}><strong>Pin Code:</strong> {userData?.pincode}</Typography>
+        <Typography variant="body1" sx={{ marginBottom: 1 }}><strong>Country:</strong> {userData?.country}</Typography>
+        <Typography variant="body1" sx={{ marginBottom: 1 }}><strong>Company Name:</strong> {userData?.companyName}</Typography>
+        <Typography variant="body1" sx={{ marginBottom: 1 }}><strong>Contact:</strong> {userData?.contact}</Typography>
+        <Typography variant="body1" sx={{ marginBottom: 1 }}><strong>Verified:</strong> {userData?.isVerified ? "Yes" : "No"}</Typography>
+        <Typography variant="body1" sx={{ marginBottom: 1 }}><strong>Hotels:</strong> {userData?.hotels}</Typography>
+      </Box>
+    </Grid>
+  </Grid>
+</Paper>
+
   </Container>
 
     // <Card>

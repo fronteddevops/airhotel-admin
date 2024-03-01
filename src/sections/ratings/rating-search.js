@@ -4,6 +4,14 @@ import { Card, InputAdornment, OutlinedInput, SvgIcon } from '@mui/material';
 export const RatingsSearch = () => (
   <Card sx={{ p: 2 }}>
     <OutlinedInput
+     onChange={(e) => {
+      const inputValue = e.target.value.trim();
+      if(inputValue==''){
+        onInputChange('');
+      }else{
+        onInputChange(inputValue);
+      }
+    }}
       defaultValue=""
       fullWidth
       placeholder="Search Ratings"

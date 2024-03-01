@@ -96,7 +96,7 @@ const Page = () => {
 
   useEffect(() => {
     getDetails();
-  }, []);
+  }, [search,page,rowsPerPage]);
 
   return (
     <>

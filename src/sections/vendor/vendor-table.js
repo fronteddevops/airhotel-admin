@@ -165,9 +165,9 @@ export const Vendorcard = (props) => {
         <Table>
           <TableHead>
             <TableRow >
-            <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>
+            {/* <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>
             S.No
-              </TableCell>
+              </TableCell> */}
               <TableCell sx={{ whiteSpace: "nowrap", padding: "20px" }}>ID</TableCell>
               <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>User Name</TableCell>
               <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Email</TableCell>
@@ -183,7 +183,7 @@ export const Vendorcard = (props) => {
               vendors.map((customer,i) => {
                 return (
                   <TableRow hover key={customer.id}>
-<TableCell style={{ textAlign: "center" }}>{i + 1}</TableCell>
+{/* <TableCell style={{ textAlign: "center" }}>{i + 1}</TableCell> */}
 
                     <TableCell>
                       <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
@@ -242,9 +242,9 @@ export const Vendorcard = (props) => {
                         inputProps={{ "aria-label": "toggle button" }}
                       />
                     </TableCell>
-                    <TableCell  sx={{marginLeft:"10px",fontSize:"20px",textAlign:"center"}} >
+                    <TableCell  sx={{marginLeft:"10px",fontSize:"20px",textAlign:"center",}} >
              
-                    <FaEdit  style={{ color: "#6366F1" }} 
+                    <FaEdit  style={{ color: "#6366F1" ,cursor:"pointer"}} 
                     
                     onClick={(e) => handleEdit(customer?.id)}
                    />
@@ -274,7 +274,7 @@ export const Vendorcard = (props) => {
         </DialogActions>
       </Dialog>
     </Scrollbar>
-     <TablePagination
+     {/* <TablePagination
       component="div"
       count={count}
       onPageChange={onPageChange}
@@ -282,7 +282,7 @@ export const Vendorcard = (props) => {
       page={page}
       rowsPerPage={rowsPerPage}
       rowsPerPageOptions={[5, 10, 25]}
-    />
+    /> */}
   </Card></div>
   
   );

@@ -104,7 +104,7 @@ export const BookingTable = (props) => {
                     <TableCell sx={{ textAlign: "center" }} onClick={()=>{
                         handleDetails(id)
                     }}>
-                        <RemoveRedEyeIcon  style={{ color: "#6366F1" }} />
+                        <RemoveRedEyeIcon  style={{ color: "#6366F1",cursor:"pointer" }} />
                       </TableCell>
                   </TableRow>
                 );
@@ -114,7 +114,7 @@ export const BookingTable = (props) => {
         </TableContainer>
     
       </Scrollbar>
-      <TablePagination
+      {/* <TablePagination
         component="div"
         count={count}
         onPageChange={onPageChange}
@@ -122,7 +122,7 @@ export const BookingTable = (props) => {
         page={page}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
-      />
+      /> */}
     </Card>
   );
 };

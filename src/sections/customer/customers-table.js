@@ -30,11 +30,10 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import moment from "moment";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import services from "src/services";
 import { toggleUser } from "src/redux/action";
-import Toaster from "../../components/toaster"
-
+import Toaster from "../../components/toaster";
 
 export const CustomersTable = (props) => {
   const router = useRouter();
@@ -42,14 +41,13 @@ export const CustomersTable = (props) => {
   const [isSwitchOn, setSwitchOn] = useState(false);
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const dispatch = useDispatch();
-  const users = useSelector(state => state.users);
+  const users = useSelector((state) => state.users);
   const [toggle, setToggle] = useState();
   const [toaster, setToaster] = useState({ visiblity: "hide" });
 
- 
   const handleDetails = (id) => {
     router.push({
-      pathname:"/userviewdetails",
+      pathname: "/userviewdetails",
       query: { id },
     });
   };
@@ -63,11 +61,10 @@ export const CustomersTable = (props) => {
     onSelectAll,
     onSelectOne,
     page = 0,
-    rowsPerPage = 10,  // Set default value to 10
+    rowsPerPage = 10,
     selected = [],
     update = () => {},
   } = props;
-
 
   const getDetails = async () => {
     try {
@@ -82,12 +79,11 @@ export const CustomersTable = (props) => {
     dispatch(toggleUser(id, isverify));
     try {
       const data = {
-        isVerify: isverify===false?true:false
-    };
+        isVerify: isverify === false ? true : false,
+      };
       const response = await services.vendor.UPDATE_VENDOR(id, data);
       if (response) {
-        // getDetails();
-        update("update")
+        update("update");
         setToaster({
           type: "success",
           title: "Successful",
@@ -100,11 +96,9 @@ export const CustomersTable = (props) => {
             visiblity: "hide",
           });
         }, 1000);
-     
-        
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setToaster({
         type: "error",
         title: "Error Occured",
@@ -136,64 +130,66 @@ export const CustomersTable = (props) => {
   };
 
   return (
-    <div><Toaster
-    type={toaster.type}
-    title={toaster.title}
-    text={toaster.text}
-    visiblity={toaster.visiblity}
-  />
-   <Card>
-      <Scrollbar>
-        <TableContainer sx={{ minWidth: 800, overflowX: "auto" }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-              <TableCell sx={{ whiteSpace: "nowrap",textAlign:"center" }}>S.No</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", padding: "20px" }}>ID</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>User Name</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Email</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Phone</TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Date of Birth</TableCell>
-                {/* <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>
+    <div>
+      <Toaster
+        type={toaster.type}
+        title={toaster.title}
+        text={toaster.text}
+        visiblity={toaster.visiblity}
+      />
+      <Card>
+        <Scrollbar>
+          <TableContainer sx={{ minWidth: 800, overflowX: "auto" }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {/* <TableCell sx={{ whiteSpace: "nowrap", textAlign: "center" }}>S.No</TableCell> */}
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "20px",textAlign: "center" }} >ID</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" ,textAlign: "center"}}>User Name</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" ,textAlign: "center"}}>Email</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" ,textAlign: "center"}}>Phone</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" ,textAlign: "center"}}>
+                    Date of Birth
+                  </TableCell>
+                  {/* <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>
                   Verification Status
                 </TableCell> */}
-                <TableCell sx={{ whiteSpace: "nowrap", padding: "50px" }}>Is Active</TableCell>
-                <TableCell>Action</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {Array.isArray(items) && items.length > 0 ? (
-                items.map((user,i) => (
-                  <TableRow hover key={user.id}>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px",textAlign: "center" }}>Is Active</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", padding: "50px",textAlign: "center" }}>Action</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {Array.isArray(items) && items?.length > 0 ? (
+                  items.map((user, i) => (
+                    <TableRow hover key={user?.id}>
+                      {/* <TableCell style={{ textAlign: "center" }}>{i + 1}</TableCell> */}
+                      <TableCell>
+                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                          {user?.id}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                          {user?.firstName} {user?.lastName}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                          {user?.email}
+                        </Typography>
+                      </TableCell>
 
-<TableCell style={{ textAlign: "center" }}>{i + 1}</TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        {user.id}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        {user.firstName} {user.lastName}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        {user.email}
-                      </Typography>
-                    </TableCell>
-
-                    <TableCell>
-                      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        {user.contact}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                        {moment(user.Dob).format("MMMM D, YYYY")}
-                      </Typography>
-                    </TableCell>
-                    {/* <TableCell>
+                      <TableCell>
+                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                          {user?.contact}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                          {moment(user?.Dob).format("MMMM D, YYYY")}
+                        </Typography>
+                      </TableCell>
+                      {/* <TableCell>
                       <Typography
                         variant="subtitle2"
                         sx={{
@@ -205,55 +201,55 @@ export const CustomersTable = (props) => {
                       </Typography>
                     </TableCell> */}
 
-                    <TableCell sx={{ textAlign: "center" }}>
-                      <Switch
-                        checked={user?.isVerify}
-                        onChange={(e) =>{
-                          handleToggle(user.id,user?.isVerify)
-                        }}
-                        // onChange={handleSwitchChange}
-                        color="primary"
-                        inputProps={{ "aria-label": "toggle button" }}
-                      />
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center" }}
-                    onClick={(e) => handleDetails(user?.id)}>
-                      <RemoveRedEyeIcon style={{ color: "#6366F1" }} />
+                      <TableCell sx={{ textAlign: "center" }}>
+                        <Switch
+                          checked={user?.isVerify}
+                          onChange={(e) => {
+                            handleToggle(user?.id, user?.isVerify);
+                          }}
+                          color="primary"
+                          inputProps={{ "aria-label": "toggle button" }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        sx={{ textAlign: "center" }}
+                        onClick={(e) => handleDetails(user?.id)}
+                      >
+                        <RemoveRedEyeIcon style={{ color: "#6366F1" ,cursor:"pointer" }} />
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={8}>
+                      <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                        No users found.
+                      </Typography>
                     </TableCell>
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={8}>
-                    <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                      No users found.
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        {/* Confirmation Active InActive */}
-        <Dialog open={isConfirmationDialogOpen} onClose={handleCloseConfirmationDialog}>
-          <DialogTitle>Confirmation</DialogTitle>
-          <DialogContent>
-            <Typography variant="body1">Are you sure you want to toggle the switch?</Typography>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseConfirmationDialog}>Cancel</Button>
-            <Button
-              onClick={() => {
-                handleCloseConfirmationDialog();
-              }}
-              color="primary"
-            >
-              Confirm
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Scrollbar>
-      <TablePagination
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Dialog open={isConfirmationDialogOpen} onClose={handleCloseConfirmationDialog}>
+            <DialogTitle>Confirmation</DialogTitle>
+            <DialogContent>
+              <Typography variant="body1">Are you sure you want to toggle the switch?</Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseConfirmationDialog}>Cancel</Button>
+              <Button
+                onClick={() => {
+                  handleCloseConfirmationDialog();
+                }}
+                color="primary"
+              >
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Scrollbar>
+        {/* <TablePagination
         component="div"
         count={count}
         onPageChange={onPageChange}
@@ -261,14 +257,11 @@ export const CustomersTable = (props) => {
         page={page}
         rowsPerPage={rowsPerPage} 
         rowsPerPageOptions={[5, 10, 25]}  
-      />
-       
-    </Card>
-  </div>
-   
+      /> */}
+      </Card>
+    </div>
   );
 };
-
 
 CustomersTable.propTypes = {
   count: PropTypes.number,
@@ -282,5 +275,5 @@ CustomersTable.propTypes = {
   page: PropTypes.number,
   rowsPerPage: PropTypes.number,
   selected: PropTypes.array,
-  update: PropTypes.number,
+  update: PropTypes.func,
 };

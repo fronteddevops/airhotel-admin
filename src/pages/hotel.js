@@ -17,7 +17,7 @@ const Page = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);  // Set to 10 rows per page
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   const [search, setSearch] = useState('');
   const getDetails = async () => {
     try {
@@ -30,7 +30,7 @@ const Page = () => {
       const payload = new URLSearchParams(object).toString();
       const response = await services.hotel.GET_HOTEL(payload);
         setHotelDetails(response?.data?.data.rows);
-      setTotalCount(response?.data?.data.count);
+      setTotalCount(response?.data?.data?.count);
       setData(response?.data?.data);
     } catch (err) {
       console.error(err);
@@ -51,7 +51,7 @@ const Page = () => {
   
   const handleRowsPerPageChange = useCallback((event) => {
     setRowsPerPage(event.target.value);
-    setPage(1);  // Reset page to 1 when changing rowsPerPage
+    setPage(1);  
   }, []);
 
   const handleInputChange = (inputValue) => {
@@ -64,7 +64,7 @@ const Page = () => {
 
   useEffect(() => {
     getDetails();
-  }, []);
+  }, [search,page,rowsPerPage]);
 
   const handleAddClick = () => {
     router.push("/hoteladd");
@@ -106,7 +106,6 @@ const Page = () => {
             <HotelSearch  onInputChange={handleInputChange}/>
             <HotelCard
               count={hotelDetails?.length}
-              // item={hotelDetails}
               items={hotelDetails?.slice((page - 1) * rowsPerPage, page * rowsPerPage)}
               onDeselectAll={hotelDetails?.handleDeselectAll}
               onDeselectOne={hotelDetails?.handleDeselectOne}
@@ -125,7 +124,7 @@ const Page = () => {
                 justifyContent: "center",
               }}
             >
-              <Pagination  count={Math.ceil(totalCount / rowsPerPage)}  // Adjusted count based on rowsPerPage
+              <Pagination  count={Math.ceil(totalCount / rowsPerPage)} 
                 page={page}
                 onChange={handlePageChange}
                 size="small"/>

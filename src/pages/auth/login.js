@@ -135,7 +135,6 @@
 // export default Page;
 /* eslint-disable react/jsx-max-props-per-line */
 import { Box, Button, IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material';
-// import { useAuth } from 'src/hooks/use-auth';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
@@ -145,6 +144,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import services from "../../services"
 import Toaster from 'src/components/toaster';
+import { useAuthContext } from 'src/contexts/auth-context';
 
 const Page = () => {
   const router = useRouter();
@@ -154,7 +154,7 @@ const Page = () => {
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   }
-
+  const { signIn } = useAuthContext();
   const formik = useFormik({
     initialValues: {
       email: 'admin@gmail.com',
@@ -174,9 +174,10 @@ const Page = () => {
          
         };
         const response = await services.auth.LOGIN_USER(payload)
+        await signIn(payload.email, payload.password);
+        // window.sessionStorage.setItem('authenticated', 'true');
        
         if (response) {
-         
           setToaster({
             type: "success",
             title: "Successful",
@@ -184,6 +185,7 @@ const Page = () => {
             visiblity: "show",
           });
           setTimeout(() => {
+            
             router.push('/');
           }, 1500);
         }
@@ -205,47 +207,6 @@ const Page = () => {
     
   });
 
- 
-  //  const handleSubmit = async()=>{
-  //   try {
-  //     let payLoad = {
-  //       email: email,
-  //       password: password,
-  //       role:Admin
-  //     }
-
-  //     const response = await services.auth.LOGIN_USER(payLoad)
-    
-  //     // if (response) {
-  //     //   setToaster({
-  //     //     type: "success",
-  //     //     title: "Successful",
-  //     //     text: "Login successfully",
-  //     //     visiblity: "show",
-  //     //   });
-  //     //   setTimeout(() => {
-  //     //     navigate("/users");
-  //     //   }, 500);
-  //     // }
-
-    
-  //   } catch (error) {
-  
-
-  //     // setToaster({
-  //     //   type: "danger",
-  //     //   title: "Error Occured",
-  //     //   text: error?.response?.data?.message,
-  //     //   visiblity: "show",
-  //     // });
-  //     // setTimeout(() => {
-  //     //   setToaster({
-  //     //     visiblity: "hide",
-  //     //   });
-  //     // }, 1500);
-  //   }
-  // }
-   
   return (
     <>
      <Toaster

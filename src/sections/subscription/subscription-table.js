@@ -84,7 +84,7 @@ export const SubscriptionCard = (props) => {
                     <TableCell sx={{ textAlign: "center" }}>
                       <Typography sx={{ marginLeft: "10px" ,fontSize:"20px"}} >
                         {" "}
-                        <FaEdit  style={{ color: "#6366F1" }} onClick={handleEdit}/>
+                        <FaEdit  style={{ color: "#6366F1" ,cursor:"pointer" }} onClick={handleEdit}/>
                       </Typography>
                     </TableCell>
                   </TableRow>
@@ -94,7 +94,7 @@ export const SubscriptionCard = (props) => {
           </Table>
         </Box>
       </Scrollbar>
-      <TablePagination
+      {/* <TablePagination
         component="div"
         count={count}
         onPageChange={onPageChange}
@@ -102,7 +102,7 @@ export const SubscriptionCard = (props) => {
         page={page}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
-      />
+      /> */}
     </Card>
   );
 };

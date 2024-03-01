@@ -22,15 +22,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/ratings": [
+    "/auth/login": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/ratings.js"
+      "static/chunks/pages/auth/login.js"
     ],
-    "/rooms": [
+    "/hotel": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/rooms.js"
+      "static/chunks/pages/hotel.js"
     ]
   },
   "ampFirstPages": []

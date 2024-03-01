@@ -6,11 +6,11 @@ import api from "src/api";
 
 
 export default {
-    GET_BOOKING: () => {
+    GET_BOOKING: (query) => {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await Axios.get(
-          constant.BASE_URL + api.booking.GET_BOOKING()
+          constant.BASE_URL + api.booking.GET_BOOKING(query)
         );
         resolve(response);
       } catch (err) {

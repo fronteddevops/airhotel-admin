@@ -111,15 +111,15 @@ export const items = [
       </SvgIcon>
     )
   },
-  {
-    title: 'Rooms',
-    path: '/rooms',
-    icon: (
-      <SvgIcon fontSize="small">
-        <RoomIcon />
-      </SvgIcon>
-    )
-  },
+  // {
+  //   title: 'Rooms',
+  //   path: '/rooms',
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <RoomIcon />
+  //     </SvgIcon>
+  //   )
+  // },
 
 
   {
@@ -133,7 +133,8 @@ export const items = [
   },
   {
     title: 'Logout',
-    path: '/auth/login',
+    // path: '/auth/login',
+    
     icon: (
       <SvgIcon fontSize="small">
         <LockClosedIcon />
